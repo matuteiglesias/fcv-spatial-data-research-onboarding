@@ -1,0 +1,125 @@
+.heroBanner {
+  padding: 5rem 0 4rem;
+  background: linear-gradient(135deg, #102a43 0%, #1f4e79 58%, #486581 100%);
+  color: #ffffff;
+  text-align: left;
+}
+
+.eyebrow {
+  margin-bottom: 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #bcccdc;
+}
+
+.heroTitle {
+  max-width: 860px;
+  margin-bottom: 1rem;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  line-height: 1.03;
+}
+
+.heroSubtitle {
+  max-width: 760px;
+  margin-bottom: 2rem;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  color: #d9e2ec;
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.introGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 3rem;
+  align-items: start;
+  margin-bottom: 3rem;
+}
+
+.sectionLabel {
+  margin-bottom: 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ifm-color-primary);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1.15;
+}
+
+.sectionText {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.75;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  display: flex;
+  min-height: 270px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 18px;
+  background: var(--ifm-background-surface-color);
+  box-shadow: 0 10px 30px rgba(16, 42, 67, 0.08);
+}
+
+.cardTitle {
+  margin-bottom: 0.8rem;
+  font-size: 1.28rem;
+}
+
+.cardText {
+  flex: 1;
+  margin-bottom: 1.5rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.65;
+}
+
+.cardLink {
+  font-weight: 700;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 3rem 0;
+    text-align: center;
+  }
+
+  .buttons {
+    justify-content: center;
+  }
+
+  .introGrid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}

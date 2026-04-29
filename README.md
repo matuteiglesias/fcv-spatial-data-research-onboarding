@@ -1,41 +1,54 @@
-# Website
+# FCV Spatial Data Research Onboarding
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+Docusaurus site for documenting and navigating a recovered research archive on FCV, spatial data, survey data, conflict, service delivery, public works, and development projects.
 
-## Installation
+The site is designed as an onboarding and recovery manual. It helps collaborators understand what exists in the archive, where the main datasets and notebooks are located, which outputs are ready to inspect, and what needs validation before renewed analysis.
 
-```bash
-yarn
+## Main manual pages
+
+- `intro.md` — orientation for the archive and the manual.
+- `archive-map.md` — folder-level map of the recovered archive.
+- `main-pipeline/2023-duke-overview.md` — overview of the main recovered pipeline.
+- `data-products/spatial-data-products.md` — guide to reusable spatial products.
+- `data-products/dataset-inventory.md` — inventory of major dataset families.
+- `notebooks/notebook-guide.md` — reading guide for notebooks and exports.
+- `recovery-plan.md` — staged plan for validation and renewed use.
+
+## Project structure
+
+```text
+docs/                 Manual pages
+src/pages/            Home page
+src/css/custom.css    Global theme customizations
+static/img/           Logo, favicon, and static images
+docusaurus.config.ts  Site configuration
+sidebars.ts           Manual navigation
 ```
 
-## Local Development
+## Install
 
 ```bash
-yarn start
+npm install
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+## Run locally
+
+```bash
+npm start
+```
 
 ## Build
 
 ```bash
-yarn build
+npm run build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-## Deployment
-
-Using SSH:
+## Serve the production build locally
 
 ```bash
-USE_SSH=true yarn deploy
+npm run serve
 ```
 
-Not using SSH:
+## Notes
 
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+The original archive structure should be preserved. This site documents the archive and provides a clean navigation layer around it. Any future cleaned data or rebuilt pipeline should be treated as a derived layer rather than a direct rewrite of the recovered folders.

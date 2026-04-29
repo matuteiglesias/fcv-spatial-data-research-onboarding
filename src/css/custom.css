@@ -1,0 +1,66 @@
+/**
+ * Global site styles for the FCV Spatial Data Research Archive manual.
+ */
+
+:root {
+  --ifm-color-primary: #1f4e79;
+  --ifm-color-primary-dark: #1c466d;
+  --ifm-color-primary-darker: #1a4267;
+  --ifm-color-primary-darkest: #163655;
+  --ifm-color-primary-light: #225685;
+  --ifm-color-primary-lighter: #245a8b;
+  --ifm-color-primary-lightest: #2f6fa8;
+  --ifm-code-font-size: 94%;
+  --ifm-font-family-base: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --ifm-heading-font-weight: 750;
+  --ifm-table-stripe-background: #f7fafc;
+  --docusaurus-highlighted-code-line-bg: rgba(31, 78, 121, 0.09);
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #8ecae6;
+  --ifm-color-primary-dark: #6db8dc;
+  --ifm-color-primary-darker: #58aed7;
+  --ifm-color-primary-darkest: #2f8fbb;
+  --ifm-color-primary-light: #afdcef;
+  --ifm-color-primary-lighter: #c4e6f3;
+  --ifm-color-primary-lightest: #e0f3fa;
+  --ifm-table-stripe-background: rgba(255, 255, 255, 0.04);
+  --docusaurus-highlighted-code-line-bg: rgba(142, 202, 230, 0.14);
+}
+
+.markdown h1:first-child {
+  font-size: 2.6rem;
+  letter-spacing: -0.035em;
+}
+
+.markdown h2 {
+  margin-top: 2.5rem;
+}
+
+.markdown table {
+  display: table;
+  width: 100%;
+  font-size: 0.94rem;
+}
+
+.markdown th {
+  background: rgba(31, 78, 121, 0.08);
+}
+
+.markdown td,
+.markdown th {
+  vertical-align: top;
+}
+
+.navbar__title {
+  font-weight: 750;
+}
+
+.footer {
+  font-size: 0.95rem;
+}
+
+code {
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
