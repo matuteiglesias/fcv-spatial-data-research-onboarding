@@ -99,11 +99,11 @@ const config: Config = {
           items: [
             {
               label: '2023 Duke Overview',
-              to: '/docs/main-pipeline/2023-duke-overview',
+              to: '/docs/main-pipeline/duke-overview',
             },
             {
               label: 'Spatial Data Products',
-              to: '/docs/data-products/spatial-data-products',
+              to: '/docs/data-products/spatial-data-overview',
             },
             {
               label: 'Dataset Inventory',

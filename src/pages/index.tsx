@@ -79,13 +79,13 @@ export default function Home(): ReactNode {
               <HomeCard
                 title="Main recovered pipeline"
                 description="Understand the 2023_Duke folder: geography, population, violence, DHS, Afrobarometer, empirical analysis, matching, and exports."
-                to="/docs/main-pipeline/2023-duke-overview"
+                to="/docs/main-pipeline/duke-overview"
                 cta="Open pipeline overview"
               />
               <HomeCard
                 title="Reusable spatial products"
                 description="Inspect the spatial_data folder: ACLED exposure, OSM features, climate, distances, GeoJSONs, and map-ready outputs."
-                to="/docs/data-products/spatial-data-products"
+                to="/docs/data-products/spatial-data-overview"
                 cta="Open spatial products"
               />
               <HomeCard
