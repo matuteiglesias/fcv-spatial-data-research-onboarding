@@ -47,6 +47,19 @@ const sidebars: SidebarsConfig = {
 
     {
       type: 'category',
+      label: 'Continuation Work',
+      collapsed: false,
+      items: [
+        'continuation/index',
+        'continuation/experimental-design-regression-pipeline',
+        'continuation/annotation-project-classification-protocol',
+        'continuation/source-data-inventory-update-strategy',
+      ],
+    },
+
+
+    {
+      type: 'category',
       label: 'Legacy and Salvage',
       collapsed: true,
       items: [
