@@ -154,18 +154,19 @@ For most readers, the best path is:
 3. Read `2023-duke-overview.md` to understand the main recovered pipeline.
 4. Read `spatial-data-products.md` to understand the reusable spatial products.
 5. Read `dataset-inventory.md` to see the main dataset families.
-6. Read `notebook-guide.md` before opening or rerunning notebooks.
-7. Read `recovery-plan.md` to understand the next steps.
+6. Read `continuation/index.md` after the archive map and dataset inventory if you are resuming source updates, annotation, matching, or regression work.
+7. Read `notebook-guide.md` before opening or rerunning notebooks.
+8. Read `recovery-plan.md` to understand the next steps.
 
 ## Entry points by reader
 
 | Reader | Recommended starting pages |
 |---|---|
 | Principal investigator or general stakeholder | `intro.md`, `archive-map.md`, `recovery-plan.md` |
-| Research assistant | `archive-map.md`, `dataset-inventory.md`, `notebook-guide.md` |
-| Data analyst | `2023-duke-overview.md`, `dataset-inventory.md`, `notebook-guide.md` |
+| Research assistant | `archive-map.md`, `dataset-inventory.md`, `continuation/index.md`, `notebook-guide.md` |
+| Data analyst | `2023-duke-overview.md`, `dataset-inventory.md`, `continuation/index.md`, `notebook-guide.md` |
 | Spatial analyst | `spatial-data-products.md`, `geography.md`, `violence.md` |
-| Empirical researcher | `empirical-study.md`, `matching-vertical.md`, `validation-status.md` |
+| Empirical researcher | `empirical-study.md`, `matching-vertical.md`, `validation-status.md`, `continuation/index.md` |
 | Project manager | `intro.md`, `archive-map.md`, `recovery-plan.md` |
 
 ## What to open first
@@ -196,7 +197,7 @@ Do not assume that:
 - matching and regression files are neutral datasets;
 - legacy folders should be used before the main recovered pipeline.
 
-The manual separates current working material, reusable products, legacy material, and recovery tasks.
+The manual separates current working material, reusable products, legacy material, recovery tasks, and [Continuation Work](./continuation/index.md) for resuming source updates, annotation, matching, and regression design.
 
 ## Near-term objective
 

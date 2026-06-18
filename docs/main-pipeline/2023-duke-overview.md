@@ -428,7 +428,7 @@ It includes:
 8. OLS and regression-analysis notebooks;
 9. cross-sectional exploration.
 
-This is the folder most directly connected to Eric’s interest in matching and regression work.
+This is the folder most directly connected to Eric’s interest in matching and regression work; the continuation memo [Experimental Design and Regression Pipeline](../continuation/experimental-design-regression-pipeline.md) explains how to reconnect these artifacts to current treatment definitions, outcome coverage, and regression-ready samples.
 
 However, it should be treated carefully. The matching work is a downstream empirical vertical. It depends on the quality and coverage of the investment/project data, violence data, DHS covariates, Afrobarometer outcomes, and geographic definitions.
 
@@ -441,7 +441,7 @@ matching = one empirical strategy inside that module
 
 ### Important caveat: investment preprocessing
 
-The empirical study clearly depends on geocoded investment/project data, including World Bank and Chinese-funded projects. The available exports include references to:
+The empirical study clearly depends on geocoded investment/project data, including World Bank and Chinese-funded projects. The forward-looking source update path is summarized in [Source Data Inventory and Update Strategy](../continuation/source-data-inventory-update-strategy.md), while project-label decisions are covered by [Annotation and Project Classification Protocol](../continuation/annotation-project-classification-protocol.md). The available exports include references to:
 
 ```text
 China OSM exploration

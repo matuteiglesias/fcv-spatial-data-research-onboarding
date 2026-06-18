@@ -11,17 +11,12 @@ This section contains forward-looking working notes for resuming the FCV spatial
 
 These pages are not raw archive documentation. They translate the recovered archive into a practical continuation plan for Eric, Charlotte, and Matías.
 
-## Pages
-
-1. **Experimental Design and Regression Pipeline**  
-   Defines the empirical design, treatment/outcome structure, matching/regression workflow, and current status.
-
-2. **Annotation and Project Classification Protocol**  
-   Defines project-level labeling rules for jobs-related, direct/indirect, non-jobs, locally implemented, and macro-policy projects.
-
-3. **Source Data Inventory and Update Strategy**  
-   Reviews current candidate sources for updated World Bank, China/AidData, IATI, CRS, PPI, AIIB, and related project/investment data.
-
 ## How to use this section
 
-Read these pages after the Archive Map and Dataset Inventory, but before rerunning notebooks or restarting annotation.
+Read these pages after the [Archive Map](../archive-map.md) and [Dataset Inventory](../data-products/dataset-inventory.md), but before restarting annotation, rerunning matching notebooks, or rebuilding regression outputs. Keep the [Validation Status](../data-products/validation-status.md), [Recovery Plan](../recovery-plan.md), and [Notebook Guide](../notebooks/notebook-guide.md) open while using the continuation memos.
+
+## Reading order
+
+1. [Source Data Inventory and Update Strategy](./source-data-inventory-update-strategy.md)
+2. [Annotation and Project Classification Protocol](./annotation-project-classification-protocol.md)
+3. [Experimental Design and Regression Pipeline](./experimental-design-regression-pipeline.md)

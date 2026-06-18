@@ -94,6 +94,12 @@ export default function Home(): ReactNode {
                 to="/docs/recovery-plan"
                 cta="Open recovery plan"
               />
+              <HomeCard
+                title="Continuation Work"
+                description="Forward-looking notes for resuming the investment, annotation, matching, and regression work after reviewing the archive structure and dataset inventory."
+                to="/docs/continuation/"
+                cta="Open continuation notes"
+              />
             </div>
           </div>
         </section>

@@ -37,23 +37,23 @@ const sidebars: SidebarsConfig = {
 
     {
       type: 'category',
-      label: 'Notebooks',
+      label: 'Continuation Work',
       collapsed: false,
       items: [
-        'notebooks/notebook-guide',
-        'notebooks/html-pdf-exports',
+        'continuation/index',
+        'continuation/source-data-inventory-update-strategy',
+        'continuation/annotation-project-classification-protocol',
+        'continuation/experimental-design-regression-pipeline',
       ],
     },
 
     {
       type: 'category',
-      label: 'Continuation Work',
+      label: 'Notebooks',
       collapsed: false,
       items: [
-        'continuation/index',
-        'continuation/experimental-design-regression-pipeline',
-        'continuation/annotation-project-classification-protocol',
-        'continuation/source-data-inventory-update-strategy',
+        'notebooks/notebook-guide',
+        'notebooks/html-pdf-exports',
       ],
     },
 

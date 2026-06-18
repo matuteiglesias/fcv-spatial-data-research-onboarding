@@ -39,7 +39,11 @@ Recommended status labels:
 | `legacy/product store` | Reusable from older project-level work, but not necessarily part of the generalized 2023 pipeline. |
 | `needs canonical selection` | Multiple versions exist; one must be selected or regenerated. |
 
-## High-level inventory
+## Continuation links for investment data
+
+For the forward-looking source update plan, see [Source Data Inventory and Update Strategy](../continuation/source-data-inventory-update-strategy.md). For the project-level labels needed to turn source records into treatment categories, see [Annotation and Project Classification Protocol](../continuation/annotation-project-classification-protocol.md).
+
+
 
 | Dataset family | Files | Size | Main location | Current status |
 |---|---:|---:|---|---|
