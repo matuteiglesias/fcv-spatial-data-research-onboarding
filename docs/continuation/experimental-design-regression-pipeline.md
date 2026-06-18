@@ -537,3 +537,14 @@ The unresolved bottlenecks are:
 5. consolidation of one canonical regression specification.
 
 The safest next step is not to rerun everything. The safest next step is to freeze a first canonical design and build the two control surfaces that Eric originally needed: an annotation protocol and a sample-viability table.
+
+---
+
+## Related pages
+
+- [Empirical Study](../main-pipeline/empirical-study.md)
+- [Matching Vertical](../main-pipeline/matching-vertical.md)
+- [Validation Status](../data-products/validation-status.md)
+- [Notebook Guide](../notebooks/notebook-guide.md)
+- [Annotation and Project Classification Protocol](./annotation-project-classification-protocol.md)
+- [Source Data Inventory and Update Strategy](./source-data-inventory-update-strategy.md)

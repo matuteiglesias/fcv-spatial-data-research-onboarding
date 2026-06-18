@@ -777,3 +777,12 @@ known risks
 ```
 
 Only after that should the project rebuild treatment construction, annotation, matching, or regressions.
+
+---
+
+## Related pages
+
+- [Dataset Inventory](../data-products/dataset-inventory.md)
+- [Validation Status](../data-products/validation-status.md)
+- [Recovery Plan](../recovery-plan.md)
+- [Archive Map](../archive-map.md)

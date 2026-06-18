@@ -766,3 +766,12 @@ auditable propagation from project → location → area-period
 ```
 
 This memo should be updated after the first calibration round with concrete examples and any decisions made by Eric, Charlotte, and Matías.
+
+---
+
+## Related pages
+
+- [Dataset Inventory](../data-products/dataset-inventory.md)
+- [Empirical Study](../main-pipeline/empirical-study.md)
+- [Source Data Inventory and Update Strategy](./source-data-inventory-update-strategy.md)
+- [Experimental Design and Regression Pipeline](./experimental-design-regression-pipeline.md)

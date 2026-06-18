@@ -324,6 +324,14 @@ Evidence:
 - validation note for empirical datasets;
 - one clear diagram or table linking sources to treatment variables.
 
+### Supporting continuation notes
+
+The recovery process now has three continuation memos that define how the project should resume: source-data updating, project annotation, and the empirical matching/regression design. Use them as the operating layer after this phase identifies the investment and treatment bottlenecks:
+
+- [Source Data Inventory and Update Strategy](./continuation/source-data-inventory-update-strategy.md)
+- [Annotation and Project Classification Protocol](./continuation/annotation-project-classification-protocol.md)
+- [Experimental Design and Regression Pipeline](./continuation/experimental-design-regression-pipeline.md)
+
 ## Phase 4 — Decide reuse, rerun, or rebuild
 
 Status: after validation.

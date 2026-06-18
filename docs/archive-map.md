@@ -215,7 +215,7 @@ It includes folders for:
 - UCDP;
 - climate data.
 
-Use this folder when rebuilding or validating processed outputs from original source files.
+Use this folder when rebuilding or validating processed outputs from original source files. For the forward-looking plan to update AidData, World Bank, China, IATI, CRS, and related investment sources, see [Source Data Inventory and Update Strategy](./continuation/source-data-inventory-update-strategy.md).
 
 This is not the first place to start for orientation. It is a support layer for validation and rebuilding.
 
@@ -344,3 +344,7 @@ The archive is organized around a clear central structure:
 - `Nigeria`, `mi_meta`, and `DIME - Test 1` are secondary or separate.
 
 The next step is to use this map to complete the recovery pages, validate the main dataset families, and decide which components should be reused, rerun, or rebuilt.
+
+## Continuation Work
+
+After using this map to locate the archive structure, move to [Continuation Work](./continuation/index.md) for the source-data, annotation, matching, and regression notes that describe how to resume active work.

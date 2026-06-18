@@ -230,7 +230,7 @@ Validation priority:
 
 These notebooks build and analyze the investment/violence empirical datasets.
 
-They are downstream of geography, violence, DHS, Afrobarometer, and the still-partly-unresolved investment/project exposure layer.
+They are downstream of geography, violence, DHS, Afrobarometer, and the still-partly-unresolved investment/project exposure layer. Before rerunning them, read the continuation notes on [source updates](../continuation/source-data-inventory-update-strategy.md), [project annotation](../continuation/annotation-project-classification-protocol.md), and the [empirical design/regression pipeline](../continuation/experimental-design-regression-pipeline.md).
 
 ## Empirical preprocessing and outcomes
 
