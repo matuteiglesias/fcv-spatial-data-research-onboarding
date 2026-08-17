@@ -25,7 +25,7 @@ The public site is deployed at:
 
 - `docs/archive-map.md` — top-level map of the recovered archive.
 - `docs/main-pipeline/2023-duke-overview.md` — main recovered 2023 pipeline.
-- `docs/data-products/spatial-data-products.md` — reusable spatial products.
+- `docs/data-products/spatial-data-overview.md` — reusable spatial products.
 - `docs/data-products/dataset-inventory.md` — major dataset families.
 - `docs/notebooks/notebook-guide.md` — notebook and export reading guide.
 - `docs/recovery-plan.md` — historical recovery plan retained for provenance and continuity.
