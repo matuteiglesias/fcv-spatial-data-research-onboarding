@@ -32,17 +32,19 @@ function HomepageHeader() {
   return (
     <header className={styles.heroBanner}>
       <div className="container">
-        <p className={styles.eyebrow}>Research archive onboarding</p>
+        <p className={styles.eyebrow}>Active empirical research workspace</p>
         <Heading as="h1" className={styles.heroTitle}>
           {siteConfig.title}
         </Heading>
         <p className={styles.heroSubtitle}>{siteConfig.tagline}</p>
         <div className={styles.buttons}>
-          <Link className="button button--primary button--lg" to="/docs/intro">
-            Start with the manual
+          <Link className="button button--primary button--lg" to="/docs/current-status">
+            Current research status
           </Link>
-          <Link className="button button--secondary button--lg" to="/docs/archive-map">
-            View archive map
+          <Link
+            className="button button--secondary button--lg"
+            to="/docs/continuation/experimental-design-regression-pipeline">
+            Experimental designs
           </Link>
         </div>
       </div>
@@ -51,54 +53,54 @@ function HomepageHeader() {
 }
 
 export default function Home(): ReactNode {
-  const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
       title="Home"
-      description="Recovered research archive and onboarding manual for FCV spatial data, surveys, conflict, and development work.">
+      description="FCV spatial-data research workspace connecting recovered data infrastructure, active empirical design, validation, and research continuity.">
       <HomepageHeader />
       <main>
         <section className={styles.section}>
           <div className="container">
             <div className={styles.introGrid}>
               <div>
-                <p className={styles.sectionLabel}>What this is</p>
+                <p className={styles.sectionLabel}>Research continuity</p>
                 <Heading as="h2" className={styles.sectionTitle}>
-                  A navigable memory layer for a recovered research archive.
+                  Recovered data infrastructure, now organized for active empirical work.
                 </Heading>
               </div>
               <p className={styles.sectionText}>
-                This site organizes prior work on spatial data, conflict, surveys,
-                service delivery, public works, and development projects. It is designed
-                to help collaborators understand what exists, where to start, and what
-                should be validated before renewed analysis begins.
+                The archive-recovery phase produced a usable foundation: the main 2023
+                pipeline is mapped, major data products are documented, and the empirical
+                design can be reconstructed. Current work focuses on testing which treatment,
+                timing, geography, counterfactual, outcome, and estimator choices are actually
+                supported by the data.
               </p>
             </div>
 
             <div className={styles.cards}>
               <HomeCard
-                title="Main recovered pipeline"
-                description="Understand the 2023_Duke folder: geography, population, violence, DHS, Afrobarometer, empirical analysis, matching, and exports."
-                to="/docs/main-pipeline/duke-overview"
-                cta="Open pipeline overview"
+                title="Current research status"
+                description="See what has been recovered, what is active now, the immediate empirical entry point, and the design questions that remain open."
+                to="/docs/current-status"
+                cta="Open current status"
               />
               <HomeCard
-                title="Reusable spatial products"
-                description="Inspect the spatial_data folder: ACLED exposure, OSM features, climate, distances, GeoJSONs, and map-ready outputs."
-                to="/docs/data-products/spatial-data-overview"
-                cta="Open spatial products"
+                title="Experimental infrastructure"
+                description="Understand the A/B/C operating model: empirical infrastructure, experiment specifications, and validation or calibration gates."
+                to="/docs/continuation/experimental-infrastructure"
+                cta="Open experimental infrastructure"
               />
               <HomeCard
-                title="Recovery plan"
-                description="Follow the staged plan for documentation, validation, treatment recovery, and reuse-or-rebuild decisions."
-                to="/docs/recovery-plan"
-                cta="Open recovery plan"
+                title="Data and validation"
+                description="Distinguish available data from experiment surfaces that are defined, tested on real FCV data, blocked, or still awaiting validation."
+                to="/docs/data-products/validation-status"
+                cta="Open validation status"
               />
               <HomeCard
-                title="Continuation Work"
-                description="Forward-looking notes for resuming the investment, annotation, matching, and regression work after reviewing the archive structure and dataset inventory."
-                to="/docs/continuation/"
-                cta="Open continuation notes"
+                title="Recovered archive"
+                description="Navigate the historical 2023 pipeline, reusable spatial products, notebooks, dataset inventory, and legacy material when provenance or implementation detail is needed."
+                to="/docs/archive-map"
+                cta="Open archive map"
               />
             </div>
           </div>
