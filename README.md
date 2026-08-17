@@ -1,28 +1,54 @@
 # FCV Spatial Data Research Onboarding
 
-Docusaurus site for documenting and navigating a recovered research archive on FCV, spatial data, survey data, conflict, service delivery, public works, and development projects.
+Documentation and onboarding layer for the recovered FCV research archive **and the active continuation of the empirical research**.
 
-The site is designed as an onboarding and recovery manual. It helps collaborators understand what exists in the archive, where the main datasets and notebooks are located, which outputs are ready to inspect, and what needs validation before renewed analysis.
+The site connects three things:
 
-## Main manual pages
+- the recovered 2021–2023 research memory: spatial data, surveys, conflict, service delivery, development projects, notebooks, and empirical outputs;
+- the current empirical-design layer: treatment definitions, timing, geography, counterfactuals, outcomes, estimator families, and falsification logic;
+- the validation layer used to distinguish available data from experiment surfaces that are actually ready to investigate.
 
-- `intro.md` — orientation for the archive and the manual.
-- `archive-map.md` — folder-level map of the recovered archive.
-- `main-pipeline/2023-duke-overview.md` — overview of the main recovered pipeline.
-- `data-products/spatial-data-products.md` — guide to reusable spatial products.
-- `data-products/dataset-inventory.md` — inventory of major dataset families.
-- `notebooks/notebook-guide.md` — reading guide for notebooks and exports.
-- `recovery-plan.md` — staged plan for validation and renewed use.
+The public site is deployed at:
+
+- https://fcv-spatial-data-research-onboardin.vercel.app/
+
+## Main current pages
+
+- `docs/current-status.md` — current research state, immediate empirical entry point, and open decisions.
+- `docs/continuation/experimental-infrastructure.md` — A/B/C operating model for data infrastructure, experiment specifications, and validation gates.
+- `docs/continuation/experimental-design-regression-pipeline.md` — recovered design plus current experiment and estimator architecture.
+- `docs/data-products/validation-status.md` — human-facing empirical readiness gateboard.
+- `docs/continuation/annotation-project-classification-protocol.md` — project-level treatment classification rules and open coding work.
+- `docs/continuation/source-data-inventory-update-strategy.md` — source-version and update strategy.
+
+## Recovered archive pages
+
+- `docs/archive-map.md` — top-level map of the recovered archive.
+- `docs/main-pipeline/2023-duke-overview.md` — main recovered 2023 pipeline.
+- `docs/data-products/spatial-data-products.md` — reusable spatial products.
+- `docs/data-products/dataset-inventory.md` — major dataset families.
+- `docs/notebooks/notebook-guide.md` — notebook and export reading guide.
+- `docs/recovery-plan.md` — historical recovery plan retained for provenance and continuity.
+
+The visible sidebar intentionally gives less prominence to thin placeholder pages and individual legacy notes. Those files remain available by URL when historical detail is needed.
+
+## Companion experiment repository
+
+The active empirical infrastructure is implemented separately in:
+
+- https://github.com/matuteiglesias/fcv-experiment-harness
+
+That repository provides the first executable experiment and validation harness for recovered FCV area-period data and project-location designs. This documentation site explains the scientific context, experiment surfaces, and readiness status; it does not duplicate generated harness outputs.
 
 ## Project structure
 
 ```text
-docs/                 Manual pages
-src/pages/            Home page
+docs/                 Research documentation and archive memory
+src/pages/            Site landing page
 src/css/custom.css    Global theme customizations
 static/img/           Logo, favicon, and static images
 docusaurus.config.ts  Site configuration
-sidebars.ts           Manual navigation
+sidebars.ts           Curated manual navigation
 ```
 
 ## Install
@@ -49,6 +75,10 @@ npm run build
 npm run serve
 ```
 
-## Notes
+## Documentation policy
 
-The original archive structure should be preserved. This site documents the archive and provides a clean navigation layer around it. Any future cleaned data or rebuilt pipeline should be treated as a derived layer rather than a direct rewrite of the recovered folders.
+The original archive structure should be preserved. This site provides a clean navigation and interpretation layer around it.
+
+Current research code, validated outputs, and future cleaned data should be treated as derived layers rather than destructive rewrites of the recovered folders. Historical notebooks and matching/regression outputs remain useful evidence about what was done, but they are not automatically canonical for the renewed empirical work.
+
+The intended reading rule is simple: **current status and validation first; recovered implementation detail when needed.**
