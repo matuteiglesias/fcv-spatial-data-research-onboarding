@@ -1,215 +1,131 @@
 ---
-title: Research Archive Recovery Manual
+title: FCV Spatial Data Research Workspace
 sidebar_position: 1
-description: Orientation page for the recovered research archive, its contents, and how to use this manual.
+description: Orientation to the recovered FCV research archive and the active empirical work built on top of it.
 ---
 
-# Research Archive Recovery Manual
+# FCV Spatial Data Research Workspace
 
-This manual documents and organizes a recovered research archive built between 2021 and 2023, with later additions in 2024. The archive contains a substantial body of data work around conflict, service delivery, civic engagement, public works, spatial data, survey data, and development projects.
+This site documents two things at once:
 
-The purpose of this manual is to make that work usable again.
+1. a recovered research archive built mainly between 2021 and 2023; and
+2. the active continuation of that work into a more explicit empirical research program.
 
-The archive includes data products, notebooks, exported reports, maps, documentation, and older project folders. Much of the work was produced as part of a broader research effort involving development projects, violence, survey outcomes, and spatial analysis across African countries and specific project sites.
+The recovery phase produced a usable foundation: the main folders are mapped, major dataset families are inventoried, the 2023 empirical pipeline has been reconstructed, and the original matching and regression logic can be inspected without starting from scattered notebooks.
 
-This manual turns the archive into a navigable research asset.
+The project is now moving beyond archive archaeology. Current work focuses on **empirical design, validation, and experiment selection**: deciding which treatment definitions, timing rules, geographic units, counterfactuals, outcomes, and estimators can be supported credibly by the recovered data.
 
-## What this manual is for
+## What exists now
 
-This manual helps researchers, collaborators, and assistants answer five practical questions:
+The workspace has four layers.
 
-1. What exists in the archive?
-2. Where should a new person start?
-3. Which folders contain the main recovered work?
-4. Which files are reusable data products?
-5. What needs to be checked before renewed analysis begins?
+| Layer | Role |
+|---|---|
+| **Current research status** | Short statement of what is active, what is known, and what remains open. |
+| **Experimental infrastructure** | Operating model for separating canonical data, experiment specifications, and validity/calibration gates. |
+| **Recovered 2023 work** | Documentation of geography, population, violence, DHS, Afrobarometer, project exposure, matching, regressions, notebooks, and spatial products. |
+| **Historical recovery material** | Archive map, recovery plan, legacy folders, and earlier salvage notes retained for provenance and continuity. |
 
-The manual is designed for both technical and non-technical readers. It explains the archive at several levels:
+## Start here
 
-- a general overview of the work;
-- a map of the main folders;
-- a guide to the notebooks;
-- an inventory of available datasets;
-- a recovery plan for bringing the work back into active use.
+For most readers, the recommended path is:
 
-## Main idea
+1. [Current Research Status](./current-status.md) — what the project is doing now.
+2. [Experimental Infrastructure and Validation](./continuation/experimental-infrastructure.md) — how active experiments are organized and tested.
+3. [Experimental Design and Regression Pipeline](./continuation/experimental-design-regression-pipeline.md) — the recovered design, candidate experiment families, estimators, and unresolved decisions.
+4. [Validation Status](./data-products/validation-status.md) — what has actually been tested on real FCV data versus what is only defined or blocked.
+5. [Archive Map](./archive-map.md) — where the recovered source material lives.
 
-The archive should be understood as a recovered research system.
+If the task is specifically to understand the old implementation, continue with the [2023 Duke Overview](./main-pipeline/duke-overview.md), [Dataset Inventory](./data-products/dataset-inventory.md), [Spatial Data Overview](./data-products/spatial-data-overview.md), and [Notebook Guide](./notebooks/notebook-guide.md).
 
-It contains:
+## Active research model
 
-- a main 2023 data pipeline;
-- reusable spatial data products;
-- older research folders that provide context and predecessor work;
-- notebooks and exported reports that explain what was done;
-- empirical-analysis outputs related to investment, violence, matching, and regression analysis.
+The current empirical work deliberately separates three layers:
 
-The immediate goal is not to rerun every file. The immediate goal is to make the archive clear, searchable, and trustworthy enough that future work can build on it without duplicating effort.
+```text
+A — empirical infrastructure
+    projects, observations, geography, timing, outcomes, provenance
 
-## Main parts of the archive
+B — experiment specifications
+    treatment, counterfactual, exposure rule, geography, timing, outcome, estimator
 
-The archive has two central areas.
+C — validation / calibration gates
+    integrity, support, balance, placebo behavior, sensitivity, signal recovery
+```
 
-## 1. Main recovered pipeline: `2023_Duke`
+The purpose of this separation is to avoid treating a single recovered notebook, matching routine, or regression specification as the research design itself.
 
-The folder `2023_Duke` contains the main recovered working pipeline.
+The active workflow is:
 
-It includes work on:
+```text
+canonical empirical data
+    -> experiment specification
+    -> analysis sample
+    -> validity / measurement gates
+    -> estimator family
+    -> falsification and sensitivity
+    -> research interpretation
+```
+
+A companion code repository, [`fcv-experiment-harness`](https://github.com/matuteiglesias/fcv-experiment-harness), provides an initial executable implementation of this approach.
+
+## Main recovered archive
+
+The historical foundation remains important. The archive contains a substantial body of work around:
 
 - standardized administrative geography for Africa;
 - population aggregation;
-- violence and conflict data;
-- DHS geocovariates and household/survey data;
-- Afrobarometer survey data;
-- empirical analysis of investment and violence;
-- matching and regression workflows;
-- exported HTML and PDF reports;
-- generated dataset documentation.
+- ACLED and UCDP violence data;
+- DHS geocovariates and survey-linked products;
+- Afrobarometer geographic mappings and summaries;
+- World Bank and Chinese development-finance project exposure;
+- jobs-related project classification work;
+- area-period empirical datasets;
+- matching outputs and diagnostics;
+- regression prototypes;
+- project-level spatial products built from ACLED, OpenStreetMap, climate, terrain, and distance measures.
 
-This is the main starting point for understanding the 2023 research work.
+The two most important historical surfaces are:
 
-## 2. Finished spatial data products: `spatial_data`
+### `2023_Duke`
 
-The folder `spatial_data` contains reusable spatial products from earlier project-level work.
+The main recovered 2023 working pipeline. It contains the strongest lineage from raw sources through geography, covariates, project exposure, empirical panels, matching, and prototype regressions.
 
-It includes:
+### `spatial_data`
 
-- ACLED violence exposure around villages and project locations;
-- OpenStreetMap features such as amenities, shops, highways, and road surfaces;
-- climate and ruggedness variables;
-- distance to cities;
-- distance to borders;
-- village and household GeoJSON files;
-- map helper files.
+A reusable spatial product store from earlier project-level work, including ACLED exposure, OSM features, climate variables, distance measures, GeoJSON files, and map-ready products.
 
-This folder is especially useful for project-level spatial analysis and map production.
+Older folders remain useful for provenance or when the main pipeline leaves a specific gap, but they are no longer the default starting point.
 
-## Other archive areas
+## What this site is for
 
-The archive also contains older folders that support reconstruction and historical understanding.
+This documentation should let a collaborator answer five practical questions quickly:
 
-These include:
+- What was recovered?
+- What is active now?
+- Which empirical infrastructure exists?
+- Which experiment surfaces are currently testable or blocked?
+- Where should historical detail be found when needed?
 
-- `Machine Learning and Spatial Analysis`, an earlier research and data sandbox;
-- `Conflict-Service Delivery-Civic Engagement-and-Development in FCV`, an older project container with literature, instruments, meeting notes, writing, and scripts;
-- `PW_Violence`, an earlier public works and violence project folder;
-- `Nigeria`, a separate earlier country-level analysis;
-- `sources`, a raw source archive;
-- `mi_meta`, a small metadata and path-inventory experiment.
+It is not meant to make every old notebook equally prominent or to imply that every recovered output remains scientifically current.
 
-These folders are useful, but they are not the first place to start. They support recovery when a source, method, or historical detail is missing from the main pipeline.
+## Interpretation discipline
 
-## What the archive contains
-
-The recovered work includes several types of material.
-
-## Data products
-
-The archive contains processed datasets and intermediate data products, including:
-
-- standardized geographic areas;
-- GADM-derived administrative units;
-- population products;
-- violence event files and area-year aggregates;
-- ACLED and UCDP-related outputs;
-- DHS cluster and geocovariate products;
-- Afrobarometer survey-place mappings;
-- Afrobarometer area-level summaries;
-- empirical regression datasets;
-- matching outputs;
-- project-level spatial feature tables.
-
-## Notebooks
-
-The archive contains many Jupyter notebooks. These notebooks document and implement different stages of the work:
-
-- data loading;
-- cleaning;
-- spatial joins;
-- aggregation;
-- diagnostics;
-- map generation;
-- matching;
-- regressions;
-- documentation generation.
-
-The notebooks should be read through the notebook guide before being rerun.
-
-## Exported reports
-
-Many notebooks were exported to HTML or PDF. These exported reports are valuable because they allow a reader to inspect the work without executing code.
-
-A good first step is to read the exported reports before opening or rerunning notebooks.
-
-## Documentation
-
-The archive includes generated dataset documentation and recovery notes. These help explain the structure of the outputs and the intended role of different datasets.
-
-## How to use this manual
-
-For most readers, the best path is:
-
-1. Start with this page.
-2. Read `archive-map.md` to understand the folder structure.
-3. Read `2023-duke-overview.md` to understand the main recovered pipeline.
-4. Read `spatial-data-products.md` to understand the reusable spatial products.
-5. Read `dataset-inventory.md` to see the main dataset families.
-6. Read `continuation/index.md` after the archive map and dataset inventory if you are resuming source updates, annotation, matching, or regression work.
-7. Read `notebook-guide.md` before opening or rerunning notebooks.
-8. Read `recovery-plan.md` to understand the next steps.
-
-## Entry points by reader
-
-| Reader | Recommended starting pages |
-|---|---|
-| Principal investigator or general stakeholder | `intro.md`, `archive-map.md`, `recovery-plan.md` |
-| Research assistant | `archive-map.md`, `dataset-inventory.md`, `continuation/index.md`, `notebook-guide.md` |
-| Data analyst | `2023-duke-overview.md`, `dataset-inventory.md`, `continuation/index.md`, `notebook-guide.md` |
-| Spatial analyst | `spatial-data-products.md`, `geography.md`, `violence.md` |
-| Empirical researcher | `empirical-study.md`, `matching-vertical.md`, `validation-status.md`, `continuation/index.md` |
-| Project manager | `intro.md`, `archive-map.md`, `recovery-plan.md` |
-
-## What to open first
-
-The first files to inspect are not the raw notebooks. Start with the manual pages and exported reports.
-
-Recommended first-pass inspection:
-
-1. `archive-map.md`
-2. `2023-duke-overview.md`
-3. `dataset-inventory.md`
-4. `notebook-guide.md`
-5. exported reports in `2023_Duke/html/`
-6. exported reports in `2023_Duke/pdfs/`
-
-This avoids unnecessary reruns and gives readers a clearer picture of what was already produced.
-
-## What not to assume
-
-The archive contains valuable work, but the safest way to use it is through documentation and validation.
+The archive contains valuable prior work, but recovered outputs and active experiments have different epistemic status.
 
 Do not assume that:
 
-- every notebook is part of the main pipeline;
-- every output is the final version;
-- every old folder is still current;
-- every empirical result should be interpreted before checking its input data;
-- matching and regression files are neutral datasets;
-- legacy folders should be used before the main recovered pipeline.
+- every old notebook belongs to the current pipeline;
+- every historical output is canonical;
+- every treatment or matching definition should be reused unchanged;
+- a successful synthetic harness test is evidence about the real FCV data;
+- a green validation gate is proof of causality;
+- one geography or estimator should be forced across all outcome families.
 
-The manual separates current working material, reusable products, legacy material, recovery tasks, and [Continuation Work](./continuation/index.md) for resuming source updates, annotation, matching, and regression design.
+The [Validation Status](./data-products/validation-status.md) page is the human-facing place to distinguish **available**, **defined**, **tested**, and **blocked** experiment surfaces.
 
-## Near-term objective
+## Historical recovery material
 
-The near-term objective is to create a small but useful research platform around the recovered archive.
+The [Recovery Plan](./recovery-plan.md) is retained as a historical record of how the archive was reconstructed. Much of its orientation phase has now been completed, and current research should use the active-research pages above rather than treating the recovery plan as the live project roadmap.
 
-That means:
-
-- the archive can be explained to a new collaborator;
-- the main folders can be navigated;
-- the core datasets can be identified;
-- the notebook sequence can be understood;
-- the next validation tasks can be assigned;
-- renewed work can begin from a clear map rather than from scattered files.
-
-The archive already contains a large amount of work. The next step is to make it understandable, trustworthy, and reusable.
+The archive is therefore no longer just a set of old folders. It is a documented research memory layer with an active empirical continuation built on top of it.
