@@ -36,7 +36,7 @@ For most readers, the recommended path is:
 4. [Validation Status](./data-products/validation-status.md) — what has actually been tested on real FCV data versus what is only defined or blocked.
 5. [Archive Map](./archive-map.md) — where the recovered source material lives.
 
-If the task is specifically to understand the old implementation, continue with the [2023 Duke Overview](./main-pipeline/duke-overview.md), [Dataset Inventory](./data-products/dataset-inventory.md), [Spatial Data Overview](./data-products/spatial-data-overview.md), and [Notebook Guide](./notebooks/notebook-guide.md).
+If the task is specifically to understand the old implementation, continue with the [2023 Duke Overview](./main-pipeline/2023-duke-overview.md), [Dataset Inventory](./data-products/dataset-inventory.md), [Spatial Data Overview](./data-products/spatial-data-overview.md), and [Notebook Guide](./notebooks/notebook-guide.md).
 
 ## Active research model
 
