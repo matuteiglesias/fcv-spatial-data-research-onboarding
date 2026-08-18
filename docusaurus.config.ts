@@ -5,19 +5,17 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This file is evaluated in Node.js. Avoid browser-only APIs here.
 
 const config: Config = {
-  title: 'FCV Spatial Data Research Archive',
-  tagline: 'Recovered research archive and onboarding manual for spatial data, surveys, conflict, and development work',
+  title: 'FCV Spatial Data Research',
+  tagline: 'Recovered data infrastructure, active empirical design, and research continuity',
   favicon: 'img/favicon.ico',
 
   future: {
     v4: true,
   },
 
-  // Update this when the public deployment URL is chosen.
-  url: 'https://fcv-spatial-data-research-onboarding.example.com',
+  url: 'https://fcv-spatial-data-research-onboardin.vercel.app',
   baseUrl: '/',
 
-  // Update these if deploying to GitHub Pages.
   organizationName: 'matuteiglesias',
   projectName: 'fcv-spatial-data-research-onboarding',
 
@@ -50,9 +48,9 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'FCV Spatial Data Archive',
+      title: 'FCV Spatial Data Research',
       logo: {
-        alt: 'FCV Spatial Data Archive Logo',
+        alt: 'FCV Spatial Data Research Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -60,16 +58,21 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Manual',
+          label: 'Research Manual',
         },
         {
-          to: '/docs/archive-map',
-          label: 'Archive Map',
+          to: '/docs/current-status',
+          label: 'Current Status',
           position: 'left',
         },
         {
-          to: '/docs/recovery-plan',
-          label: 'Recovery Plan',
+          to: '/docs/continuation/experimental-design-regression-pipeline',
+          label: 'Experiments',
+          position: 'left',
+        },
+        {
+          to: '/docs/archive-map',
+          label: 'Archive',
           position: 'left',
         },
       ],
@@ -78,54 +81,62 @@ const config: Config = {
       style: 'dark',
       links: [
         {
-          title: 'Start here',
+          title: 'Active research',
           items: [
             {
-              label: 'Introduction',
-              to: '/docs/intro',
+              label: 'Current Research Status',
+              to: '/docs/current-status',
             },
+            {
+              label: 'Experimental Infrastructure',
+              to: '/docs/continuation/experimental-infrastructure',
+            },
+            {
+              label: 'Experimental Designs',
+              to: '/docs/continuation/experimental-design-regression-pipeline',
+            },
+            {
+              label: 'Validation Status',
+              to: '/docs/data-products/validation-status',
+            },
+          ],
+        },
+        {
+          title: 'Recovered research',
+          items: [
             {
               label: 'Archive Map',
               to: '/docs/archive-map',
             },
             {
-              label: 'Recovery Plan',
-              to: '/docs/recovery-plan',
-            },
-          ],
-        },
-        {
-          title: 'Core materials',
-          items: [
-            {
               label: '2023 Duke Overview',
               to: '/docs/main-pipeline/duke-overview',
-            },
-            {
-              label: 'Spatial Data Products',
-              to: '/docs/data-products/spatial-data-overview',
             },
             {
               label: 'Dataset Inventory',
               to: '/docs/data-products/dataset-inventory',
             },
             {
-              label: 'Notebook Guide',
-              to: '/docs/notebooks/notebook-guide',
+              label: 'Historical Recovery Plan',
+              to: '/docs/recovery-plan',
             },
           ],
         },
         {
-          title: 'Project',
+          title: 'Code',
           items: [
             {
-              label: 'Repository README',
-              to: '/',
+              label: 'Documentation Repository',
+              href: 'https://github.com/matuteiglesias/fcv-spatial-data-research-onboarding',
+            },
+            {
+              label: 'Experiment Harness',
+              href: 'https://github.com/matuteiglesias/fcv-experiment-harness',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} FCV Spatial Data Research Archive. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} FCV Spatial Data Research. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,
