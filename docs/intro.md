@@ -1,245 +1,235 @@
 ---
 title: FCV Spatial Data Research Workspace
 sidebar_position: 1
-description: Orientation to the active FCV research system, its current empirical architecture, and the recovered research archive.
+description: Orientation to the active FCV empirical system, experiment harness, Africa Observability Lab, and recovered research archive.
 date: "2026-08-23"
 ---
 
 # FCV Spatial Data Research Workspace
 
-This site is the human-facing entry point to an active research system that now has two distinct kinds of memory:
+This site is the human-facing entry point to an active FCV scientific-instrument project built on top of a recovered research archive.
 
-1. the recovered 2021–2023 FCV research archive; and
-2. the newer contract-backed empirical and experiment architecture being built around it.
+The current system now separates five things that should not be collapsed:
 
-The recovery phase made the old work legible. The current phase is doing something more demanding: separating **source facts, reusable empirical measurements, scientific-use choices, and experiment evidence** so that changes in one layer do not silently rewrite another.
+```text
+source facts
+→ reusable empirical measurements
+→ scientific experiment roles
+→ instrument characterization / commissioning
+→ substantive inference
+```
+
+The recovered 2021–2023 work remains valuable research memory, parity material, and real historical calibration evidence. It is no longer the default architecture for new empirical work.
 
 ## Start here
 
 For most collaborators, read in this order:
 
-1. [Current Research Status](./current-status.md) — what exists now and what is still unresolved.
+1. [Current Research Status](./current-status.md) — what exists now and the highest-value next evidence transitions.
 2. [Research System Architecture](./research-system.md) — where responsibilities and sources of truth live.
-3. [Empirical Product Catalog](./data-products/product-catalog.md) — what current source-native and measurement products can actually be used.
-4. [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md) — which research questions are executable, partial, blocked, or historically exercised.
-5. [Research Workflow and Validation](./continuation/experimental-infrastructure.md) — how measurements become candidate experiments and how those experiments are gated.
-6. [Validation Status](./data-products/validation-status.md) — what has synthetic acceptance, what has real-data evidence, and what is still pending.
-7. [Archive Map](./archive-map.md) — where the recovered historical material lives.
+3. [Africa Observability Lab](./experiments/observability-lab.md) — how the instrument is characterized against known behavior.
+4. [Calibration Benchmark Catalog](./experiments/calibration-benchmark-catalog.md) — current external commissioning and positive-control targets.
+5. [Empirical Product Catalog](./data-products/product-catalog.md) — current source-native and reusable measurement products.
+6. [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md) — substantive research surfaces that are runnable, partial, or blocked.
+7. [Research Workflow and Validation](./continuation/experimental-infrastructure.md) — the path from measurement through gates, observability, commissioning, estimation, and interpretation.
+8. [Validation Status](./data-products/validation-status.md) — what has actually passed and under which evidence lane.
+9. [Archive Map](./archive-map.md) — recovered historical material.
 
-If your work is on DHS, the [DHS Empirical Stack](./data-products/products/dhs-overview.md) is now the shortest route into the current survey architecture.
+If your work is on DHS, also read [DHS Empirical Stack](./data-products/products/dhs-overview.md) and [DHS Household Semantic Measurements](./data-products/products/dhs-household-measurements.md).
 
-If your task is mainly historical reconstruction, continue with the [2023 Duke Overview](./main-pipeline/duke-overview.md), [Dataset Inventory](./data-products/dataset-inventory.md), [Spatial Data Overview](./data-products/spatial-data-overview.md), and [Notebook Guide](./notebooks/notebook-guide.md).
-
-## The research system now has explicit boundaries
-
-The active implementation is no longer one long recovered pipeline.
+## The active architecture
 
 ```text
-reusable foundations
-
+REUSABLE FOUNDATIONS
 empirical-data-contracts
 spatial-data-foundation
         ↓
 
-FCV empirical domain
-
+FCV EMPIRICAL DOMAIN
 fcv-empirical-data
         ↓
 
-FCV scientific use
-
+FCV SCIENTIFIC USE
 fcv-experiment-harness
         ↓
 
-human collaboration / status
+FCV INSTRUMENT CHARACTERIZATION
+Africa Observability Lab
+        ↓
 
-this onboarding site
+HUMAN STATUS / RESEARCH MEMORY
+this site
 ```
 
-The two reusable foundations are intentionally not FCV-specific.
+### Reusable foundations
 
-[`empirical-data-contracts`](https://github.com/matuteiglesias/empirical-data-contracts) defines typed empirical contracts for identity, provenance, grain, geography/time, coverage, measurements, QA, and run manifests.
+[`empirical-data-contracts`](https://github.com/matuteiglesias/empirical-data-contracts) owns reusable typed empirical contracts.
 
-[`spatial-data-foundation`](https://github.com/matuteiglesias/spatial-data-foundation) owns reusable geography authority, analytical geometry, period indexing, spatial membership, source registration, and spatial provenance.
+[`spatial-data-foundation`](https://github.com/matuteiglesias/spatial-data-foundation) owns reusable geography/time authority and membership machinery.
 
-The FCV-specific empirical producer, [`fcv-empirical-data`](https://github.com/matuteiglesias/fcv-empirical-data), preserves source-native facts and natural observation grains and materializes durable contract-backed empirical products.
+### Empirical domain
 
-The scientific consumer, [`fcv-experiment-harness`](https://github.com/matuteiglesias/fcv-experiment-harness), decides how those measurements are used in a particular research design.
+[`fcv-empirical-data`](https://github.com/matuteiglesias/fcv-empirical-data) preserves source-native facts, natural grains, durable materializations, reusable empirical meanings, coverage, provenance, QA, parity, and integration evidence.
 
-The compact rule is:
+It does not own treatment/control roles or causal interpretation.
 
-> **Facts are produced upstream; scientific roles are assigned in experiments; readiness is summarized here.**
+### Scientific use
 
-## Why the split matters scientifically
+[`fcv-experiment-harness`](https://github.com/matuteiglesias/fcv-experiment-harness) validates empirical bundles, projects measurements into experiment roles, derives treatment downstream, applies timing/eligibility, runs gates, and reuses estimators.
 
-Older research pipelines often compress several decisions into one derived table. A project exposure column may already imply a treatment rule; a sparse conflict table may already encode a zero-filling convention; a survey aggregate may already assume the analysis geography.
+### Instrument characterization
 
-The new architecture tries to keep those choices visible.
+The same harness now contains the **Africa Observability Lab**:
 
-For example, an upstream empirical product can say:
+- calibration benchmark kernel;
+- commissioning / positive / negative controls;
+- reusable synthetic injection curves;
+- synthetic null calibration;
+- measurement-agreement characterization;
+- Level 1 / 2 / 3 recovery states;
+- multidimensional instrument-health reporting.
 
-```text
-this is a source-backed measurement
-at this natural or declared grain
-with this geography and period scheme
-with this coverage semantics
-with this provenance
-```
-
-A downstream experiment can separately say:
-
-```text
-use this measurement as treatment
-select this native category
-apply this timing offset
-restrict eligibility to these periods
-compare these observations
-estimate this contrast
-```
-
-That makes it possible to change the research design without silently rebuilding the source facts.
+Every such benchmark is explicitly `purpose = calibration` and is not a substantive FCV result.
 
 ## What exists now
 
-Several previously planned components are now real implementation surfaces.
+### Contract-backed panel machinery
 
-### Reusable contracts and spatial/time infrastructure
+The current ACLED path crosses the empirical boundary as a contracted area-period-native-event measurement. The experiment explicitly selects taxonomy, value, and timing.
 
-The project has an independently consumable empirical contract package and a reusable spatial/time foundation. FCV repositories consume those rather than maintaining local copies of the same abstractions.
+The current investment path supports GeoGCDF contracted measurements, and the harness can derive treatment from a contracted measurement under explicit eligibility/rule semantics.
 
-### FCV empirical-domain kernel
+The active fully contracted panel path has synthetic acceptance; a canonical real current-artifact run is still pending in this human ledger.
 
-`fcv-empirical-data` now sits between the reusable foundations and the experiment harness. It owns source-native materialization, QA, coverage, parity, and provenance while enforcing a scientific firewall against treatment/control/estimator semantics.
+### DHS empirical stack
 
-### Source-native empirical verticals
-
-Current implemented FCV empirical paths include:
-
-- AidData CLG-LMIC source-native Silver;
-- World Bank Projects API source-native Silver;
-- ACLED source-native Silver plus shared geography/period membership and sparse contract-backed measurements;
-- AidData GeoGCDF source-native project geometry plus contracted commitment-period measurements;
-- DHS Household Recode source-native household Silver;
-- DHS Geospatial Covariates cluster-level Silver with explicit temporal semantics;
-- DHS GE/GPS cluster Silver plus reported-coordinate geography with displacement uncertainty.
-
-These are deliberately independent source verticals and natural grains. They are not one pre-harmonized treatment or estimator-ready table.
-
-### DHS is now a concrete survey stack
-
-DHS has moved beyond a generic survey-substrate plan.
+DHS has moved well beyond generic survey substrate work:
 
 ```text
-SurveyCatalogEntry
-├─ HR  → household Silver
-├─ GC  → cluster covariate Silver + temporal semantics
-└─ GPS → cluster-coordinate Silver
-         → reported-coordinate geography relation
+HR + GC + GPS
+      ↓
+integration QA
+      ↓
+codebook-backed household semantic measurements
 ```
 
-The HR, GC, and GPS products can be linked through verified survey/cluster identity while retaining their different grains and limitations.
+The first reusable household meanings are electricity access, survey-relative wealth quintile, and drinking-water source code.
 
-Public DHS coordinates may be displaced. The current geography relation therefore describes the **reported coordinate**, not an inferred true cluster location. GC remains cluster-associated measurement rather than polygon-wide covariate authority. HR source weights and design variables remain source facts rather than predetermined estimator choices.
+The integration layer preserves source-only cluster support and identifier discrepancies rather than building a convenience mega-table.
 
-The next DHS frontier is scientific-use integration: choose a concrete survey/release and question, execute protected source materializations locally, record non-sensitive acceptance evidence, define household/cluster projection and exposure timing, make displacement uncertainty explicit, and choose survey-design/weight semantics downstream.
+Protected real-source integrated acceptance remains pending.
 
-Afrobarometer remains earlier in the pipeline: the reusable survey substrate exists, but a current respondent/EA source-native vertical is not yet implemented.
+### Reusable E2 observability
 
-### Contract-backed experiment consumption
+The historical one-point `0.20 SD` injection check has become an effect-size detector-characterization engine.
 
-The harness has a validated empirical input boundary and an explicit measurement-projection layer.
+It can measure sign recovery, rejection, CI coverage, recovery error, and uncertainty across a caller-declared effect-size grid on the existing E2 design substrate.
 
-This means source-backed empirical measurements can cross into the harness as typed, hashed, provenance-rich inputs before acquiring scientific-use roles such as treatment or outcome.
+`delta = 0` is an explicit known synthetic null.
 
-The active harness can also derive treatment downstream from a contracted empirical measurement using an explicit experiment rule rather than requiring the upstream producer to label rows as treated/control.
+### Calibration Lab
 
-Survey work may require an explicit cross-grain extension of this seam rather than forcing household/cluster observations into the existing panel lattice.
+The merged calibration kernel supports:
+
+```text
+commissioning
+positive_control
+negative_control
+synthetic_injection
+measurement_agreement
+```
+
+and independent:
+
+```text
+Level 1 — pipeline
+Level 2 — qualitative behavior
+Level 3 — quantitative compatibility
+```
+
+There is no single global instrument score.
+
+## External calibration targets are now concrete
+
+The first planned commissioning target is the official Nigeria DHS 2018 statistic:
+
+> **59.4% of households have electricity.**
+
+That simple benchmark is deliberately first because it tests survey identity, `HV206` semantics, `HV005` weighting, denominator construction, and missingness without adding spatial exposure or causal estimation.
+
+The first published-study positive control after that is **Briggs (2017), _Does Foreign Aid Target the Poorest?_**.
+
+A complementary ACLED/weather benchmark, **Breckner & Sunde (2019)**, is deferred until regular-grid geography and monthly/subannual time semantics can be represented truthfully as reusable capabilities.
 
 ## Evidence is layered
 
-This site distinguishes four kinds of progress:
+The project now needs at least six distinct evidence labels:
 
 | Evidence | Meaning |
 |---|---|
-| **Synthetic/software acceptance** | The implementation behaves correctly on controlled fixtures. |
-| **Empirical materialization/QA** | A source-backed measurement was produced with declared provenance and quality evidence. |
-| **Experiment gate evidence** | A declared design has been tested for support, coverage, timing, placebo behavior, and related diagnostics. |
-| **Estimator/research result** | A declared estimator has produced an estimate for a particular experiment. |
+| **Software acceptance** | controlled fixture behavior is coherent |
+| **Empirical QA** | real source-backed product exists as declared |
+| **Experiment gates** | a real declared design has support/coverage/diagnostics |
+| **Synthetic observability** | known injected truth has characterized detectability/recovery |
+| **External commissioning** | authoritative known measurement/pattern is recovered |
+| **Estimator result** | a substantive declared experiment produced an estimate |
 
-These levels should not be collapsed.
+For restricted sources, synthetic acceptance is not protected-source acceptance.
 
-A synthetic test is not a real-data result. A successful materialization is not a causal design. A green gate is not proof of identification. An old coefficient is not automatically a current result under the new measurement architecture.
+A codebook-backed empirical meaning is not an experiment role.
 
-For restricted sources such as DHS, synthetic acceptance is also not a substitute for a protected real-source run. Protected acceptance should be communicated with non-sensitive hashes, counts, QA, and linkage diagnostics rather than source values.
+A calibration benchmark is not a new FCV research finding.
 
-The [Validation Status](./data-products/validation-status.md) page is the human-facing ledger for those distinctions.
+## Recovered real-data calibration still matters
 
-## The recovered archive still matters
+The recovered WB→ACLED E2 lane remains genuine real-data calibration evidence:
 
-The historical foundation remains scientifically important.
+- 24,852 area-periods / 4,142 GIDs;
+- four predeclared WB measurement cells passed hard gates;
+- historical `0.20 SD` injection recovery was 30/30 in every cell;
+- WBad/WBkg agreement diagnostics show material measurement differences.
 
-The archive contains substantial prior work around:
+That evidence is not automatically a current fully contracted run or a new Observability Lab commissioning result.
 
-- standardized administrative geography for Africa;
-- population aggregation;
-- ACLED and UCDP violence data;
-- DHS geocovariates and survey-linked products;
-- Afrobarometer geographic mappings and summaries;
-- World Bank and Chinese development-finance project exposure;
-- jobs-related project classification;
-- area-period empirical datasets;
-- matching outputs and diagnostics;
-- regression prototypes;
-- project-level spatial products built from ACLED, OpenStreetMap, climate, terrain, and distance measures.
+## The current bottleneck is increasingly diagnostic, not architectural
 
-The two main historical surfaces remain:
+The project no longer mainly needs “more pipeline.”
 
-### `2023_Duke`
+The strongest near-term sequence is:
 
-The strongest recovered lineage from raw sources through geography, covariates, investment exposure, empirical panels, matching, and prototype regressions.
+```text
+close generic calibration auxiliary-input gap (#16)
+→ commission Nigeria DHS 2018 electricity
+→ record protected DHS integrated acceptance
+→ run current durable GeoGCDF + ACLED experiment + observability
+→ implement Briggs after simple DHS commissioning passes
+```
 
-### `spatial_data`
-
-A reusable project-level spatial product store from earlier work, including ACLED exposure, OSM features, climate variables, distance measures, GeoJSON files, and map-ready products.
-
-Use these as research memory, parity evidence, and historical implementation detail. Do not assume every recovered output is the current canonical empirical product.
-
-## What this site is for
-
-A collaborator should be able to answer quickly:
-
-- What is active now?
-- How do the repositories fit together?
-- Which layer owns a particular decision?
-- Which source-backed empirical products exist?
-- What is the current DHS source/measurement stack?
-- Which scientific experiment surfaces are currently runnable?
-- What evidence supports a readiness claim?
-- What remains historical, provisional, or blocked?
-- Where should implementation detail be checked when needed?
-
-This site should not become a duplicate API manual for the technical repositories. Its value is the **shared mental model** across researchers, data engineers, and empirical analysts.
+Failures along this sequence should guide the next engineering/scientific investment.
 
 ## Interpretation discipline
 
 Do not assume that:
 
-- every historical output is canonical;
-- every source measurement should be forced into the same grain;
-- missing rows mean zero, untreated, no event, or no project;
-- project amounts are local spending or can be multiplied across locations;
-- a source variable has an intrinsic treatment/outcome/covariate role;
-- one geography or estimator should be forced across all research questions;
-- a reported DHS coordinate is the true undisplaced cluster location;
-- DHS GC is authoritative polygon-wide covariate coverage;
-- source DHS weights are already the selected analysis weights;
-- successful CI or synthetic gates are evidence about real FCV effects;
-- recovered real-data calibration results are automatically equivalent to results from the newer contract-backed upstream measurement path.
+- a missing row means zero/control/no event/no project;
+- source amounts are local spending;
+- reported DHS coordinates are true undisplaced locations;
+- survey source weights are already analysis weights;
+- a semantic measurement is automatically an outcome/control;
+- synthetic detectability means a real effect exists;
+- a published benchmark recovery is a new substantive finding;
+- a failed benchmark should be tuned away;
+- recovered coefficients are acceptance targets for the rebuilt measurement system.
 
-The architecture exists largely to keep those distinctions explicit.
+The architecture exists precisely to make these distinctions inspectable.
 
-## Historical recovery material
+## Historical material
 
-The [Recovery Plan](./recovery-plan.md) remains available as a historical record of how the archive was reconstructed.
+For archaeology, parity, and prior-design reconstruction, use:
 
-It is no longer the live project roadmap. Current work should start from the pages above and use the recovery documents only when historical reconstruction is actually needed.
+- [2023 Duke Overview](./main-pipeline/duke-overview.md)
+- [Recovered Dataset Inventory](./data-products/dataset-inventory.md)
+- [Notebook Guide](./notebooks/notebook-guide.md)
+- [Historical Recovery Plan](./recovery-plan.md)
+
+The archive is now research memory, not the default source of current authority.
