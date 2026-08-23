@@ -13,7 +13,7 @@ last_verified: "2026-08-23"
 
 > **Over the last week, the FCV reconstruction changed character. What began as recovering an old empirical workflow has become the construction of a calibrated scientific measurement system.**
 
-The central idea is simple:
+The central idea is:
 
 > **measurement first, experiment second.**
 
