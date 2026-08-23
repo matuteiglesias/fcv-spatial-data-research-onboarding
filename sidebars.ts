@@ -135,6 +135,11 @@ const sidebars: SidebarsConfig = {
                 },
                 {
                   type: 'doc',
+                  id: 'data-products/products/dhs-household-measurements',
+                  label: 'Household Semantic Measurements',
+                },
+                {
+                  type: 'doc',
                   id: 'data-products/products/dhs-gc',
                   label: 'Geospatial Covariates (GC)',
                 },

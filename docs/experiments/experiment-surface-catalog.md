@@ -24,10 +24,10 @@ For empirical availability, start with the [Empirical Product Catalog](../data-p
 |---|---|
 | **REAL CALIBRATION COMPLETED — RECOVERED LANE** | A real-data run exists on the reconstructed historical empirical system. It is evidence, but not proof that the current contract-backed path has been run. |
 | **IMPLEMENTED — REAL RUN PENDING** | The current contract-backed empirical and harness capabilities needed for the surface exist, but a canonical real durable-artifact run has not yet been recorded. |
-| **PARTIAL — MISSING EMPIRICAL MEASUREMENT** | Source facts exist, but a required geography/time measurement or linkage is not yet available in the current architecture. |
-| **PARTIAL — EMPIRICAL STACK IMPLEMENTED / SCIENTIFIC USE NEEDED** | Source-native empirical verticals now exist, but the experiment still needs variable-role mapping, cross-grain linkage, exposure/timing rules, uncertainty policy, harness integration, or real-data acceptance. |
+| **PARTIAL — MISSING EMPIRICAL MEASUREMENT** | Source facts exist, but a required geography/time measurement or linkage is not yet available. |
+| **PARTIAL — EMPIRICAL STACK IMPLEMENTED / SCIENTIFIC USE NEEDED** | Source-native empirical products exist, but experiment projection, role assignment, uncertainty policy, harness integration, or real-data acceptance remains. |
 | **BLOCKED — SCIENTIFIC / ANNOTATION INPUT NEEDED** | The architecture can support the design, but a named scientific definition or validated derived empirical object is still missing. |
-| **BLOCKED — SOURCE INGESTION NEEDED** | The reusable substrate exists, but the source-native survey/data vertical has not yet been built. |
+| **BLOCKED — SOURCE INGESTION NEEDED** | The reusable substrate exists, but the source-native vertical has not yet been built. |
 
 ## At a glance
 
@@ -38,7 +38,7 @@ For empirical availability, start with the [Empirical Product Catalog](../data-p
 | **Pooled China + World Bank → ACLED violence** | source families exist independently; no canonical pooled upstream product | contracted ACLED exists | **BLOCKED / DESIGN + WB MEASUREMENT NEEDED** |
 | **Jobs-related investment → ACLED violence** | annotation review infrastructure exists; validated jobs-use measurement not yet established | contracted ACLED exists | **BLOCKED — SCIENTIFIC / ANNOTATION INPUT NEEDED** |
 | **Afrobarometer respondent/EA design** | survey substrate exists; source-native ingestion absent | outcome/exposure depends on named design | **BLOCKED — SOURCE INGESTION NEEDED** |
-| **DHS household/cluster design** | HR household Silver + GC cluster covariates + GE/GPS reported-coordinate geography are implemented | scientific outcome/exposure mapping and harness-side use not yet defined | **PARTIAL — EMPIRICAL STACK IMPLEMENTED / SCIENTIFIC USE NEEDED** |
+| **DHS household/cluster design** | HR + GC + GPS + integration QA implemented; initial household semantic measurements exist | experiment role/exposure/harness use not yet defined | **PARTIAL — EMPIRICAL STACK IMPLEMENTED / SCIENTIFIC USE NEEDED** |
 | **Recovered WB → ACLED calibration** | recovered WBad/WBkg area-period surfaces | recovered ACLED analysis surface | **REAL CALIBRATION COMPLETED — RECOVERED LANE** |
 
 ---
@@ -59,22 +59,11 @@ Can a declared geography-period measure of Chinese development-finance project c
 
 ### Experiment choices that still remain choices
 
-The harness must declare, rather than inherit from the sources:
-
-- treatment value column;
-- threshold / derivation rule;
-- treatment eligibility window;
-- treatment timing relative to commitment;
-- ACLED taxonomy selector;
-- outcome value (`fatalities`, count, or another supported measurement);
-- outcome timing offset;
-- target analysis lattice and geography linkage;
-- counterfactual / comparison policy;
-- gate thresholds and estimator.
+The harness must declare treatment value/threshold, eligibility window, treatment timing, ACLED taxonomy/value, outcome timing, target lattice, comparison policy, gate thresholds, and estimator.
 
 ### Current implementation support
 
-The harness now supports a `FullyContractedPanelExperimentSpec` in which both treatment and outcome arrive as validated empirical bundles. Treatment derivation is an explicit downstream rule and fully contracted calibration reuses the existing gate/estimator machinery.
+The harness supports a `FullyContractedPanelExperimentSpec` in which treatment and outcome arrive as validated empirical bundles. Treatment derivation is explicit downstream.
 
 ### Major caveats
 
@@ -82,11 +71,11 @@ The harness now supports a `FullyContractedPanelExperimentSpec` in which both tr
 - source-reported amount is not local administrative-unit spending;
 - polygons may expose multiple units without allocating/multiplying finance;
 - structural zeros depend on explicit GeoGCDF coverage conditions;
-- a real current-artifact run and its gateboard evidence still need to be recorded.
+- a real current-artifact run still needs to be recorded.
 
 ### Next evidence-producing action
 
-Run the durable GeoGCDF + ACLED artifacts through the fully contracted harness, persist projection/support/gate outputs, and update [Validation Status](../data-products/validation-status.md).
+Run the durable GeoGCDF + ACLED artifacts through the fully contracted harness and persist support/gate outputs.
 
 ---
 
@@ -104,19 +93,19 @@ Can World Bank project presence or a declared source measurement be used to cons
 
 The ACLED contracted outcome path is available.
 
-### What is missing in the current forward-looking path
+### What is missing
 
 The current product catalog does **not** assert a World Bank project-location → shared geography → shared period contracted measurement comparable to GeoGCDF.
 
-Therefore the current source-native Silver cannot simply be relabeled as a WB treatment table.
+Therefore source-native Silver cannot simply be relabeled as a WB treatment table.
 
 ### Historical evidence
 
-Recovered WBad/WBkg area-period measurements **have** been used in real E1/E2 calibration. That evidence belongs to the recovered lane and is summarized below; it does not prove acceptance of the rebuilt WB Projects API path.
+Recovered WBad/WBkg area-period measurements were used in real E1/E2 calibration. That belongs to the recovered lane and does not prove acceptance of the rebuilt WB Projects API path.
 
 ### Next evidence-producing action
 
-Build or identify an authoritative World Bank spatial/temporal measurement product, preserve its coverage semantics, and only then express WB treatment derivation in the harness.
+Build or identify an authoritative World Bank spatial/temporal measurement product, preserve coverage semantics, then express treatment derivation downstream.
 
 ---
 
@@ -124,34 +113,11 @@ Build or identify an authoritative World Bank spatial/temporal measurement produ
 
 **Status: BLOCKED / DESIGN + WB MEASUREMENT NEEDED**
 
-### Research question shape
+The current empirical architecture intentionally keeps China/AidData and World Bank as independent source families. It does not assert cross-source sameness, additivity, common spatial spending interpretation, source absence as no investment, or a universal `cnwb_pooled` upstream column.
 
-Does an experiment comparing any qualifying China/World Bank investment exposure against a declared comparison group produce a useful violence contrast?
+A current pooled experiment would need independent contracted measurements, explicit overlap semantics, a downstream union/multi-arm derivation, source-specific coverage, and the normal ACLED projection/gates.
 
-### Why this is not an upstream product
-
-The current empirical architecture intentionally keeps China/AidData and World Bank as independent source families.
-
-It does not assert that:
-
-- records across sources describe the same projects;
-- sources are additive;
-- amounts have a common spatial spending interpretation;
-- source-row absence means no investment;
-- a universal `cnwb_pooled` column should exist upstream.
-
-### What a current pooled experiment would need
-
-1. independent contracted investment measurements for each source family;
-2. explicit cross-source experiment-use semantics;
-3. a declared rule for overlap / duplicate project candidates if relevant;
-4. a downstream union or multi-arm treatment derivation;
-5. source-specific coverage retained rather than erased by pooling;
-6. ACLED outcome projection and normal gate sequence.
-
-### Historical design vocabulary
-
-`cnwb_pooled`, `wb_only`, and `cn_only` remain useful recovered experiment vocabulary. They should be re-expressed as experiment specifications over current measurements rather than restored as canonical upstream columns.
+Historical vocabulary such as `cnwb_pooled`, `wb_only`, and `cn_only` remains useful design vocabulary, not required upstream schema.
 
 ---
 
@@ -159,36 +125,13 @@ It does not assert that:
 
 **Status: BLOCKED — SCIENTIFIC / ANNOTATION INPUT NEEDED**
 
-### Research question shape
+`fcv-empirical-data` has a derived annotation-candidate review surface downstream of source-native Silver. Empirical annotations may later include `jobs_direct`, `jobs_indirect`, `jobs_any`, or `locally_implemented` with explicit provenance.
 
-Do projects with an explicitly reviewed jobs/local-implementation annotation produce a different violence response from other declared investment exposures?
-
-### What exists now
-
-`fcv-empirical-data` has a derived annotation-candidate review surface downstream of source-native Silver. It preserves source family/project identity, review text, mapping provenance, source amount bases, and annotation-schema identity.
-
-The architecture also permits empirical annotations such as `jobs_direct`, `jobs_indirect`, `jobs_any`, or `locally_implemented` when they are produced with explicit provenance.
-
-### What does not yet follow automatically
-
-Even a validated `jobs_any = true` annotation would **not** by itself imply:
-
-```text
-GID × period treatment = 1
-```
-
-The experiment still has to declare:
-
-- which annotations count for treatment eligibility;
-- which project timing fact anchors exposure;
-- how project geography maps to the experiment lattice;
-- how ambiguous locations behave;
-- whether direct/indirect categories are pooled or separate;
-- comparison groups and exclusion rules.
+Even a validated `jobs_any = true` would not by itself imply `GID × period treatment = 1`. The experiment must still declare timing, geography, ambiguity handling, eligibility, comparison groups, and treatment derivation.
 
 ### Next evidence-producing action
 
-Complete a validated current annotation product for a named source measurement, then bind that annotation to an explicit experiment treatment-derivation rule.
+Complete a validated current annotation product for a named source measurement, then bind it to an explicit experiment rule.
 
 ---
 
@@ -196,24 +139,11 @@ Complete a validated current annotation product for a named source measurement, 
 
 **Status: BLOCKED — SOURCE INGESTION NEEDED**
 
-### Research question shape
+The [Survey-Native Substrate](../data-products/products/survey-substrate.md) can represent respondent/EA grains, survey files/snapshots, sampling metadata, source weights, variable metadata, temporal semantics, and uncertain geography.
 
-Can respondent-level attitudes or outcomes be linked to a declared spatial/temporal investment or conflict exposure while preserving Afrobarometer respondent and EA sampling structure?
+Still missing are source-native Afrobarometer ingestion, current codebook mapping, geography-link materialization, named exposure/timing design, downstream variable roles, and estimator/weight choice.
 
-### Current capability
-
-The [Survey-Native Substrate](../data-products/products/survey-substrate.md) can represent respondent/EA natural grains, survey files/snapshots, sampling metadata, source weights, variable metadata, temporal semantics, and ambiguous/unmatched geography links.
-
-### Missing pieces
-
-- source-native Afrobarometer ingestion;
-- current survey variable metadata/codebook mapping;
-- explicit geography-link materialization;
-- a named exposure and timing design;
-- outcome/covariate roles assigned downstream;
-- survey-weight / estimator choice.
-
-The design should **not** begin by forcing respondents into the recovered GID × period panel.
+The design should not begin by forcing respondents into the recovered GID × period panel.
 
 ---
 
@@ -223,86 +153,107 @@ The design should **not** begin by forcing respondents into the recovered GID ×
 
 ### Research question shape
 
-Can DHS household outcomes be related to a declared spatial exposure while respecting cluster geography, survey timing, displacement uncertainty, cluster covariates, and sampling design?
+Can DHS household outcomes be related to a declared spatial exposure while respecting household/cluster grain, cluster covariates, survey timing, displacement uncertainty, and sampling design?
 
 ### What exists now
 
-The current [DHS Empirical Stack](../data-products/products/dhs-overview.md) is no longer just a generic substrate. Three source-specific verticals are implemented:
+The [DHS Empirical Stack](../data-products/products/dhs-overview.md) has now closed its first integrated empirical mini-wave.
 
-**[DHS Household Recode (HR)](../data-products/products/dhs-hr.md)**
+**Source-native products**
 
-- household-within-survey Silver;
-- source household/cluster/PSU/stratum identity;
-- source household weight preserved unchanged;
-- all source-native variables retained;
-- protected source bytes remain external.
+- [DHS Household Recode (HR)](../data-products/products/dhs-hr.md): household observations with source design facts and a truthful durable `source_row_id` grain while preserving defective/missing source household IDs as anomalies.
+- [DHS Geospatial Covariates (GC)](../data-products/products/dhs-gc.md): cluster-level covariates with explicit temporal semantics and no area-period coercion.
+- [DHS GE/GPS Geography](../data-products/products/dhs-gps.md): reported-coordinate geography plus displacement/uncertainty metadata, with no true-location claim.
 
-**[DHS Geospatial Covariates (GC)](../data-products/products/dhs-gc.md)**
+**Cross-product integration QA**
 
-- cluster-level covariate Silver;
-- optional long `survey × cluster × source_variable` view;
-- explicit static/annual/epoch/climatology/survey-time/retrospective/unknown temporal semantics;
-- cluster availability and missingness remain explicit;
-- no GID aggregation or fake area-period panel.
+The empirical layer can now verify HR + GPS + GC together without constructing a mega-table:
 
-**[DHS GE/GPS Geography](../data-products/products/dhs-gps.md)**
+- one explicit `SurveyCatalogEntry`;
+- truthful `DatasetRef` grain claims;
+- HR-only / GPS-only / GC-only cluster support preserved;
+- `DHSCLUST` kept distinct from `DHSID`;
+- textual identity mismatches such as `001` versus `1` surfaced rather than silently normalized.
 
-- source-native cluster-coordinate Silver;
-- survey/GPS identity audit;
-- `reported_coordinate_membership` through shared analytical geography;
-- displacement policy and uncertainty metadata;
-- ambiguous/outside/invalid states retained;
-- no de-displacement or true-location claim.
+This means the experiment layer no longer has to invent its own hidden source-linkage assumptions merely to know whether the three empirical products line up.
 
-This moves the DHS frontier materially downstream: the primary blocker is no longer “build DHS ingestion.”
+**Initial codebook-backed household semantic measurements**
 
-### What still blocks an experiment
+The empirical repository now exposes [DHS Household Semantic Measurements](../data-products/products/dhs-household-measurements.md):
 
-A current scientific DHS surface still needs explicit choices and integration for:
+```text
+HV206 → dhs.household.electricity_access
+HV270 → dhs.household.wealth_quintile
+HV201 → dhs.household.drinking_water_source_code
+```
 
-1. **Survey/recode scope.** HR is implemented; person-level PR/IR/KR or other recodes must be added only if the question needs them.
-2. **Outcome/variable mapping.** No `HV*` or GC field is intrinsically an outcome, treatment, or control.
-3. **Cross-grain linkage.** Household rows must link to cluster-level GC/GPS through verified cluster identity without flattening the empirical layer by convenience.
-4. **Exposure measurement.** The investment/conflict/environmental exposure must be named and linked explicitly.
-5. **Spatial uncertainty.** `reported_coordinate_membership` is about the displaced public point, not the exact true cluster location. Radius/nearest-project designs need a displacement-aware sensitivity or uncertainty rule.
-6. **Timing.** Survey fieldwork timing, GC temporal semantics, and treatment/exposure timing must be reconciled in the experiment specification.
-7. **Survey design.** Source weights/PSU/strata are preserved, but the analysis weight and variance-estimation strategy remain downstream choices.
-8. **Harness support.** The current panel harness seam must be extended or complemented explicitly for household/cluster cross-grain survey use rather than forcing DHS into GID × period.
-9. **Protected real-data acceptance.** GitHub synthetic acceptance does not substitute for a local protected-source run summarized through non-sensitive QA, counts, hashes, and linkage diagnostics.
+These are documented empirical meanings, not experiment roles.
 
-### A plausible first forward-looking DHS experiment path
+The materialized semantic product uses `source_row_id × measurement_id`, verifies the content-hashed HR input, preserves explicit missing/unmapped statuses, and emits `MeasurementContract` evidence.
 
-A minimal scientifically honest path could look like:
+### What is no longer the blocker
+
+The current DHS surface is **not** blocked by:
+
+- absence of HR ingestion;
+- absence of GC cluster measurements;
+- absence of reported-coordinate geography;
+- lack of any safe cross-product QA layer;
+- total absence of reusable variable semantics.
+
+Those capabilities now exist synthetically.
+
+### What still blocks a scientific experiment
+
+1. **Named scientific question and survey/release.** A concrete DHS experiment must still choose its population and survey scope.
+2. **Experiment role assignment.** The initial semantic registry tells us what selected variables mean; it does not decide whether electricity access, wealth quintile, water source, or another future measurement is the outcome/control/moderator.
+3. **Additional variables only if needed.** The registry is deliberately small; new definitions/recode families should be pulled by the chosen question rather than generated indiscriminately.
+4. **Household ↔ cluster scientific projection.** Source linkage evidence exists, but the harness still needs an explicit cross-grain projection for the analysis.
+5. **Exposure measurement.** Investment/conflict/environmental exposure must be named and linked explicitly.
+6. **Spatial uncertainty.** Reported DHS coordinates may be displaced; nearest/radius designs require a displacement-aware uncertainty/sensitivity rule.
+7. **Timing.** Survey fieldwork, GC temporal semantics, and treatment/exposure timing must be reconciled in the experiment spec.
+8. **Survey design.** Source weights/PSU/strata remain source facts; analysis weights and variance strategy remain downstream choices.
+9. **Protected real-data acceptance.** GitHub synthetic acceptance does not substitute for a local real-source run.
+
+### A plausible first forward-looking DHS path
 
 ```text
 verified DHS survey
    │
    ├─ HR household Silver
    │      ↓
-   │  choose outcome variable downstream
+   │  codebook-backed household measurements
+   │      ↓
+   │  experiment selects role
    │
    ├─ GC cluster Silver
    │      ↓
-   │  choose named controls/moderators downstream
+   │  experiment selects controls/moderators if justified
    │
    └─ GPS cluster Silver
           ↓
       reported-coordinate geography
-          ↓
-      displacement-aware exposure linkage
-          ↓
-      household ↔ cluster projection
-          ↓
-      survey-design-aware gates / estimator
-```
 
-The exact exposure and outcome are still scientific choices. The architecture should support several such designs without rebuilding the source facts.
+HR + GC + GPS
+      ↓
+integration QA
+      ↓
+protected real-source acceptance
+      ↓
+household ↔ cluster experiment projection
+      ↓
+displacement-aware exposure linkage
+      ↓
+survey-design-aware gates / estimator
+```
 
 ### Next evidence-producing action
 
-Pick one named DHS survey/release and one concrete scientific question, run the HR/GC/GPS verticals on the protected source files locally, record non-sensitive lineage/QA/linkage evidence, then implement the smallest harness-side cross-grain projection needed for that design.
+Pick one named DHS survey/release and one concrete scientific question. Run HR + GC + GPS locally, generate the integration report, materialize the initial household semantic measurements, and record only non-sensitive lineage/support/QA evidence.
 
-That would change the DHS status from “empirical stack implemented” to a genuinely testable current experiment surface.
+Then implement the smallest harness-side projection and exposure rule required for that question.
+
+That is now the shortest path from the current empirical stack to a genuinely testable DHS experiment.
 
 ---
 
@@ -311,12 +262,6 @@ That would change the DHS status from “empirical stack implemented” to a gen
 **Status: REAL CALIBRATION COMPLETED — RECOVERED LANE**
 
 This is the strongest existing real-data calibration evidence, but it predates the fully source-native contracted upstream architecture.
-
-### Empirical surface
-
-Recovered/canonical area-period analysis universe with WBad/WBkg investment implementations and recovered ACLED outcome semantics.
-
-### Real-data evidence
 
 The common E2 model sample reported:
 
@@ -327,18 +272,9 @@ The common E2 model sample reported:
 
 Four predeclared WB measurement cells passed hard gates; WBad `amount_positive` carried a YELLOW within-period support caveat because 2013–2014 had zero treated units.
 
-Synthetic 0.20-SD signal recovery was reported as `30/30` in every calibration cell. All reported 95% coefficient intervals included zero and estimated effects were below the approximate detectable scale reported by that calibration.
+Synthetic 0.20-SD signal recovery was `30/30` in every calibration cell. All reported 95% coefficient intervals included zero and estimated effects were below the approximate detectable scale reported by that calibration.
 
-### Why keep this surface visible
-
-It provides:
-
-- genuine real-data gate/calibration history;
-- measurement-agreement evidence across WBad/WBkg;
-- a baseline for comparing current contracted support and coverage;
-- design lessons about within-period treatment support and sparse outcomes.
-
-It should not be relabeled as a current contract-backed GeoGCDF/WB/ACLED run.
+This evidence provides real-data gate/calibration history and measurement-agreement evidence, but should not be relabeled as a current contract-backed run.
 
 See [Validation Status](../data-products/validation-status.md) for the detailed matrix and estimates.
 
