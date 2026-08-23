@@ -20,12 +20,15 @@ For most collaborators, read in this order:
 
 1. [Current Research Status](./current-status.md) — what exists now and what is still unresolved.
 2. [Research System Architecture](./research-system.md) — where responsibilities and sources of truth live.
-3. [Research Workflow and Validation](./continuation/experimental-infrastructure.md) — how measurements become candidate experiments and how those experiments are gated.
-4. [Validation Status](./data-products/validation-status.md) — what has synthetic acceptance, what has real-data evidence, and what is still pending.
-5. [Experimental Design and Regression Pipeline](./continuation/experimental-design-regression-pipeline.md) — the scientific design lineage and candidate experiment families.
-6. [Archive Map](./archive-map.md) — where the recovered historical material lives.
+3. [Empirical Product Catalog](./data-products/product-catalog.md) — what current source-native and measurement products can actually be used.
+4. [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md) — which research questions are executable, partial, blocked, or historically exercised.
+5. [Research Workflow and Validation](./continuation/experimental-infrastructure.md) — how measurements become candidate experiments and how those experiments are gated.
+6. [Validation Status](./data-products/validation-status.md) — what has synthetic acceptance, what has real-data evidence, and what is still pending.
+7. [Archive Map](./archive-map.md) — where the recovered historical material lives.
 
-If your task is mainly historical reconstruction, continue with the [2023 Duke Overview](./main-pipeline/2023-duke-overview.md), [Dataset Inventory](./data-products/dataset-inventory.md), [Spatial Data Overview](./data-products/spatial-data-overview.md), and [Notebook Guide](./notebooks/notebook-guide.md).
+If your work is on DHS, the [DHS Empirical Stack](./data-products/products/dhs-overview.md) is now the shortest route into the current survey architecture.
+
+If your task is mainly historical reconstruction, continue with the [2023 Duke Overview](./main-pipeline/duke-overview.md), [Dataset Inventory](./data-products/dataset-inventory.md), [Spatial Data Overview](./data-products/spatial-data-overview.md), and [Notebook Guide](./notebooks/notebook-guide.md).
 
 ## The research system now has explicit boundaries
 
@@ -115,23 +118,42 @@ Current implemented FCV empirical paths include:
 - AidData CLG-LMIC source-native Silver;
 - World Bank Projects API source-native Silver;
 - ACLED source-native Silver plus shared geography/period membership and sparse contract-backed measurements;
-- AidData GeoGCDF source-native project geometry plus contracted commitment-period measurements.
+- AidData GeoGCDF source-native project geometry plus contracted commitment-period measurements;
+- DHS Household Recode source-native household Silver;
+- DHS Geospatial Covariates cluster-level Silver with explicit temporal semantics;
+- DHS GE/GPS cluster Silver plus reported-coordinate geography with displacement uncertainty.
 
-These are deliberately independent source verticals. They are not one pre-harmonized treatment table.
+These are deliberately independent source verticals and natural grains. They are not one pre-harmonized treatment or estimator-ready table.
+
+### DHS is now a concrete survey stack
+
+DHS has moved beyond a generic survey-substrate plan.
+
+```text
+SurveyCatalogEntry
+├─ HR  → household Silver
+├─ GC  → cluster covariate Silver + temporal semantics
+└─ GPS → cluster-coordinate Silver
+         → reported-coordinate geography relation
+```
+
+The HR, GC, and GPS products can be linked through verified survey/cluster identity while retaining their different grains and limitations.
+
+Public DHS coordinates may be displaced. The current geography relation therefore describes the **reported coordinate**, not an inferred true cluster location. GC remains cluster-associated measurement rather than polygon-wide covariate authority. HR source weights and design variables remain source facts rather than predetermined estimator choices.
+
+The next DHS frontier is scientific-use integration: choose a concrete survey/release and question, execute protected source materializations locally, record non-sensitive acceptance evidence, define household/cluster projection and exposure timing, make displacement uncertainty explicit, and choose survey-design/weight semantics downstream.
+
+Afrobarometer remains earlier in the pipeline: the reusable survey substrate exists, but a current respondent/EA source-native vertical is not yet implemented.
 
 ### Contract-backed experiment consumption
 
-The harness now has a validated empirical input boundary and an explicit measurement-projection layer.
+The harness has a validated empirical input boundary and an explicit measurement-projection layer.
 
 This means source-backed empirical measurements can cross into the harness as typed, hashed, provenance-rich inputs before acquiring scientific-use roles such as treatment or outcome.
 
 The active harness can also derive treatment downstream from a contracted empirical measurement using an explicit experiment rule rather than requiring the upstream producer to label rows as treated/control.
 
-### Survey architecture in progress
-
-DHS and Afrobarometer are being handled as survey-native observation systems rather than being forced into the same `GID × TimePeriod` grain as area-period event panels.
-
-The survey substrate work is intended to preserve household/person/respondent/cluster/EA identity, design metadata, variable metadata, and geography linkage while leaving outcome/covariate/treatment roles to later experiments.
+Survey work may require an explicit cross-grain extension of this seam rather than forcing household/cluster observations into the existing panel lattice.
 
 ## Evidence is layered
 
@@ -147,6 +169,8 @@ This site distinguishes four kinds of progress:
 These levels should not be collapsed.
 
 A synthetic test is not a real-data result. A successful materialization is not a causal design. A green gate is not proof of identification. An old coefficient is not automatically a current result under the new measurement architecture.
+
+For restricted sources such as DHS, synthetic acceptance is also not a substitute for a protected real-source run. Protected acceptance should be communicated with non-sensitive hashes, counts, QA, and linkage diagnostics rather than source values.
 
 The [Validation Status](./data-products/validation-status.md) page is the human-facing ledger for those distinctions.
 
@@ -188,6 +212,7 @@ A collaborator should be able to answer quickly:
 - How do the repositories fit together?
 - Which layer owns a particular decision?
 - Which source-backed empirical products exist?
+- What is the current DHS source/measurement stack?
 - Which scientific experiment surfaces are currently runnable?
 - What evidence supports a readiness claim?
 - What remains historical, provisional, or blocked?
@@ -205,6 +230,9 @@ Do not assume that:
 - project amounts are local spending or can be multiplied across locations;
 - a source variable has an intrinsic treatment/outcome/covariate role;
 - one geography or estimator should be forced across all research questions;
+- a reported DHS coordinate is the true undisplaced cluster location;
+- DHS GC is authoritative polygon-wide covariate coverage;
+- source DHS weights are already the selected analysis weights;
 - successful CI or synthetic gates are evidence about real FCV effects;
 - recovered real-data calibration results are automatically equivalent to results from the newer contract-backed upstream measurement path.
 
