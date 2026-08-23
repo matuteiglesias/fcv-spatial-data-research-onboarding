@@ -119,6 +119,32 @@ const sidebars: SidebarsConfig = {
               id: 'data-products/products/survey-substrate',
               label: 'Survey-Native Substrate',
             },
+            {
+              type: 'category',
+              label: 'DHS Survey Stack',
+              collapsed: false,
+              link: {
+                type: 'doc',
+                id: 'data-products/products/dhs-overview',
+              },
+              items: [
+                {
+                  type: 'doc',
+                  id: 'data-products/products/dhs-hr',
+                  label: 'Household Recode (HR)',
+                },
+                {
+                  type: 'doc',
+                  id: 'data-products/products/dhs-gc',
+                  label: 'Geospatial Covariates (GC)',
+                },
+                {
+                  type: 'doc',
+                  id: 'data-products/products/dhs-gps',
+                  label: 'GE/GPS Geography',
+                },
+              ],
+            },
           ],
         },
         {
