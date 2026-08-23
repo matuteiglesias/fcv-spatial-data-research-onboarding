@@ -96,13 +96,23 @@ Important rebuilt semantics include:
 - native ACLED event taxonomy survives into the measurement layer;
 - sparse row absence remains unknown unless an explicit coverage contract licenses structural zero interpretation.
 
-#### Survey substrate
+#### Survey substrate and DHS
 
-A reusable survey-native substrate is now **implemented** for DHS/Afrobarometer-shaped empirical systems.
+A reusable survey-native substrate is **implemented** for DHS/Afrobarometer-shaped empirical systems, and DHS has now moved beyond substrate-only status.
 
-It preserves survey/release identity, multiple source files/snapshots, observation grain, sampling/design facts, variable metadata, source weights, and geography-linkage metadata without forcing respondents, households, clusters, or EAs into the recovered area-period panel architecture.
+The current DHS empirical stack includes:
 
-This is infrastructure only. Real DHS/Afrobarometer ingestion remains separate future work, as do survey-variable scientific roles, weighted estimation, and experiment-specific exposure design.
+- **Household Recode (HR)** source-native Silver at household-within-survey grain, preserving source household/cluster/PSU/stratum identity, source household weights unchanged, source-native variables, source snapshots, QA, and run provenance;
+- **Geospatial Covariates (GC)** cluster-level Silver, with optional long `survey × cluster × source_variable` view, explicit temporal semantics, cluster measurement availability, and no GID/area-period coercion;
+- **GE/GPS geography** cluster Silver with reported coordinates, explicit displacement metadata, survey/GPS identity auditing, and `reported_coordinate_membership` through the shared spatial foundation without claiming the public coordinate is the true cluster location.
+
+These verticals share survey/cluster identity while preserving different natural grains. They do not flatten HR households, cluster covariates, and displaced cluster geography into one estimator-ready table upstream.
+
+GitHub acceptance remains synthetic. A real protected DHS source run and a current harness-side DHS experiment have not yet been recorded here. The next DHS problem is therefore **scientific-use integration, cross-grain linkage, displacement-aware exposure design, and protected-data acceptance**, not simply “build DHS ingestion.”
+
+Afrobarometer remains at the earlier stage: the reusable substrate exists, but source-native respondent/EA ingestion has not yet been implemented.
+
+See the [DHS Empirical Stack](./data-products/products/dhs-overview.md) for the collaborator-facing map.
 
 ### 4. The experiment harness now consumes contracted empirical measurements
 
@@ -187,9 +197,11 @@ Those results remain informative about the recovered empirical design. They shou
 
 The newer empirical boundary, ACLED projection path, and fully contracted treatment/outcome experiment construction have synthetic end-to-end acceptance in the codebase.
 
-A canonical real-data run over the newly materialized contract-backed upstream artifacts is still the next evidence transition to make explicit in the human-facing research record.
+The DHS HR/GC/GPS source paths also have synthetic acceptance at their natural grains. That establishes source/measurement behavior, not a real DHS experiment.
 
-The [Validation Status](./data-products/validation-status.md) page tracks this distinction.
+A canonical real-data run over current contract-backed upstream artifacts remains the next evidence transition to make explicit in the human-facing research record. For DHS specifically, protected source execution must be summarized through non-sensitive lineage, QA, counts, and linkage evidence.
+
+The [Validation Status](./data-products/validation-status.md) page tracks these distinctions.
 
 ## Current scientific questions
 
@@ -204,7 +216,11 @@ Important open decisions include:
 - which ACLED/UCDP outcome definitions deserve primary status;
 - whether planned/future project locations, never-treated locations, matched controls, or longitudinal contrasts provide the strongest counterfactual for a given question;
 - how jobs-related project classifications should be validated and used without turning annotation convenience into source truth;
-- how DHS and Afrobarometer should be linked to project exposure at their natural survey grains;
+- which concrete DHS survey/release and HR variable family should define the first forward-looking survey outcome;
+- how HR households should link to cluster-level GC and displaced GPS geography without hiding cross-grain or displacement uncertainty;
+- whether reported-point, displacement-aware candidate geography, or another exposure strategy is appropriate for a named DHS question;
+- how source DHS weights/PSU/strata should enter the chosen estimator;
+- how Afrobarometer should later be linked to exposure at respondent/EA grain;
 - which estimator family is appropriate after measurement, support, timing, and falsification diagnostics are known.
 
 Those choices belong in experiment design, not upstream source materialization.
@@ -215,13 +231,14 @@ The [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md) tr
 
 The highest-value next sequence is now:
 
-1. execute and record at least one real end-to-end run using current contract-backed empirical artifacts rather than legacy aggregate inputs, with GeoGCDF → ACLED the strongest current reference candidate;
-2. compare the new measurement/projection evidence with the recovered E1/E2 calibration evidence without demanding historical coefficient equality;
-3. update the human validation ledger with real contracted projection counts, support, coverage, and gate results;
-4. build a World Bank spatial/temporal measurement only if a concrete WB-only or pooled experiment is ready to consume it;
-5. complete jobs annotation or a named DHS/Afrobarometer ingestion only where it unlocks a concrete scientific experiment;
-6. keep treatment, outcome, timing, eligibility, and counterfactual choices explicit in harness-side experiment specifications;
-7. update the product and experiment catalogs whenever a new durable product or evidence-producing run materially changes collaborator understanding.
+1. execute and record at least one real end-to-end run using current contract-backed empirical artifacts rather than legacy aggregate inputs, with GeoGCDF → ACLED the strongest current panel reference candidate;
+2. pick one named DHS survey/release and concrete scientific question, run the implemented HR/GC/GPS paths locally on protected source files, and record non-sensitive provenance/QA/linkage evidence;
+3. implement the smallest harness-side cross-grain DHS projection needed for that question, including an explicit displacement-aware exposure policy and survey-design use;
+4. compare new measurement/projection evidence with recovered evidence without demanding historical coefficient equality;
+5. build a World Bank spatial/temporal measurement only if a concrete WB-only or pooled experiment is ready to consume it;
+6. complete jobs annotation or Afrobarometer ingestion only where it unlocks a concrete scientific experiment;
+7. keep treatment, outcome, timing, eligibility, counterfactual, survey-weight, and uncertainty choices explicit in harness-side experiment specifications;
+8. update the product and experiment catalogs whenever a new durable product or evidence-producing run materially changes collaborator understanding.
 
 ## How to continue reading
 
@@ -229,10 +246,11 @@ For the active system:
 
 1. [Research System Architecture](./research-system.md)
 2. [Empirical Product Catalog](./data-products/product-catalog.md)
-3. [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md)
-4. [Research Workflow and Validation](./continuation/experimental-infrastructure.md)
-5. [Validation Status](./data-products/validation-status.md)
-6. [Experimental Design Status](./continuation/experimental-design-status.md)
+3. [DHS Empirical Stack](./data-products/products/dhs-overview.md)
+4. [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md)
+5. [Research Workflow and Validation](./continuation/experimental-infrastructure.md)
+6. [Validation Status](./data-products/validation-status.md)
+7. [Experimental Design Status](./continuation/experimental-design-status.md)
 
 For recovered/historical context:
 
@@ -250,5 +268,9 @@ Two rules should govern the active phase:
 and:
 
 > **A successful experiment run is not automatically a causal result.**
+
+For restricted surveys, add a third:
+
+> **Synthetic acceptance is not a substitute for protected real-source acceptance.**
 
 The purpose of the new architecture is to make each transition visible enough that collaborators can see exactly what evidence has been established and which scientific choices are still being made.
