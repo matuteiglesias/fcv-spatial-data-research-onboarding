@@ -14,13 +14,14 @@ This page answers:
 
 > **What empirical objects can I actually use today, and what do they mean?**
 
-The catalog deliberately separates three ideas:
+The catalog deliberately separates four ideas:
 
 - **implemented** — the producing code and contract shape exist;
-- **materialized / accepted** — a durable real source artifact has been run through that path and recorded;
+- **synthetically accepted** — the path is exercised on controlled fixtures;
+- **materialized / accepted on real source data** — a durable real source artifact has been run through that path and recorded;
 - **experiment-used** — a declared scientific experiment has consumed that current product.
 
-Those are different evidence levels. A product can be implemented without yet having a canonical real-data experiment run.
+Those are different evidence levels. A product can be implemented and synthetically accepted without yet having a canonical real-data experiment run.
 
 For authority rules, see [Current Empirical Data Authority](./current-data-authority.md). For experiment readiness, see [Experiment Surface Catalog](../experiments/experiment-surface-catalog.md) and [Validation Status](./validation-status.md).
 
@@ -32,7 +33,26 @@ For authority rules, see [Current Empirical Data Authority](./current-data-autho
 | [AidData GeoGCDF](./products/aiddata-geogcdf.md) | source project-geometry Silver; contracted area-period commitment measurement | shared point / areal geography relation; polygons may span units | verified structural zero only inside declared source/geography/time support and strict resolution conditions | implemented reference investment measurement; real current experiment not recorded |
 | [World Bank Projects API](./products/worldbank-projects.md) | one source project per exact WB `id` | no current source-native spatial exposure product asserted by this catalog | project-row absence has no no-project/control meaning | source-native Silver implemented; current WB-only contracted spatial experiment still needs a measurement path |
 | [AidData CLG-LMIC](./products/aiddata-clg-lmic.md) | relational source records plus child tables | no current source-native spatial exposure product asserted by this catalog | row absence has no no-project/control meaning | source-native Silver implemented; not itself a treatment surface |
-| [Survey-native substrate](./products/survey-substrate.md) | household / person / respondent / cluster / EA / other declared grain | candidate geography links with ambiguous/unmatched states | survey coverage is not coerced into area-period zero semantics | reusable substrate implemented; DHS/Afrobarometer ingestion not yet implemented |
+| [Survey-native substrate](./products/survey-substrate.md) | household / person / respondent / cluster / EA / other declared grain | explicit geography relations with ambiguous/unmatched states | survey coverage is not coerced into area-period zero semantics | reusable substrate implemented and now used by DHS verticals; Afrobarometer ingestion still absent |
+| [DHS Household Recode (HR)](./products/dhs-hr.md) | household within survey | cluster identity preserved; analytical geography is separate | source missingness remains missing; no implicit area-period coverage semantics | source-native Silver implemented and synthetically accepted; protected real-data acceptance and experiment use not recorded |
+| [DHS Geospatial Covariates (GC)](./products/dhs-gc.md) | `survey × cluster`; optional long `survey × cluster × source_variable` | cluster-associated measurement; no GID aggregation | cluster availability; absent/missing never zero; temporal meaning registry-driven | cluster covariate Silver implemented and hardened; current experiment use not recorded |
+| [DHS GE/GPS Geography](./products/dhs-gps.md) | supplied GPS cluster row + separate geography-membership relation | reported-coordinate membership with displacement/ambiguity metadata | coordinate/linkage states remain explicit; no true-location claim | cluster Silver + reported-coordinate geography implemented; current experiment use not recorded |
+
+## DHS is now a product family, not a future placeholder
+
+The [DHS Empirical Stack](./products/dhs-overview.md) now composes several source-specific products around one survey identity:
+
+```text
+SurveyCatalog
+├─ HR  → household Silver
+├─ GC  → cluster covariate Silver + temporal semantics
+└─ GPS → displaced reported-coordinate Silver
+         → reported-coordinate geography relation
+```
+
+This is an important change from the earlier state where only the generic survey substrate existed.
+
+It does **not** mean a DHS experiment is already executable end-to-end. The scientific-use layer still needs variable-role mapping, cross-grain linkage, exposure/timing rules, displacement-aware uncertainty policy, survey-design/weight choices, harness integration, and real protected-data acceptance.
 
 ## How to read a product card
 
@@ -73,10 +93,19 @@ This catalog does **not** list the following as empirical products:
 - causal exposure dates;
 - estimator-ready balanced panels;
 - pooled cross-source investment totals;
-- `jobs_any` or similar labels interpreted as treatment.
+- `jobs_any` or similar labels interpreted as treatment;
+- a household-level DHS table with GC/GPS values replicated by convenience;
+- a de-displaced DHS true-location table.
 
-Those are experiment-use or derived-annotation concepts and require their own declared provenance and scientific rules.
+Those are experiment-use, uncertainty-modeling, or derived-annotation concepts and require their own declared provenance and scientific rules.
 
 ## Next products expected
 
-The survey substrate is intentionally ready before the first real survey vertical. When real source-native ingestion is added, DHS and Afrobarometer should receive their own cards rather than being described as if the substrate itself were data.
+The most obvious survey-side extensions are now narrower and more concrete:
+
+- additional DHS recode families such as PR/IR/KR only when a named scientific question needs them;
+- a displacement-aware candidate-geography product if the experiment requires uncertainty beyond reported-coordinate membership;
+- Afrobarometer source-native respondent/EA verticals;
+- source-specific survey variable metadata/measurement products pulled by an explicit experiment.
+
+The product catalog should add those only when the producing architecture actually exists.
