@@ -18,7 +18,7 @@ The first has real-data E1/E2 calibration results. The second has stronger prove
 
 That distinction is intentional.
 
-For the system map, see [Research System Architecture](../research-system.md). For the operating model, see [Research Workflow and Validation](../continuation/experimental-infrastructure.md).
+For the system map, see [Research System Architecture](../research-system.md). For what empirical objects exist now, see the [Empirical Product Catalog](./product-catalog.md). For the human-facing research-question ledger, see the [Experiment Surface Catalog](../experiments/experiment-surface-catalog.md). For the operating model, see [Research Workflow and Validation](../continuation/experimental-infrastructure.md).
 
 ## Evidence vocabulary
 
@@ -152,15 +152,17 @@ Canonical real-data fully contracted investment → ACLED experiment:
 
 ### A6. Survey-native empirical substrate
 
-The current survey work is intended to support DHS household/person/cluster observations and Afrobarometer respondent/EA observations without forcing them into area-period panel semantics.
+The reusable survey-native substrate is now implemented to support DHS household/person/cluster observations and Afrobarometer respondent/EA observations without forcing them into area-period panel semantics.
 
-No real DHS/Afrobarometer ingestion belongs to this substrate PR.
+It preserves survey identity, multiple source files/snapshots, natural observation grain, design/weight metadata, source-native variable metadata, temporal semantics, and explicit geography-link states.
+
+No real DHS/Afrobarometer ingestion is included in that substrate implementation.
 
 Current status:
 
-**IN PROGRESS / BLOCKED FOR REAL EXPERIMENT USE**
+**IMPLEMENTED SUBSTRATE / BLOCKED FOR REAL EXPERIMENT USE**
 
-The experiment layer still needs real source-native survey materialization plus explicit exposure/timing/outcome design.
+The experiment layer still needs real source-native survey materialization plus explicit exposure/timing/outcome design before a survey-based real-data run is meaningful.
 
 ## Track B — Recovered/legacy-backed real-data calibration
 
@@ -259,8 +261,10 @@ Historical coefficient equality is not an acceptance criterion. Explained diverg
 | **Contracted investment → contracted ACLED** | Upstream verticals + generic harness boundary + downstream treatment derivation exist. | **NOT RUN on canonical real current artifacts** |
 | **GeoGCDF → ACLED** | Contracted GeoGCDF measurement path and contracted ACLED path exist. | **NOT RUN** as a declared real experiment |
 | **Jobs-related investment → ACLED** | Annotation protocol exists; source facts are intentionally separate from jobs treatment semantics. | **BLOCKED** pending validated annotation/use design and contracted experiment projection |
-| **Afrobarometer spatial experiment** | Survey-native substrate is being built; historical rounds/mappings exist in archive. | **BLOCKED** pending current source-native survey materialization and explicit exposure/outcome design |
-| **DHS-linked experiment** | Survey substrate is designed to preserve household/person/cluster grains. | **BLOCKED** pending real ingestion + scientific-use specification |
+| **Afrobarometer spatial experiment** | Survey-native substrate is implemented; historical rounds/mappings exist in archive. | **BLOCKED** pending current source-native survey materialization and explicit exposure/outcome design |
+| **DHS-linked experiment** | Survey-native substrate is implemented to preserve household/person/cluster grains. | **BLOCKED** pending real ingestion + scientific-use specification |
+
+The [Experiment Surface Catalog](../experiments/experiment-surface-catalog.md) expands these rows into named empirical prerequisites, experiment choices, blockers, and next evidence-producing actions.
 
 ## Core gate families
 
