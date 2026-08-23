@@ -1,77 +1,140 @@
 ---
 title: Continuation Work Index
 sidebar_position: 1
-description: Forward-looking research notes for the active FCV empirical phase.
+description: Current reading map for the active FCV empirical research phase.
 date: "2026-08-17"
+last_verified: "2026-08-23"
 ---
 
 # Continuation Work
 
-This section contains the forward-looking working layer for the FCV spatial-data research project.
+This section is the active working layer for the FCV research program.
 
-The archive-recovery work established what exists and how the main 2023 pipeline fits together. The current continuation phase uses that recovered foundation to define, test, and refine empirical experiments rather than jumping directly from old notebooks to new regression results.
+The archive-recovery phase established what existed and how the 2021–2023 work fit together. The current phase has moved further: the research now has reusable contract/spatial foundations, an FCV empirical-data domain, and an experiment harness that consumes contract-backed measurements.
 
-For the shortest summary of the project now, start with [Current Research Status](../current-status.md).
+For the shortest project summary, start with [Current Research Status](../current-status.md). For repository ownership and source-of-truth boundaries, use [Research System Architecture](../research-system.md).
 
 ## Current operating model
 
-The renewed empirical work separates three layers:
-
 ```text
-A — empirical infrastructure
-    data, projects, geography, timing, outcomes, provenance
-
-B — experiment specifications
-    treatment, counterfactual, timing, geography, outcome, estimator
-
-C — validation / calibration gates
-    integrity, support, balance, falsification, sensitivity, signal recovery
+empirical-data-contracts
++ spatial-data-foundation
+        ↓
+fcv-empirical-data
+    source-native facts / measurements
+        ↓
+validated empirical boundary
+        ↓
+fcv-experiment-harness
+    experiment projection
+    treatment/outcome/timing roles
+    gates / estimator / falsification
+        ↓
+human-facing status and interpretation here
 ```
 
-See [Experimental Infrastructure and Validation](./experimental-infrastructure.md) for the current implementation and interpretation rules.
+The compact rule is:
+
+> **Facts are produced upstream; scientific roles are assigned in experiments; readiness is summarized here.**
 
 ## Recommended reading order for active work
 
 1. [Current Research Status](../current-status.md)
-2. [Experimental Infrastructure and Validation](./experimental-infrastructure.md)
-3. [Experimental Design and Regression Pipeline](./experimental-design-regression-pipeline.md)
-4. [Annotation and Project Classification Protocol](./annotation-project-classification-protocol.md)
-5. [Source Data Inventory and Update Strategy](./source-data-inventory-update-strategy.md)
+2. [Research System Architecture](../research-system.md)
+3. [Current Empirical Data Authority](../data-products/current-data-authority.md)
+4. [Research Workflow and Validation](./experimental-infrastructure.md)
+5. [Experimental Design Status](./experimental-design-status.md)
+6. [Validation Status](../data-products/validation-status.md)
+7. [Source Data Implementation Status](./source-data-implementation-status.md)
+8. [Project Classification Status](./project-classification-status.md)
 
-The order is deliberately different from the June 2026 recovery sequence. The immediate bottleneck is now empirical feasibility: determining which candidate experiments the recovered data can actually support. Source updates and additional classification work should be pulled in where they resolve a concrete experimental limitation.
+Use the large historical/reference memos after these overlays when their detail is needed.
 
-## Relationship between the continuation documents
+## Current documents versus reference documents
 
-### Experimental Infrastructure and Validation
+### Current authority/status pages
 
-Defines the current operating layer around the research: explicit experiment specifications, validation gates, real-data calibration, and the separate [FCV Experiment Harness](https://github.com/matuteiglesias/fcv-experiment-harness).
+- **Research Workflow and Validation** — active measurement → experiment → gate operating model.
+- **Experimental Design Status** — current scientific-use boundary and design state.
+- **Source Data Implementation Status** — which June source recommendations are now implemented versus still candidates.
+- **Project Classification Status** — current boundary between derived annotation and experiment treatment.
+- **Validation Status** — current contract-backed evidence versus recovered real-data calibration evidence.
 
-### Experimental Design and Regression Pipeline
+### Reference / design-history pages
 
-Contains the detailed reconstruction of the investment-project empirical design, including area-period units, source-family treatments, jobs-related treatments, matching variants, time windows, geography, outcomes, and unresolved identification choices.
+- [Experimental Design and Regression Pipeline](./experimental-design-regression-pipeline.md) — detailed recovered design genealogy, matching/regression architecture, candidate estimators, and historical treatment definitions.
+- [Annotation and Project Classification Protocol](./annotation-project-classification-protocol.md) — detailed recovered jobs/local-implementation coding manual.
+- [Source Data Inventory and Update Strategy](./source-data-inventory-update-strategy.md) — June 2026 source landscape and recommendations.
+- [Dataset Inventory](../data-products/dataset-inventory.md) — recovered `2023_Duke` / `spatial_data` artifact inventory.
 
-This is still valuable recovered design documentation, but it should not be read as saying that one matching/regression specification is already canonical.
+These reference pages remain useful; they are no longer the first place to infer current technical authority.
 
-### Annotation and Project Classification Protocol
+## Current implementation state
 
-Defines the project-level labels needed for jobs-related and local-implementation treatment families. Annotation remains upstream of those experiments but does not block calibration of the existing World Bank/China source-family treatments.
+The active architecture now includes:
 
-### Source Data Inventory and Update Strategy
+- released reusable empirical contracts;
+- reusable shared geography and period infrastructure;
+- an FCV empirical-data kernel with source-native materialization/provenance rules;
+- AidData CLG-LMIC and World Bank Projects API investment Silver paths;
+- a contract-backed GeoGCDF spatial investment path;
+- a source-native and contract-backed ACLED violence path;
+- a merged survey-native substrate for future DHS/Afrobarometer verticals;
+- a harness-side validated empirical input seam;
+- explicit experiment measurement projection;
+- downstream treatment derivation over contracted investment measurements;
+- existing gate, calibration, placebo, and signal-recovery machinery.
 
-Documents possible updates to World Bank, China/AidData, and other development-finance sources. It should guide source expansion when current coverage or project timing becomes a binding empirical limitation.
+This is materially beyond the earlier phase where the immediate task was simply to connect the harness to recovered `GID × TimePeriod` files.
 
-## Before running analysis
+## Evidence tracks
 
-Keep the following archive-reference pages available:
+Keep two histories separate.
 
-- [Dataset Inventory](../data-products/dataset-inventory.md)
+### Current contract-backed architecture
+
+The architecture and its synthetic/adversarial acceptance are implemented. A canonical real-data experiment run over the current materialized source-native artifacts should be recorded explicitly when executed.
+
+### Recovered real-data calibration
+
+The reconstructed panel already produced real E1/E2 calibration evidence. Those results remain useful, but they are historical/reconstruction-backed evidence rather than outputs of the new fully contracted upstream stack.
+
+See [Validation Status](../data-products/validation-status.md) for the exact distinction.
+
+## How source and classification work should now be pulled
+
+Source expansion and project classification should not grow merely because more data or labels could be collected.
+
+Pull them when they resolve a named experimental limitation, for example:
+
+- missing post-2014 World Bank subnational location evidence;
+- a jobs-related experiment that requires stable project-level annotation;
+- a DHS/Afrobarometer experiment that requires a source-native survey measurement vertical;
+- a source-comparison design that requires another donor family;
+- a parity question that requires recovered archive evidence.
+
+This keeps source/annotation work connected to scientific use without allowing experiment assumptions to leak upstream.
+
+## Before interpreting an estimate
+
+Check:
+
+- [Validation Status](../data-products/validation-status.md);
+- the exact empirical `DatasetRef` / measurement / coverage lineage used by the experiment;
+- projection reports and experiment eligibility/support evidence;
+- whether the result belongs to the current contracted path or the recovered calibration path;
+- placebo/falsification and signal-recovery evidence where applicable.
+
+A successful software run or a green materialization is not automatically a research result.
+
+## Archive references
+
+Keep the following available when historical implementation detail is needed:
+
+- [Recovered Dataset Inventory](../data-products/dataset-inventory.md)
 - [2023 Duke Overview](../main-pipeline/duke-overview.md)
-- [Validation Status](../data-products/validation-status.md)
 - [Notebook Guide](../notebooks/notebook-guide.md)
 - [Archive Map](../archive-map.md)
+- [Historical Recovery Plan](../recovery-plan.md)
 
-The [Recovery Plan](../recovery-plan.md) remains useful for understanding how the archive was reconstructed. Current empirical priorities should be taken from this continuation section and the current-status page.
-
-## Immediate continuation task
-
-The first active task is to connect the experimental harness to the recovered `GID × TimePeriod` analysis surfaces, run the initial ACLED calibration lanes, and use the resulting diagnostics to decide which treatment, geography, timing, and counterfactual definitions merit deeper work.
+The archive is now research memory and parity/reconstruction evidence, not the default source of current authority.

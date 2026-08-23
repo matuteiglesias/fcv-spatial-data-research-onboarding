@@ -1,8 +1,9 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 // Explicit sidebar for the FCV spatial-data research documentation.
-// The visible navigation is intentionally smaller than the archive: historical and
-// placeholder pages remain available by URL without receiving first-class prominence.
+// Current authority/status overlays receive first-class prominence; detailed recovered
+// and strategy/design-history pages remain available as reference without being mistaken
+// for the current technical source of truth.
 
 const sidebars: SidebarsConfig = {
   tutorialSidebar: [
@@ -41,13 +42,30 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
-          id: 'continuation/experimental-design-regression-pipeline',
-          label: 'Experimental Designs',
+          id: 'continuation/experimental-design-status',
+          label: 'Experimental Design Status',
         },
         {
           type: 'doc',
-          id: 'continuation/annotation-project-classification-protocol',
-          label: 'Project Classification Protocol',
+          id: 'continuation/project-classification-status',
+          label: 'Project Classification Status',
+        },
+        {
+          type: 'category',
+          label: 'Design & Coding Reference',
+          collapsed: true,
+          items: [
+            {
+              type: 'doc',
+              id: 'continuation/experimental-design-regression-pipeline',
+              label: 'Detailed Design & Regression Memo',
+            },
+            {
+              type: 'doc',
+              id: 'continuation/annotation-project-classification-protocol',
+              label: 'Detailed Classification Protocol',
+            },
+          ],
         },
       ],
     },
@@ -59,8 +77,8 @@ const sidebars: SidebarsConfig = {
       items: [
         {
           type: 'doc',
-          id: 'data-products/dataset-inventory',
-          label: 'Dataset Inventory',
+          id: 'data-products/current-data-authority',
+          label: 'Current Data Authority',
         },
         {
           type: 'doc',
@@ -69,8 +87,25 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
-          id: 'continuation/source-data-inventory-update-strategy',
-          label: 'Source Data & Update Strategy',
+          id: 'continuation/source-data-implementation-status',
+          label: 'Source Implementation Status',
+        },
+        {
+          type: 'category',
+          label: 'Recovered / Strategy Reference',
+          collapsed: true,
+          items: [
+            {
+              type: 'doc',
+              id: 'data-products/dataset-inventory',
+              label: 'Recovered Dataset Inventory',
+            },
+            {
+              type: 'doc',
+              id: 'continuation/source-data-inventory-update-strategy',
+              label: 'June 2026 Source Strategy',
+            },
+          ],
         },
       ],
     },
