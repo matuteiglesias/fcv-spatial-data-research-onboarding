@@ -19,6 +19,11 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
+          id: 'collaboration/eric-scientific-brief',
+          label: 'Scientific Reconstruction Brief',
+        },
+        {
+          type: 'doc',
           id: 'research-system',
           label: 'Research System Architecture',
         },
