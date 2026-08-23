@@ -25,8 +25,9 @@ For empirical availability, start with the [Empirical Product Catalog](../data-p
 | **REAL CALIBRATION COMPLETED — RECOVERED LANE** | A real-data run exists on the reconstructed historical empirical system. It is evidence, but not proof that the current contract-backed path has been run. |
 | **IMPLEMENTED — REAL RUN PENDING** | The current contract-backed empirical and harness capabilities needed for the surface exist, but a canonical real durable-artifact run has not yet been recorded. |
 | **PARTIAL — MISSING EMPIRICAL MEASUREMENT** | Source facts exist, but a required geography/time measurement or linkage is not yet available in the current architecture. |
+| **PARTIAL — EMPIRICAL STACK IMPLEMENTED / SCIENTIFIC USE NEEDED** | Source-native empirical verticals now exist, but the experiment still needs variable-role mapping, cross-grain linkage, exposure/timing rules, uncertainty policy, harness integration, or real-data acceptance. |
 | **BLOCKED — SCIENTIFIC / ANNOTATION INPUT NEEDED** | The architecture can support the design, but a named scientific definition or validated derived empirical object is still missing. |
-| **BLOCKED — SOURCE INGESTION NEEDED** | The reusable substrate exists, but the real source-native survey/data vertical has not yet been built. |
+| **BLOCKED — SOURCE INGESTION NEEDED** | The reusable substrate exists, but the source-native survey/data vertical has not yet been built. |
 
 ## At a glance
 
@@ -36,8 +37,8 @@ For empirical availability, start with the [Empirical Product Catalog](../data-p
 | **World Bank projects → ACLED violence** | WB source-native project Silver exists; current spatial measurement not yet asserted | contracted ACLED exists | **PARTIAL — MISSING EMPIRICAL MEASUREMENT** |
 | **Pooled China + World Bank → ACLED violence** | source families exist independently; no canonical pooled upstream product | contracted ACLED exists | **BLOCKED / DESIGN + WB MEASUREMENT NEEDED** |
 | **Jobs-related investment → ACLED violence** | annotation review infrastructure exists; validated jobs-use measurement not yet established | contracted ACLED exists | **BLOCKED — SCIENTIFIC / ANNOTATION INPUT NEEDED** |
-| **Afrobarometer respondent/EA design** | survey substrate exists; real source-native ingestion absent | outcome/exposure depends on named design | **BLOCKED — SOURCE INGESTION NEEDED** |
-| **DHS household/person/cluster design** | survey substrate exists; real source-native ingestion absent | outcome/exposure depends on named design | **BLOCKED — SOURCE INGESTION NEEDED** |
+| **Afrobarometer respondent/EA design** | survey substrate exists; source-native ingestion absent | outcome/exposure depends on named design | **BLOCKED — SOURCE INGESTION NEEDED** |
+| **DHS household/cluster design** | HR household Silver + GC cluster covariates + GE/GPS reported-coordinate geography are implemented | scientific outcome/exposure mapping and harness-side use not yet defined | **PARTIAL — EMPIRICAL STACK IMPLEMENTED / SCIENTIFIC USE NEEDED** |
 | **Recovered WB → ACLED calibration** | recovered WBad/WBkg area-period surfaces | recovered ACLED analysis surface | **REAL CALIBRATION COMPLETED — RECOVERED LANE** |
 
 ---
@@ -205,7 +206,7 @@ The [Survey-Native Substrate](../data-products/products/survey-substrate.md) can
 
 ### Missing pieces
 
-- real source-native Afrobarometer ingestion;
+- source-native Afrobarometer ingestion;
 - current survey variable metadata/codebook mapping;
 - explicit geography-link materialization;
 - a named exposure and timing design;
@@ -216,28 +217,92 @@ The design should **not** begin by forcing respondents into the recovered GID ×
 
 ---
 
-## Surface 6 — DHS household / person / cluster design
+## Surface 6 — DHS household / cluster design
 
-**Status: BLOCKED — SOURCE INGESTION NEEDED**
+**Status: PARTIAL — EMPIRICAL STACK IMPLEMENTED / SCIENTIFIC USE NEEDED**
 
 ### Research question shape
 
-Can DHS household/person outcomes be related to a declared spatial exposure while respecting cluster geography, survey timing, displacement/precision limitations, and sampling design?
+Can DHS household outcomes be related to a declared spatial exposure while respecting cluster geography, survey timing, displacement uncertainty, cluster covariates, and sampling design?
 
-### Current capability
+### What exists now
 
-The survey substrate can preserve household/person/cluster grains independently, link several source files to one survey identity, record source weights and normalized-weight methods, retain explicit variable timing semantics, and represent uncertain geography.
+The current [DHS Empirical Stack](../data-products/products/dhs-overview.md) is no longer just a generic substrate. Three source-specific verticals are implemented:
 
-### Missing pieces
+**[DHS Household Recode (HR)](../data-products/products/dhs-hr.md)**
 
-- real DHS ingestion;
-- file/recode mappings for the chosen survey/release;
-- cluster/geography materialization;
-- source-specific displacement/precision interpretation;
-- named exposure and outcome design;
-- downstream weighted estimator and uncertainty strategy.
+- household-within-survey Silver;
+- source household/cluster/PSU/stratum identity;
+- source household weight preserved unchanged;
+- all source-native variables retained;
+- protected source bytes remain external.
 
-No DHS scientific variable is assigned outcome/treatment/covariate meaning upstream.
+**[DHS Geospatial Covariates (GC)](../data-products/products/dhs-gc.md)**
+
+- cluster-level covariate Silver;
+- optional long `survey × cluster × source_variable` view;
+- explicit static/annual/epoch/climatology/survey-time/retrospective/unknown temporal semantics;
+- cluster availability and missingness remain explicit;
+- no GID aggregation or fake area-period panel.
+
+**[DHS GE/GPS Geography](../data-products/products/dhs-gps.md)**
+
+- source-native cluster-coordinate Silver;
+- survey/GPS identity audit;
+- `reported_coordinate_membership` through shared analytical geography;
+- displacement policy and uncertainty metadata;
+- ambiguous/outside/invalid states retained;
+- no de-displacement or true-location claim.
+
+This moves the DHS frontier materially downstream: the primary blocker is no longer “build DHS ingestion.”
+
+### What still blocks an experiment
+
+A current scientific DHS surface still needs explicit choices and integration for:
+
+1. **Survey/recode scope.** HR is implemented; person-level PR/IR/KR or other recodes must be added only if the question needs them.
+2. **Outcome/variable mapping.** No `HV*` or GC field is intrinsically an outcome, treatment, or control.
+3. **Cross-grain linkage.** Household rows must link to cluster-level GC/GPS through verified cluster identity without flattening the empirical layer by convenience.
+4. **Exposure measurement.** The investment/conflict/environmental exposure must be named and linked explicitly.
+5. **Spatial uncertainty.** `reported_coordinate_membership` is about the displaced public point, not the exact true cluster location. Radius/nearest-project designs need a displacement-aware sensitivity or uncertainty rule.
+6. **Timing.** Survey fieldwork timing, GC temporal semantics, and treatment/exposure timing must be reconciled in the experiment specification.
+7. **Survey design.** Source weights/PSU/strata are preserved, but the analysis weight and variance-estimation strategy remain downstream choices.
+8. **Harness support.** The current panel harness seam must be extended or complemented explicitly for household/cluster cross-grain survey use rather than forcing DHS into GID × period.
+9. **Protected real-data acceptance.** GitHub synthetic acceptance does not substitute for a local protected-source run summarized through non-sensitive QA, counts, hashes, and linkage diagnostics.
+
+### A plausible first forward-looking DHS experiment path
+
+A minimal scientifically honest path could look like:
+
+```text
+verified DHS survey
+   │
+   ├─ HR household Silver
+   │      ↓
+   │  choose outcome variable downstream
+   │
+   ├─ GC cluster Silver
+   │      ↓
+   │  choose named controls/moderators downstream
+   │
+   └─ GPS cluster Silver
+          ↓
+      reported-coordinate geography
+          ↓
+      displacement-aware exposure linkage
+          ↓
+      household ↔ cluster projection
+          ↓
+      survey-design-aware gates / estimator
+```
+
+The exact exposure and outcome are still scientific choices. The architecture should support several such designs without rebuilding the source facts.
+
+### Next evidence-producing action
+
+Pick one named DHS survey/release and one concrete scientific question, run the HR/GC/GPS verticals on the protected source files locally, record non-sensitive lineage/QA/linkage evidence, then implement the smallest harness-side cross-grain projection needed for that design.
+
+That would change the DHS status from “empirical stack implemented” to a genuinely testable current experiment surface.
 
 ---
 
