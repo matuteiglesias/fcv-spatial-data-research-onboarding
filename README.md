@@ -1,54 +1,101 @@
 # FCV Spatial Data Research Onboarding
 
-Documentation and onboarding layer for the recovered FCV research archive **and the active continuation of the empirical research**.
+Human-facing documentation and collaboration layer for the FCV spatial-data research program.
 
-The site connects three things:
-
-- the recovered 2021–2023 research memory: spatial data, surveys, conflict, service delivery, development projects, notebooks, and empirical outputs;
-- the current empirical-design layer: treatment definitions, timing, geography, counterfactuals, outcomes, estimator families, and falsification logic;
-- the validation layer used to distinguish available data from experiment surfaces that are actually ready to investigate.
+This repository is **not** the empirical-data implementation and it is **not** the experiment engine. Its job is to help collaborators understand the research system, its current status, its scientific boundaries, the evidence behind readiness claims, and the recovered 2021–2023 research memory.
 
 The public site is deployed at:
 
 - https://fcv-spatial-data-research-onboardin.vercel.app/
 
+## Current research system
+
+The implementation is now split deliberately across four technical repositories.
+
+### Reusable foundations — not FCV-specific
+
+- [`empirical-data-contracts`](https://github.com/matuteiglesias/empirical-data-contracts) — typed contracts for empirical identity, provenance, grain, geography/time, coverage, measurement, QA, and run manifests.
+- [`spatial-data-foundation`](https://github.com/matuteiglesias/spatial-data-foundation) — reusable geography authority, period indexing, analytical spatial membership, source registration, and spatial provenance.
+
+### FCV-owned layers
+
+- [`fcv-empirical-data`](https://github.com/matuteiglesias/fcv-empirical-data) — source-native empirical facts and measurements, natural grains, source snapshots, durable materialization, QA, coverage, and parity. It deliberately does **not** own treatment/control/outcome roles or estimators.
+- [`fcv-experiment-harness`](https://github.com/matuteiglesias/fcv-experiment-harness) — scientific use of those empirical measurements: experiment projection, treatment derivation, timing, eligibility, counterfactuals, gates, estimators, falsification, and calibration.
+
+This onboarding site sits above those layers as the human communication surface.
+
+The compact rule is:
+
+> **Facts are produced upstream; scientific roles are assigned in experiments; readiness is summarized here.**
+
+See `docs/research-system.md` for the full ownership map.
+
 ## Main current pages
 
-- `docs/current-status.md` — current research state, immediate empirical entry point, and open decisions.
-- `docs/continuation/experimental-infrastructure.md` — A/B/C operating model for data infrastructure, experiment specifications, and validation gates.
-- `docs/continuation/experimental-design-regression-pipeline.md` — recovered design plus current experiment and estimator architecture.
-- `docs/data-products/validation-status.md` — human-facing empirical readiness gateboard.
-- `docs/continuation/annotation-project-classification-protocol.md` — project-level treatment classification rules and open coding work.
-- `docs/continuation/source-data-inventory-update-strategy.md` — source-version and update strategy.
+- `docs/current-status.md` — what is implemented now, what is in progress, and the next research bottlenecks.
+- `docs/research-system.md` — repository boundaries, sources of truth, and the path from source facts to experiments.
+- `docs/continuation/experimental-infrastructure.md` — collaborator-facing research workflow from empirical measurement through experiment validation.
+- `docs/continuation/experimental-design-regression-pipeline.md` — scientific design memo and recovered design lineage.
+- `docs/data-products/validation-status.md` — readiness/evidence board that distinguishes recovered real-data checkpoints from the newer contract-backed architecture.
+- `docs/continuation/annotation-project-classification-protocol.md` — project classification research and open coding work.
+- `docs/continuation/source-data-inventory-update-strategy.md` — source landscape and update strategy.
 
 ## Recovered archive pages
 
+The recovered archive remains part of the project's research memory, but it is no longer the sole or automatic source of current canonical empirical products.
+
 - `docs/archive-map.md` — top-level map of the recovered archive.
 - `docs/main-pipeline/2023-duke-overview.md` — main recovered 2023 pipeline.
-- `docs/data-products/spatial-data-overview.md` — reusable spatial products.
-- `docs/data-products/dataset-inventory.md` — major dataset families.
+- `docs/data-products/spatial-data-overview.md` — reusable historical spatial products.
+- `docs/data-products/dataset-inventory.md` — detailed recovered dataset inventory.
 - `docs/notebooks/notebook-guide.md` — notebook and export reading guide.
 - `docs/recovery-plan.md` — historical recovery plan retained for provenance and continuity.
 
-The visible sidebar intentionally gives less prominence to thin placeholder pages and individual legacy notes. Those files remain available by URL when historical detail is needed.
+Historical notebooks and outputs remain useful for reconstruction, parity, and scientific context. They should not be promoted to current authority merely because they existed first.
 
-## Companion experiment repository
+## Documentation ownership policy
 
-The active empirical infrastructure is implemented separately in:
+This repository should own:
 
-- https://github.com/matuteiglesias/fcv-experiment-harness
+- collaborator orientation;
+- the current system map;
+- research status and open decisions;
+- scientific framing and experiment families;
+- validation/readiness summaries;
+- archive memory and recovered design history;
+- links to authoritative technical repositories.
 
-That repository provides the first executable experiment and validation harness for recovered FCV area-period data and project-location designs. This documentation site explains the scientific context, experiment surfaces, and readiness status; it does not duplicate generated harness outputs.
+The technical repositories should own:
+
+- schemas and public APIs;
+- source-specific transformations;
+- materialization semantics;
+- detailed run-artifact formats;
+- executable commands;
+- tests and CI behavior.
+
+The onboarding site should summarize those implementation facts when they matter scientifically, then link to the authoritative source rather than duplicating fast-moving technical documentation.
+
+## Evidence language
+
+When communicating progress, distinguish between:
+
+1. software/synthetic acceptance;
+2. source-backed empirical materialization and QA;
+3. experiment gate evidence on real data;
+4. estimator/research results.
+
+A successful pipeline or CI run is not automatically a substantive research result, and a green gate is permission to investigate further rather than proof of causal identification.
 
 ## Project structure
 
 ```text
-docs/                 Research documentation and archive memory
+docs/                 Research documentation, system map, status, and archive memory
 src/pages/            Site landing page
 src/css/custom.css    Global theme customizations
 static/img/           Logo, favicon, and static images
 docusaurus.config.ts  Site configuration
-sidebars.ts           Curated manual navigation
+sidebars.ts           Curated navigation
 ```
 
 ## Install
@@ -75,10 +122,8 @@ npm run build
 npm run serve
 ```
 
-## Documentation policy
+## Maintenance rule
 
-The original archive structure should be preserved. This site provides a clean navigation and interpretation layer around it.
+Update this site when a technical change alters the collaborator-facing architecture, research status, evidence state, or scientific boundary.
 
-Current research code, validated outputs, and future cleaned data should be treated as derived layers rather than destructive rewrites of the recovered folders. Historical notebooks and matching/regression outputs remain useful evidence about what was done, but they are not automatically canonical for the renewed empirical work.
-
-The intended reading rule is simple: **current status and validation first; recovered implementation detail when needed.**
+Do not mirror every code-level change here. Preserve genuine historical pages as historical evidence, and keep current-status pages explicitly current.
