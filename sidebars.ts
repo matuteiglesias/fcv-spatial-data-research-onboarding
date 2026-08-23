@@ -47,18 +47,23 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
-          id: 'continuation/annotation-project-classification-protocol',
-          label: 'Project Classification Protocol',
+          id: 'continuation/project-classification-status',
+          label: 'Project Classification Status',
         },
         {
           type: 'category',
-          label: 'Design Reference',
+          label: 'Design & Coding Reference',
           collapsed: true,
           items: [
             {
               type: 'doc',
               id: 'continuation/experimental-design-regression-pipeline',
               label: 'Detailed Design & Regression Memo',
+            },
+            {
+              type: 'doc',
+              id: 'continuation/annotation-project-classification-protocol',
+              label: 'Detailed Classification Protocol',
             },
           ],
         },
