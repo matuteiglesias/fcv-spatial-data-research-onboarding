@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'FCV Spatial Data Research',
-  tagline: 'Recovered data infrastructure, active empirical design, and research continuity',
+  tagline: 'Source-native empirical data, explicit experiments, and research continuity',
   favicon: 'img/favicon.ico',
 
   future: {
@@ -66,6 +66,11 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: '/docs/research-system',
+          label: 'System Map',
+          position: 'left',
+        },
+        {
           to: '/docs/continuation/experimental-design-regression-pipeline',
           label: 'Experiments',
           position: 'left',
@@ -88,7 +93,11 @@ const config: Config = {
               to: '/docs/current-status',
             },
             {
-              label: 'Experimental Infrastructure',
+              label: 'Research System Architecture',
+              to: '/docs/research-system',
+            },
+            {
+              label: 'Research Workflow & Validation',
               to: '/docs/continuation/experimental-infrastructure',
             },
             {
@@ -123,15 +132,27 @@ const config: Config = {
           ],
         },
         {
-          title: 'Code',
+          title: 'Research repositories',
           items: [
             {
-              label: 'Documentation Repository',
+              label: 'Onboarding / Research Manual',
               href: 'https://github.com/matuteiglesias/fcv-spatial-data-research-onboarding',
             },
             {
-              label: 'Experiment Harness',
+              label: 'FCV Empirical Data',
+              href: 'https://github.com/matuteiglesias/fcv-empirical-data',
+            },
+            {
+              label: 'FCV Experiment Harness',
               href: 'https://github.com/matuteiglesias/fcv-experiment-harness',
+            },
+            {
+              label: 'Empirical Data Contracts',
+              href: 'https://github.com/matuteiglesias/empirical-data-contracts',
+            },
+            {
+              label: 'Spatial Data Foundation',
+              href: 'https://github.com/matuteiglesias/spatial-data-foundation',
             },
           ],
         },

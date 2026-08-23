@@ -18,6 +18,11 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
+          id: 'research-system',
+          label: 'Research System Architecture',
+        },
+        {
+          type: 'doc',
           id: 'archive-map',
           label: 'Archive Map',
         },
@@ -32,7 +37,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'doc',
           id: 'continuation/experimental-infrastructure',
-          label: 'Experimental Infrastructure & Validation',
+          label: 'Research Workflow & Validation',
         },
         {
           type: 'doc',

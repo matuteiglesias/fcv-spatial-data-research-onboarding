@@ -1,196 +1,301 @@
 ---
 title: Validation Status
 sidebar_position: 3
-description: Empirical readiness gateboard for active FCV experiment surfaces and their validation state.
-date: "2026-08-17"
+description: Human-facing evidence and readiness board for FCV empirical measurements and experiment surfaces.
+date: "2026-08-23"
 ---
 
 # Validation Status
 
-This page is the human-facing readiness board for active FCV empirical work.
+This page is the human-facing readiness and evidence ledger for active FCV empirical work.
 
-It does **not** report final research results. It records whether a candidate experiment has enough validated data, timing, support, outcome coverage, falsification behavior, and statistical sensitivity to justify deeper analysis.
+The most important update is that the project now has **two different evidence tracks** that must not be conflated:
 
-For the current operating model, see [Experimental Infrastructure and Validation](../continuation/experimental-infrastructure.md). For the overall project state, see [Current Research Status](../current-status.md).
+1. **recovered/legacy-backed real-data calibration evidence** from the reconstructed area-period system; and
+2. **current contract-backed architecture evidence** from the newer source-native empirical stack and harness boundary.
 
-## What this page tracks
+The first has real-data E1/E2 calibration results. The second has stronger provenance and scientific boundaries but has not yet been promoted here as a completed canonical real-data experiment run over the current upstream artifacts.
 
-Three things should remain separate:
+That distinction is intentional.
 
-1. **Available data** — a recovered dataset or data family exists and can be inspected.
-2. **Defined experiment** — treatment, timing, geography, outcome, comparison group, and analysis unit are explicit enough to run.
-3. **Validated run** — the specific experiment has actually passed or failed empirical gates on the recovered FCV data.
+For the system map, see [Research System Architecture](../research-system.md). For the operating model, see [Research Workflow and Validation](../continuation/experimental-infrastructure.md).
 
-A dataset can exist without supporting a credible experiment. An experiment can be defined without yet having been run. A successful software or synthetic-data test is not evidence that the corresponding real FCV experiment is valid.
+## Evidence vocabulary
 
-## How to interpret statuses
+Four kinds of evidence should remain separate.
+
+| Evidence | What it establishes | What it does not establish |
+|---|---|---|
+| **Software / synthetic acceptance** | Code and scientific-boundary logic behave as declared on controlled fixtures. | Real FCV data quality or a substantive research effect. |
+| **Empirical materialization / QA** | A source-backed measurement exists with declared provenance, hashes, coverage, and QA. | That the measurement is the right treatment/outcome for a particular experiment. |
+| **Experiment gate run** | A declared design has measurable support, coverage, timing, and diagnostics on real data. | Automatic causal identification. |
+| **Estimator / calibration result** | A declared estimator produced an estimate for that gated experiment. | Robust causal truth or policy relevance. |
+
+A successful CI run is therefore not equivalent to a successful real-data experiment.
+
+## Status vocabulary
 
 | Status | Meaning |
 |---|---|
-| **GREEN** | The named gate passed for the specific real-data experiment and current specification. This is permission to investigate further, **not causal validation**. |
-| **YELLOW** | The experiment is measurable but the gate reveals a material caveat, weak margin, or unresolved sensitivity that should remain visible. |
-| **RED** | The current experiment failed a gate. Repair the data/design or choose another specification before interpreting downstream estimates. |
-| **NOT RUN** | The data/design surface exists or is sufficiently defined to test, but the real-data gate sequence has not yet been executed. |
-| **BLOCKED** | A required upstream object or scientific definition is not stable enough for a meaningful run. |
+| **GREEN** | The named real-data gate passed for the stated experiment/specification. Permission to investigate further, **not causal validation**. |
+| **YELLOW** | The gate or experiment is usable enough to inspect but a material caveat, weak margin, or unresolved sensitivity remains. |
+| **RED** | The current experiment failed a required gate and should not be interpreted downstream until repaired or changed. |
+| **NOT RUN** | The relevant real-data gate sequence has not yet been executed under the stated architecture. |
+| **BLOCKED** | A required empirical object or scientific definition is not stable enough for a meaningful run. |
+| **SYNTHETIC PASS** | The implementation path passes controlled synthetic acceptance; this is not a real-data readiness status. |
 
 > **Green means permission to investigate further, not causal validation.**
 
-The objective of the gate system is not to make every cell green. A red or yellow result can be scientifically useful if it reveals where the measurement apparatus is weak.
+## Track A — Current contract-backed architecture
+
+This is the architecture that should become the forward-looking canonical path.
+
+### A1. Shared contract and spatial foundations
+
+Current state:
+
+- `empirical-data-contracts` is an independently consumable shared package;
+- `spatial-data-foundation` provides the reusable geography/time/spatial-membership layer;
+- FCV repositories consume those rather than maintaining parallel contract or geography engines.
+
+Status:
+
+**INFRASTRUCTURE AVAILABLE**
+
+This is a system capability, not an experiment gate.
+
+### A2. FCV empirical-data kernel
+
+`fcv-empirical-data` now has a contract-backed materialization kernel with source snapshots, output hashes, QA, failure visibility, natural-grain support, and parity evidence.
+
+Status:
+
+**SYNTHETIC PASS / IMPLEMENTED**
+
+No claim is made here that every source vertical has completed real-data acceptance or earned research-validated authority.
+
+### A3. ACLED source-native measurement path
+
+Implemented path:
+
+```text
+ACLED snapshot
+→ source-native Silver events
+→ shared geography membership
+→ shared period membership
+→ sparse area × period × native-event measurement
+→ MeasurementContract / CoverageContract / RunManifest
+```
+
+Important acceptance behavior includes:
+
+- retention of all supplied source rows in Silver;
+- retention of zero-fatality events;
+- no default `GEO_PRECISION == 1` Silver filter;
+- explicit boundary/overlap/missing-coordinate states;
+- no ambiguous-event duplication into Gold;
+- shared period semantics;
+- unknown sparse absence remaining unknown unless coverage explicitly licenses zero.
+
+Current human-facing status:
+
+**SYNTHETIC PASS; REAL CONTRACTED ACCEPTANCE NOT YET RECORDED HERE**
+
+### A4. Contracted ACLED → harness experiment projection
+
+The harness now validates contract-backed empirical bundles and projects ACLED measurements into scientific roles explicitly.
+
+For the current reference path, the harness can select:
+
+```text
+native_event_type = Violence against civilians
+value = fatalities
+role = outcome / pre-outcome
+timing = +1 / -1 shared periods
+```
+
+The projection preserves `observed`, `structural_zero`, `outside_coverage`, and `unresolved` states.
+
+Current status:
+
+**SYNTHETIC PASS**
+
+Real current-artifact E1/E2 run:
+
+**NOT RUN / NOT YET RECORDED AS CANONICAL**
+
+### A5. Contracted investment measurement → treatment derivation
+
+The empirical repository now contains source-native investment verticals including AidData CLG-LMIC, World Bank Projects API, and GeoGCDF.
+
+The harness now has a fully contracted panel path where treatment can be derived **downstream** from a projected empirical measurement using an explicit experiment rule and eligibility window.
+
+This is the desired boundary:
+
+```text
+empirical investment measurement
+        ↓
+experiment projection
+        ↓
+explicit treatment derivation rule
+        ↓
+treated / control / unavailable
+```
+
+Current status:
+
+**SYNTHETIC PASS / IMPLEMENTED**
+
+Canonical real-data fully contracted investment → ACLED experiment:
+
+**NOT RUN**
+
+### A6. Survey-native empirical substrate
+
+The current survey work is intended to support DHS household/person/cluster observations and Afrobarometer respondent/EA observations without forcing them into area-period panel semantics.
+
+No real DHS/Afrobarometer ingestion belongs to this substrate PR.
+
+Current status:
+
+**IN PROGRESS / BLOCKED FOR REAL EXPERIMENT USE**
+
+The experiment layer still needs real source-native survey materialization plus explicit exposure/timing/outcome design.
+
+## Track B — Recovered/legacy-backed real-data calibration
+
+Before the new upstream architecture was complete, the recovered 2023 area-period surfaces were converted into a more explicit canonical analysis checkpoint and taken through E1/E2 real-data calibration.
+
+This evidence remains useful. It should be labeled correctly rather than discarded or silently promoted to the new architecture.
+
+### What that checkpoint established
+
+The recovered lane made several previously hidden choices explicit:
+
+- the current analysis universe was declared rather than inferred from a union of sources;
+- ACLED sparse-row interpretation was made explicit for the recovered aggregate surface;
+- treatment `record_present` and `amount_positive` semantics were separated;
+- WBad and WBkg source implementations remained distinct;
+- treatment/control support was measured by period;
+- outcome sparsity, pretreatment balance/placebo behavior, and synthetic signal recovery were gated before interpreting coefficients.
+
+### Real E2 calibration matrix
+
+The predeclared matrix was:
+
+| Treatment source/definition | Role in calibration | Real-data hard-gate result |
+|---|---|---|
+| WBad `record_present` | PRIMARY | hard gates passed |
+| WBkg `record_present` | PRIMARY | hard gates passed |
+| WBad `amount_positive` | STRESS | hard gates passed with a **YELLOW within-period support caveat** because 2013–2014 had zero treated WBad units |
+| WBkg `amount_positive` | STRESS | hard gates passed |
+
+Common model sample reported by that checkpoint:
+
+```text
+24,852 area-periods
+4,142 GIDs
+```
+
+Synthetic recovery of the predeclared 0.20-SD injected signal was reported as `30/30` in every cell.
+
+### Calibration estimates
+
+The recovered real-data calibration reported:
+
+| Cell | Effect | SE | Effect SD | Approx. MDE80 SD |
+|---|---:|---:|---:|---:|
+| WBad `record_present` | +0.3180 | 0.2474 | +0.0178 | 0.0387 |
+| WBkg `record_present` | -0.0744 | 0.2390 | -0.0042 | 0.0374 |
+| WBad `amount_positive` | +0.1591 | 0.2250 | +0.0089 | 0.0352 |
+| WBkg `amount_positive` | +0.0665 | 0.2506 | +0.0037 | 0.0392 |
+
+All four reported 95% coefficient intervals included zero, and the observed effect sizes were below the approximate 80% detectable scale reported by the calibration.
+
+The correct interpretation is therefore **not** “one source shows a positive effect and another shows a negative effect.” The calibration itself concluded that the estimates were imprecise relative to the current design's resolution.
+
+### WB measurement agreement
+
+The recovered E2 checkpoint also quantified disagreement between WBad and WBkg rather than selecting a preferred source from coefficient behavior.
+
+Reported `record_present` agreement included approximately:
+
+```text
+exact area-period agreement  0.889
+Jaccard among treated union  0.600
+```
+
+For `amount_positive`, treated-union Jaccard was lower and the WBad 2013–2014 positive-amount treatment collapsed while WBkg retained treated cells.
+
+This is useful measurement evidence, not a reason to reconcile the sources upstream.
+
+## Why Track B is not automatically Track A
+
+The recovered calibration used a reconstructed historical/canonical panel and explicit policies around those inherited products.
+
+The newer architecture instead aims for:
+
+```text
+source snapshot
+→ source-native empirical materialization
+→ shared contract-backed measurement
+→ validated empirical bundle
+→ explicit experiment projection
+→ treatment/outcome roles
+→ gates / estimator
+```
+
+A result from Track B should therefore not be relabeled as a Track A result merely because the experiment question sounds similar.
+
+The next important evidence transition is to run the current contracted path on real durable artifacts and compare the resulting support/coverage/gate evidence with the recovered calibration.
+
+Historical coefficient equality is not an acceptance criterion. Explained divergence is allowed when the measurement apparatus changed for defensible reasons.
 
 ## Current experiment surfaces
 
-The statuses below are deliberately conservative. The new experiment harness has passed synthetic and plumbing tests, but those tests validate the **software behavior**, not the recovered FCV data or substantive hypotheses.
+| Experiment surface | Current empirical state | Current readiness |
+|---|---|---:|
+| **Recovered WB → ACLED calibration** | Real recovered area-period E1/E2 checkpoint exists. | **REAL CALIBRATION COMPLETED**; interpret as recovered-lane evidence only. |
+| **Contracted investment → contracted ACLED** | Upstream verticals + generic harness boundary + downstream treatment derivation exist. | **NOT RUN on canonical real current artifacts** |
+| **GeoGCDF → ACLED** | Contracted GeoGCDF measurement path and contracted ACLED path exist. | **NOT RUN** as a declared real experiment |
+| **Jobs-related investment → ACLED** | Annotation protocol exists; source facts are intentionally separate from jobs treatment semantics. | **BLOCKED** pending validated annotation/use design and contracted experiment projection |
+| **Afrobarometer spatial experiment** | Survey-native substrate is being built; historical rounds/mappings exist in archive. | **BLOCKED** pending current source-native survey materialization and explicit exposure/outcome design |
+| **DHS-linked experiment** | Survey substrate is designed to preserve household/person/cluster grains. | **BLOCKED** pending real ingestion + scientific-use specification |
 
-| Experiment surface | Data / design state | Current status | Next empirical action |
-|---|---|---:|---|
-| **Pooled investment → ACLED** | Recovered `GID × TimePeriod` treatment/covariate panels and ACLED outcome surfaces exist; a harness adapter and legacy treatment semantics are available. | **NOT RUN** | Scan the ADM × window grid for support, select one explicit ACLED outcome, merge strictly on `GID × TimePeriod`, and run the gate sequence. |
-| **World Bank-only → ACLED** | `wb_only` can be reconstructed from the recovered investment amount columns. Outcome and panel infrastructure are available. | **NOT RUN** | Measure treatment/control support by period before attempting matching or regression interpretation. |
-| **China-only → ACLED** | `cn_only` can be reconstructed from the recovered investment amount columns; the recovered documentation already flags China exposure as potentially sparse. | **NOT RUN** | Run support/coverage diagnostics first; do not assume the pooled experiment's feasibility transfers to the China-only lane. |
-| **Jobs-related investment → ACLED** | Project-level jobs classification rules are documented, but stable labels have not yet been propagated into a validated area-period treatment surface. | **BLOCKED** | Complete/validate classification coverage, inspect the `jobs_any` distribution, and verify that jobs-related treatment remains substantively discriminating. |
-| **Afrobarometer spatial experiment** | Afrobarometer rounds, codebook work, place mappings, and aggregate products were recovered. The active experiment still needs an explicit exposure/timing/counterfactual contract. | **BLOCKED** | Resolve respondent/community exposure architecture, project timing/status, geolocation precision, and outcome definitions before treating the survey lane as runnable. |
+## Core gate families
 
-These rows are **experiment surfaces**, not claims that the underlying data families are absent when a surface is blocked.
+The active harness should continue to gate candidate experiments on:
 
-## Core gates
+1. **data / lineage integrity**;
+2. **timing**;
+3. **treatment / comparison support**;
+4. **outcome coverage and sparsity**;
+5. **pretreatment balance / selection**;
+6. **placebo / falsification behavior**;
+7. **synthetic signal recovery**;
+8. **spatial precision / ambiguity / bandwidth sensitivity** where relevant.
 
-The active harness treats diagnostics as part of experiment construction rather than as appendix checks after a preferred coefficient has been found.
+The exact gate implementation can evolve in the harness. This page should remain the human-facing interpretation layer rather than duplicating every report schema.
 
-### 1. Data integrity
+## What should be updated after the next real contracted run?
 
-Ask:
+When a current contract-backed real-data experiment is executed:
 
-- Are analysis keys unique where they should be unique?
-- Do treatment/covariate and outcome tables merge as expected?
-- Are required columns present?
-- Are project/location identifiers and area-period keys internally consistent?
-- Are missing records distinguishable from present-but-missing outcome values?
+1. identify the exact upstream dataset/measurement/run artifacts;
+2. identify the experiment specification and projection rules;
+3. record projected observed/structural-zero/outside/unresolved counts;
+4. record treated/control support and timing coverage;
+5. record gate states before estimator interpretation;
+6. link to the reproducible harness artifacts;
+7. compare against recovered evidence where useful, but explain differences rather than forcing parity;
+8. update only the statuses supported by that run.
 
-A failure here is an infrastructure problem. Do not move downstream to interpretation.
+Do not turn synthetic acceptance into a GREEN real-data gate.
 
-### 2. Timing
+## Interpretation rule
 
-Ask:
+The board exists to answer:
 
-- Is treatment status defined at the actual observation period/date?
-- Are agreement, start, implementation, and completion dates distinguishable where needed?
-- Can project states be resolved without silently guessing?
-- For panel experiments, is the treatment period explicitly separated from the post-treatment outcome period?
+> **What exactly has been established, under which empirical architecture, and what is still permission rather than evidence?**
 
-Timing choices belong to the experiment definition and should remain visible in run metadata.
-
-### 3. Treatment / control support
-
-Ask:
-
-- How many treated and comparison observations actually carry the identifying contrast?
-- Does that support exist within relevant time periods or fixed-effect strata?
-- Does a treatment definition collapse to almost universal exposure?
-- Are China-only or finer jobs classifications too sparse to estimate meaningfully?
-- Are observations exposed to multiple project states or treatment families in ways that defeat a simple binary definition?
-
-Raw dataset row count is not effective identifying sample size.
-
-### 4. Outcome coverage
-
-Ask:
-
-- Is the post-treatment outcome available for the treated and comparison observations that survive the design?
-- How much sample is lost after the explicit treatment → outcome lag?
-- Is the outcome extremely sparse, zero-inflated, or concentrated in a small number of places or periods?
-- Does the selected geography retain enough outcome variation to be useful?
-
-A formally valid merge can still produce an empirically unusable outcome surface.
-
-### 5. Pretreatment balance / selection
-
-Ask:
-
-- Do treated and comparison observations differ substantially in pre-treatment outcomes or covariates?
-- For future/planned-project counterfactuals, how different are selected future locations from never-project locations?
-- Do stronger geographic restrictions improve comparability at the cost of destroying support?
-
-Selection diagnostics are substantive information about the experiment, not merely a nuisance to hide with more controls.
-
-### 6. Placebo / falsification behavior
-
-Ask whether the measurement system behaves when treatment should **not** have an effect.
-
-Examples include:
-
-- current/future treatment predicting a prior-period outcome;
-- fake or shifted treatment timing;
-- randomized labels or displaced locations;
-- negative-control outcomes;
-- alternative pretreatment windows.
-
-A candidate effect that also appears before treatment or under an implausible placebo requires explanation before causal interpretation.
-
-### 7. Synthetic signal recovery
-
-Ask:
-
-> If an effect of a declared plausible magnitude were truly present in this exact sample and dependence structure, how often would the analysis recover it?
-
-The harness can inject a known weak effect and use cluster bootstrap resampling to estimate detection probability.
-
-This is a calibration / sensitivity diagnostic. It is **not** evidence that the real effect has that sign or magnitude.
-
-A low recovery probability means that a null result may be uninformative and that the experiment may need better measurement, a different geography/window, more observations, or a more appropriate outcome definition.
-
-## Additional diagnostics already exposed by the harness
-
-The current implementation also exposes several design-specific checks that can sit underneath the seven headline gates:
-
-- spatial/geocoding precision relative to the requested exposure radius;
-- multiple or mixed project exposure near the same observation;
-- identifying support inside fixed-effect strata;
-- planned-versus-completed project composition;
-- bandwidth/radius sensitivity;
-- within-period treated/control support for the recovered area-period panels.
-
-These should be promoted to headline gates only if repeated real-data runs show that they are persistent bottlenecks.
-
-## Current validation ledger
-
-No active FCV experiment has yet earned a real-data GREEN/YELLOW/RED gate profile in this manual. That is intentional.
-
-The immediate sequence is:
-
-```text
-recovered data
-    ↓
-explicit experiment contract
-    ↓
-real-data gate run
-    ↓
-record GREEN / YELLOW / RED evidence here
-    ↓
-only then interpret baseline and alternative estimators
-```
-
-The first planned calibration surface is the recovered area-period investment/violence lane, using the experiment harness to inspect support and ACLED outcome behavior before treating the old matching or regression outputs as active results.
-
-## Updating this page
-
-For now this page is maintained manually.
-
-When a real-data run is completed:
-
-1. record the exact experiment identifier/specification;
-2. record which gates were run;
-3. update only statuses supported by that run;
-4. link to a reproducible run artifact or repository path where appropriate;
-5. keep unresolved caveats visible;
-6. never promote a synthetic/demo run to a substantive FCV status.
-
-Do not build an automated dashboard until repeated empirical runs demonstrate that the status vocabulary and gate definitions are stable enough to automate.
-
-## Related pages
-
-- [Current Research Status](../current-status.md)
-- [Experimental Infrastructure and Validation](../continuation/experimental-infrastructure.md)
-- [Experimental Design and Regression Pipeline](../continuation/experimental-design-regression-pipeline.md)
-- [Annotation and Project Classification Protocol](../continuation/annotation-project-classification-protocol.md)
-- [Dataset Inventory](./dataset-inventory.md)
-- [Source Data Inventory and Update Strategy](../continuation/source-data-inventory-update-strategy.md)
-- [FCV Experiment Harness](https://github.com/matuteiglesias/fcv-experiment-harness)
+That is more useful than a single global statement that “the pipeline works.”
