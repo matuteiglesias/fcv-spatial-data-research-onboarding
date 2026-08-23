@@ -23,7 +23,7 @@ source facts / empirical measurements
 
 The project now has reusable foundations below FCV, source-native empirical production inside FCV, and contract-backed scientific use in the harness.
 
-See [Research System Architecture](./research-system.md) for the ownership map.
+See [Research System Architecture](./research-system.md) for the ownership map. For a collaborator-facing inventory of usable empirical objects, see the [Empirical Product Catalog](./data-products/product-catalog.md). For currently executable or blocked research questions, see the [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md).
 
 ## Current system state
 
@@ -98,11 +98,11 @@ Important rebuilt semantics include:
 
 #### Survey substrate
 
-A survey-native substrate is currently in progress for DHS/Afrobarometer-shaped data.
+A reusable survey-native substrate is now **implemented** for DHS/Afrobarometer-shaped empirical systems.
 
-The design preserves survey/release identity, observation grain, sampling/design facts, variable metadata, source weights, and geography-linkage metadata without forcing respondents, households, clusters, or EAs into the recovered area-period panel architecture.
+It preserves survey/release identity, multiple source files/snapshots, observation grain, sampling/design facts, variable metadata, source weights, and geography-linkage metadata without forcing respondents, households, clusters, or EAs into the recovered area-period panel architecture.
 
-This work is intentionally infrastructure only; real DHS/Afrobarometer ingestion remains separate future work.
+This is infrastructure only. Real DHS/Afrobarometer ingestion remains separate future work, as do survey-variable scientific roles, weighted estimation, and experiment-specific exposure design.
 
 ### 4. The experiment harness now consumes contracted empirical measurements
 
@@ -209,26 +209,30 @@ Important open decisions include:
 
 Those choices belong in experiment design, not upstream source materialization.
 
+The [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md) translates these open choices into named surfaces with explicit empirical prerequisites and blockers.
+
 ## Immediate next work
 
 The highest-value next sequence is now:
 
-1. finish the minimal survey-native substrate without adding real survey ingestion or experiment semantics;
-2. execute and record at least one real end-to-end run using current contract-backed empirical artifacts rather than legacy aggregate inputs;
-3. compare the new measurement/projection evidence with the recovered E1/E2 calibration evidence without demanding historical coefficient equality;
-4. update the human validation ledger with real contracted projection counts, support, coverage, and gate results;
-5. continue investment/source and survey verticals only where they unlock a concrete scientific experiment;
+1. execute and record at least one real end-to-end run using current contract-backed empirical artifacts rather than legacy aggregate inputs, with GeoGCDF → ACLED the strongest current reference candidate;
+2. compare the new measurement/projection evidence with the recovered E1/E2 calibration evidence without demanding historical coefficient equality;
+3. update the human validation ledger with real contracted projection counts, support, coverage, and gate results;
+4. build a World Bank spatial/temporal measurement only if a concrete WB-only or pooled experiment is ready to consume it;
+5. complete jobs annotation or a named DHS/Afrobarometer ingestion only where it unlocks a concrete scientific experiment;
 6. keep treatment, outcome, timing, eligibility, and counterfactual choices explicit in harness-side experiment specifications;
-7. update this site when those changes materially alter collaborator understanding or research readiness.
+7. update the product and experiment catalogs whenever a new durable product or evidence-producing run materially changes collaborator understanding.
 
 ## How to continue reading
 
 For the active system:
 
 1. [Research System Architecture](./research-system.md)
-2. [Research Workflow and Validation](./continuation/experimental-infrastructure.md)
-3. [Validation Status](./data-products/validation-status.md)
-4. [Experimental Design and Regression Pipeline](./continuation/experimental-design-regression-pipeline.md)
+2. [Empirical Product Catalog](./data-products/product-catalog.md)
+3. [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md)
+4. [Research Workflow and Validation](./continuation/experimental-infrastructure.md)
+5. [Validation Status](./data-products/validation-status.md)
+6. [Experimental Design Status](./continuation/experimental-design-status.md)
 
 For recovered/historical context:
 
