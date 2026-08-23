@@ -32,7 +32,7 @@ function HomepageHeader() {
   return (
     <header className={styles.heroBanner}>
       <div className="container">
-        <p className={styles.eyebrow}>Human-facing FCV research workspace</p>
+        <p className={styles.eyebrow}>Human-facing FCV scientific-instrument workspace</p>
         <Heading as="h1" className={styles.heroTitle}>
           {siteConfig.title}
         </Heading>
@@ -41,8 +41,8 @@ function HomepageHeader() {
           <Link className="button button--primary button--lg" to="/docs/current-status">
             Current research status
           </Link>
-          <Link className="button button--secondary button--lg" to="/docs/research-system">
-            Research system architecture
+          <Link className="button button--secondary button--lg" to="/docs/experiments/observability-lab">
+            Africa Observability Lab
           </Link>
         </div>
       </div>
@@ -54,7 +54,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title="Home"
-      description="FCV research workspace connecting reusable empirical foundations, source-native FCV data, experiment design, validation, and recovered research memory.">
+      description="FCV research workspace connecting empirical foundations, source-native measurements, experiment design, observability calibration, commissioning, and recovered research memory.">
       <HomepageHeader />
       <main>
         <section className={styles.section}>
@@ -63,52 +63,63 @@ export default function Home(): ReactNode {
               <div>
                 <p className={styles.sectionLabel}>Research continuity</p>
                 <Heading as="h2" className={styles.sectionTitle}>
-                  From recovered archive to an explicit empirical research system.
+                  From recovered archive to a commissioned empirical scientific instrument.
                 </Heading>
               </div>
               <p className={styles.sectionText}>
-                The project now separates reusable contracts and spatial infrastructure,
-                FCV source-native empirical measurements, downstream experiment choices,
-                and human-facing readiness evidence. The recovered 2021–2023 work remains
-                research memory and parity evidence, but it is no longer the only model of
-                how active FCV data should be organized.
+                FCV now separates reusable foundations, source-native empirical measurements,
+                downstream experiment choices, and explicit instrument characterization. The
+                Africa Observability Lab asks what known signals and external benchmarks the
+                apparatus can recover before substantive results are over-interpreted.
               </p>
             </div>
 
             <div className={styles.cards}>
               <HomeCard
                 title="Current research status"
-                description="See what is implemented now, what is still in progress, which evidence tracks exist, and the immediate scientific and empirical bottlenecks."
+                description="See what is implemented now, the three active evidence lanes, current blockers, and the highest-value next commissioning and experiment runs."
                 to="/docs/current-status"
                 cta="Open current status"
               />
               <HomeCard
+                title="Africa Observability Lab"
+                description="Understand the calibration kernel, reusable synthetic effect-size observability, recovery levels, instrument-health dimensions, and calibration firewall."
+                to="/docs/experiments/observability-lab"
+                cta="Open Observability Lab"
+              />
+              <HomeCard
+                title="Calibration benchmarks"
+                description="Review the official DHS commissioning targets, Briggs positive control, Breckner–Sunde handoff, prerequisites, and execution order."
+                to="/docs/experiments/calibration-benchmark-catalog"
+                cta="Open benchmark catalog"
+              />
+              <HomeCard
                 title="Research system architecture"
-                description="Understand the boundary between reusable foundations, FCV empirical facts, experiment-side scientific use, and this human collaboration layer."
+                description="Understand the boundary between reusable foundations, FCV empirical facts, experiment-side scientific use, instrument characterization, and this human layer."
                 to="/docs/research-system"
                 cta="Open system map"
               />
               <HomeCard
                 title="Research workflow and validation"
-                description="Follow the path from source-backed measurements through the contracted input boundary, experiment projection, treatment derivation, gates, and interpretation."
+                description="Follow the path from empirical production through experiment projection, gates, observability, external commissioning, estimation, and interpretation."
                 to="/docs/continuation/experimental-infrastructure"
                 cta="Open workflow"
               />
               <HomeCard
                 title="Validation status"
-                description="Distinguish synthetic acceptance, empirical materialization, recovered real-data calibration evidence, and the still-pending current contracted real-data runs."
+                description="Distinguish current contracted acceptance, observability/commissioning evidence, and recovered real-data calibration without collapsing them into one pipeline status."
                 to="/docs/data-products/validation-status"
                 cta="Open validation status"
               />
               <HomeCard
-                title="Experimental designs"
-                description="Review the scientific design lineage, candidate counterfactuals, treatment concepts, estimator families, and unresolved identification decisions."
-                to="/docs/continuation/experimental-design-regression-pipeline"
-                cta="Open experimental designs"
+                title="Experiment surfaces"
+                description="Review substantive FCV research surfaces separately from calibration benchmarks: what can run, what is partial, and what remains blocked."
+                to="/docs/experiments/experiment-surface-catalog"
+                cta="Open experiment catalog"
               />
               <HomeCard
                 title="Recovered archive"
-                description="Navigate the historical 2023 pipeline, reusable spatial products, notebooks, dataset inventory, and legacy material when reconstruction or parity detail is needed."
+                description="Navigate the historical 2023 pipeline, spatial products, notebooks, dataset inventory, and legacy evidence when reconstruction or parity detail is needed."
                 to="/docs/archive-map"
                 cta="Open archive map"
               />

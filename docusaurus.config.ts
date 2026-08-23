@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'FCV Spatial Data Research',
-  tagline: 'Source-native empirical data, explicit experiments, and research continuity',
+  tagline: 'Source-native empirical data, explicit experiments, and scientific-instrument commissioning',
   favicon: 'img/favicon.ico',
 
   future: {
@@ -66,12 +66,12 @@ const config: Config = {
           position: 'left',
         },
         {
-          to: '/docs/research-system',
-          label: 'System Map',
+          to: '/docs/experiments/observability-lab',
+          label: 'Observability Lab',
           position: 'left',
         },
         {
-          to: '/docs/continuation/experimental-design-regression-pipeline',
+          to: '/docs/experiments/experiment-surface-catalog',
           label: 'Experiments',
           position: 'left',
         },
@@ -93,16 +93,20 @@ const config: Config = {
               to: '/docs/current-status',
             },
             {
-              label: 'Research System Architecture',
-              to: '/docs/research-system',
+              label: 'Africa Observability Lab',
+              to: '/docs/experiments/observability-lab',
+            },
+            {
+              label: 'Calibration Benchmark Catalog',
+              to: '/docs/experiments/calibration-benchmark-catalog',
+            },
+            {
+              label: 'Experiment Surface Catalog',
+              to: '/docs/experiments/experiment-surface-catalog',
             },
             {
               label: 'Research Workflow & Validation',
               to: '/docs/continuation/experimental-infrastructure',
-            },
-            {
-              label: 'Experimental Designs',
-              to: '/docs/continuation/experimental-design-regression-pipeline',
             },
             {
               label: 'Validation Status',

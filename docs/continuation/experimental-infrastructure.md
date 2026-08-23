@@ -1,102 +1,51 @@
 ---
 title: Research Workflow and Validation
 sidebar_position: 1
-description: Collaborator-facing operating model from source-backed empirical measurements through experiment projection, gates, estimation, and interpretation.
+description: Collaborator-facing operating model from empirical production through experiment projection, gates, observability, commissioning, estimation, and interpretation.
 date: "2026-08-23"
 ---
 
 # Research Workflow and Validation
 
-The active FCV workflow is organized around a boundary that is now both conceptual and executable:
+The active FCV workflow now has **four distinct scientific stages**:
 
 ```text
-source facts / empirical measurements
-                ↑
-        FCV empirical domain
-════════════════════════════════
-        scientific-use choices
-                ↓
-         experiment harness
+A. EMPIRICAL PRODUCTION
+   What was measured?
+
+B. EXPERIMENT SPECIFICATION
+   How will this measurement be used scientifically?
+
+C. VALIDITY + OBSERVABILITY
+   Is the design coherent, and what known signal can it recover?
+
+D. SUBSTANTIVE ESTIMATION
+   What does the declared gated experiment estimate?
 ```
 
-The older three-part distinction between “empirical infrastructure / experiment specification / validation gates” remains useful, but the implementation has matured enough that collaborators should now see **which repository owns each transition**.
+This is a refinement of the earlier infrastructure / experiment / gate model. The major new capability is that **instrument characterization is now executable rather than just a methodological aspiration**.
 
-For the repository-level map, see [Research System Architecture](../research-system.md).
+See [Research System Architecture](../research-system.md) and [Africa Observability Lab](../experiments/observability-lab.md).
 
-## 1. Reusable foundations
+## A. Empirical production
 
-Two external repositories provide infrastructure that FCV consumes but does not own.
+[`fcv-empirical-data`](https://github.com/matuteiglesias/fcv-empirical-data) owns faithful source facts and reusable empirical measurements.
 
-### `empirical-data-contracts`
-
-The contract package provides typed shared objects for:
-
-- source/file identity and hashes;
-- dataset identity and authority;
-- observation grain;
-- geography and period identity;
-- coverage and row-absence semantics;
-- measurements;
-- QA;
-- run manifests.
-
-It describes empirical objects. It does not decide what is a treatment, outcome, control, counterfactual, or estimator input.
-
-### `spatial-data-foundation`
-
-The spatial/time foundation provides reusable:
-
-- geography authority;
-- analytical geometry;
-- source registration;
-- spatial membership;
-- period indexing;
-- related materialization provenance.
-
-FCV code should select and use those capabilities, not reimplement them locally.
-
-## 2. FCV empirical measurement production
-
-[`fcv-empirical-data`](https://github.com/matuteiglesias/fcv-empirical-data) owns the empirical-domain layer.
-
-Its job is to preserve and materialize source facts faithfully enough that several experiments can reuse them without rebuilding source ingestion.
-
-A useful generic path is:
+Generic path:
 
 ```text
-raw / authoritative source
-        ↓
-immutable source snapshot
-        ↓
-source-native Silver
-        ↓
-explicit geography / period linkage where required
-        ↓
-contract-backed empirical measurement
-        ↓
-QA / coverage / provenance / parity evidence
+authoritative source
+→ immutable source snapshot
+→ source-native Silver
+→ explicit geography / time linkage when needed
+→ reusable measurement
+→ DatasetRef / MeasurementContract / CoverageContract / RunManifest
+→ QA / parity / integration evidence
 ```
 
-### What this layer may own
+This layer may own source identities, natural grains, source variable meaning, geography membership, temporal semantics, coverage, and reproducible transformations.
 
-Examples include:
-
-- source family, release, snapshot, and hashes;
-- source-native project/event/respondent identifiers;
-- source-native variable names and meanings;
-- project geometry or event coordinates;
-- survey design facts such as PSU/EA/cluster/weight fields;
-- natural observation grain;
-- source dates and statuses with their native meanings;
-- explicit geography memberships and unresolved states;
-- explicit period memberships;
-- measurement aggregation rules when the measurement itself requires aggregation;
-- coverage and row-absence semantics supported by evidence;
-- durable output identity and QA.
-
-### What this layer must not own
-
-It should not silently decide:
+It must not silently own:
 
 ```text
 treatment
@@ -106,18 +55,27 @@ covariate role
 counterfactual
 post-treatment timing
 matching rule
-fixed effects
 estimator
 causal interpretation
 ```
 
-Those are scientific-use semantics.
+### Empirical meaning can be reusable without being scientific role
 
-## 3. Contract-backed empirical input boundary
+For DHS:
 
-The experiment harness does not ingest ACLED files, AidData workbooks, World Bank API pages, or survey raw files directly.
+```text
+HV206
+→ codebook-backed empirical meaning
+→ household electricity access
+```
 
-A current empirical measurement crosses the boundary as:
+is a legitimate upstream measurement.
+
+Whether electricity access becomes an outcome, control, subgroup variable, or unused measurement belongs downstream.
+
+## B. Contract-backed experiment specification
+
+A semantic empirical measurement crosses into the harness as:
 
 ```text
 DatasetRef
@@ -129,103 +87,57 @@ DatasetRef
 validated EmpiricalMeasurementBundle
 ```
 
-Before exposing the measurement to experiment code, the harness validates the artifact and its declared lineage/structure.
+The loader validates bytes, lineage, grain, geography, periods, and coverage before exposing the table.
 
-The current boundary checks include:
+It does not zero-fill, infer controls, shift periods, or select taxonomies.
 
-- output bytes match the declared dataset hash;
-- the measurement's upstream source dataset is represented in run lineage;
-- output grain matches the measurement's declared grain;
-- declared grain keys exist in the actual table;
-- geography contracts agree exactly;
-- period-scheme contracts agree exactly;
-- the persisted coverage sidecar agrees with the measurement contract.
+### Measurement projection
 
-Loading is deliberately **not** experiment projection.
+The experiment explicitly declares:
 
-The loader does not:
+- which measurement is used;
+- native selectors/categories;
+- value column;
+- experiment role;
+- timing offset;
+- downstream transform if any.
 
-- expand a sparse lattice;
-- call `fillna(0)`;
-- infer “no event” from row absence;
-- infer “no project” from row absence;
-- infer untreated/control state;
-- select source taxonomies;
-- shift outcome timing.
-
-## 4. Experiment projection
-
-After a measurement has crossed the empirical boundary, the harness can make explicit scientific-use choices.
-
-A generic projection can declare:
+Example:
 
 ```text
-which empirical measurement to use
-which native category / selector to retain
-which normalized value column to use
-what role it plays in this experiment
-what timing offset applies
-what transform, if any, is applied downstream
+ACLED measurement
+selector = Violence against civilians
+value = fatalities
+role = outcome
+period offset = +1
 ```
 
-For example, one ACLED experiment can state:
+### Treatment derivation
 
-```text
-measurement   ACLED area-period-native-event measurement
-selector      native_event_type = Violence against civilians
-value         fatalities
-role          outcome
-period offset +1
-```
-
-A pre-outcome projection may use the same measurement with `-1` timing.
-
-Another experiment could select a different native taxonomy member without changing upstream ACLED Silver or Gold.
-
-## 5. Treatment is now explicitly downstream
-
-The same principle applies to investment data.
-
-An upstream empirical product may state that a project or area-period measurement has a value. It should not automatically say that the observation is “treated.”
-
-The harness can instead declare a treatment derivation such as:
+Treatment can now be derived downstream from a contracted empirical measurement:
 
 ```text
 empirical measurement
-        ↓
-explicit projection
-        ↓
-explicit eligibility window
-        ↓
-explicit derivation rule
-        ↓
-treated / control / unavailable experiment state
+→ experiment projection
+→ eligibility window
+→ declared threshold/rule
+→ treated / control / unavailable
 ```
 
-For the current fully contracted panel machinery, an example rule is a declared threshold such as `measurement > 0`.
+Unavailable measurement does not silently become control.
 
-Crucially:
+## Coverage / absence firewall
 
-- unavailable treatment measurements are not silently converted to controls;
-- treatment eligibility is an experiment rule, not an upstream coverage claim;
-- the derivation and its parameters remain inspectable downstream.
+A missing row is not a universal zero.
 
-## 6. Coverage and absence firewall
-
-Coverage is one of the most important scientific boundaries in the system.
-
-A sparse empirical measurement can have different row-absence meanings.
-
-The shared coverage contract can distinguish, for example:
+The shared coverage contract can distinguish states such as:
 
 - `unknown`;
 - `zero_within_verified_coverage`;
 - `not_observed`;
 - `not_applicable`.
 
-The experiment projection layer must respect that declaration.
-
-Current projection logic keeps requested observations in one of four auditable states:
+The projection layer retains auditable states:
 
 ```text
 observed
@@ -234,210 +146,279 @@ outside_coverage
 unresolved
 ```
 
-A missing sparse row becomes a structural zero only when the upstream contract explicitly licenses zero within independently verified support and the requested time belongs inside that support.
+Unknown absence stays unresolved.
 
-Unknown absence never becomes zero merely because zero would be convenient for a regression.
-
-## 7. Geography, time, and grain
-
-The current architecture also avoids three hidden coercions common in older pipelines.
+## Geography, time, and grain stay explicit
 
 ### Geography
 
-A label that looks similar is not enough. Contracted geography identity is checked explicitly.
-
-If an experiment uses a legacy analysis-unit identifier such as `GID` while the empirical measurement uses a new `geo_uid`, the relationship must be provided through an explicit linkage artifact rather than guessed.
+Contracted geography identity must match exactly or be connected through an explicit linkage artifact.
 
 ### Time
 
-Timing offsets use the shared `PeriodIndex` with a declared `PeriodScheme`.
-
-A `+1` outcome means one declared shared period, not an ad hoc year-string shift.
+Timing offsets use shared `PeriodIndex` / declared period semantics rather than string arithmetic.
 
 ### Grain
 
-Different empirical families may have different natural grains.
+Projects, events, households, respondents, clusters, and area-period measurements need not be flattened into one universal table.
 
-The system does not require:
+Cross-grain scientific linkage is explicit downstream work.
 
-```text
-projects
-ACLED events
-DHS households
-Afrobarometer respondents
-```
+## C1. Experiment validity gates
 
-all to become the same area-period table before they are considered valid empirical data.
+Once a design is declared, gate it before interpreting estimates.
 
-Cross-grain linkage belongs in an explicit experiment or measurement construction.
+### Data / lineage integrity
 
-## 8. Validation and calibration gates
-
-Once an experiment has explicit empirical inputs and scientific-use rules, the next question is whether the design is measurable and interpretable enough to justify estimation.
-
-A gate can pass, warn, or fail without implying that the substantive hypothesis is true or false.
-
-### Data and lineage integrity
-
-Ask:
-
-- are the empirical artifacts exactly the declared bytes?
-- are analysis keys unique where expected?
-- are measurement grains and experiment linkage keys coherent?
-- are missing records distinguishable from present-but-missing values?
-- are source and output identities traceable?
-
-Infrastructure failures should block scientific interpretation.
+- exact artifact identity;
+- key/grain coherence;
+- traceable source/run lineage;
+- missing records distinguishable from present-but-missing values.
 
 ### Timing
 
-Ask:
-
-- is treatment status defined at the correct observation period/date?
-- are approval, commitment, implementation, closing, completion, and survey dates kept distinct where required?
-- are treatment and post-treatment outcome periods explicit?
-- are ambiguous states visible rather than guessed?
-
-Timing rules belong in the experiment specification unless they are literal source facts.
+- source dates retain native meanings;
+- treatment and outcome timing are declared;
+- ambiguous timing is visible.
 
 ### Treatment / comparison support
 
-Ask:
+- treated/control counts;
+- within-period / within-stratum support;
+- collapse or near-universality;
+- effective identifying sample rather than raw rows.
 
-- how many eligible treated and comparison observations exist?
-- does support persist within relevant periods or fixed-effect strata?
-- does a treatment rule collapse to almost universal or almost nonexistent exposure?
-- are source families or fine annotations too sparse for the intended contrast?
+### Outcome coverage / sparsity
 
-Total row count is not effective identifying sample size.
+- outcome availability after timing projection;
+- sparse/zero-inflated behavior;
+- structural-zero authority.
 
-### Outcome coverage and sparsity
+### Pretreatment balance / selection
 
-Ask:
-
-- are outcomes available for the observations that carry the identifying contrast?
-- how much sample is lost after timing projection?
-- is the outcome extremely sparse, concentrated, or zero-inflated?
-- are structural zeros actually licensed by upstream coverage evidence?
-
-### Pretreatment balance and selection
-
-Ask:
-
-- do treated and comparison observations differ materially before treatment?
-- are future/planned project locations systematically different from never-project locations?
-- do stricter comparison rules improve comparability at the cost of destroying support?
-
-These are facts about the experiment, not inconveniences to hide with additional controls.
+- pre-outcome differences;
+- selection into future/planned locations;
+- support versus comparability tradeoffs.
 
 ### Falsification
 
-Candidate checks include:
-
 - prior-outcome placebo;
-- fake or shifted timing;
-- displaced locations;
-- randomized treatment labels;
-- negative-control outcomes;
+- shifted/fake timing;
+- randomized labels;
+- negative controls;
 - alternative pretreatment windows.
 
-A signal that appears where treatment should not have an effect needs explanation before substantive interpretation.
+### Spatial / survey sensitivity
 
-### Spatial sensitivity
-
-For local exposure designs, inspect:
+Depending on the design:
 
 - geolocation precision;
-- boundary/overlap ambiguity;
-- multiple nearby project states;
+- boundary ambiguity;
+- displacement uncertainty;
 - radius/bandwidth sensitivity;
-- how changes in radius alter the identifying sample.
+- survey linkage;
+- PSU/stratum/weight implications;
+- semantic comparability / unmapped survey codes.
 
-A different radius is often a different experiment, not simply a continuous dose-response check.
+A GREEN gate means permission to investigate further, not causal validation.
 
-### Synthetic signal recovery
+## C2. Synthetic observability
 
-The harness can inject a declared signal into data with the observed structure and ask whether the proposed design/estimator can recover it reliably.
+The harness now has a reusable observability engine rather than one hard-coded synthetic recovery check.
 
-This answers:
+The scientific question is:
 
-> If a substantively plausible signal existed in data with this structure, would this apparatus have a reasonable chance of detecting it?
+> **If known truth of size δ existed in the data/design structure we actually have, how reliably and how accurately would our apparatus recover it?**
 
-It does not show that the real effect exists.
+For a caller-declared effect-size grid, the E2 reference instrument records:
 
-## 9. Evidence levels
+- injected truth;
+- estimate / SE / interval;
+- sign recovery;
+- rejection;
+- joint sign + rejection recovery;
+- CI coverage;
+- recovery error;
+- sample and cluster counts;
+- outcome SD;
+- treatment support.
 
-The project should keep four evidence states distinct.
+The same stochastic residual draw is paired across effect sizes within a repetition so adjacent cells differ by the known injected truth rather than unrelated simulation noise.
 
-| Level | Example | Meaning |
-|---|---|---|
-| Software acceptance | synthetic fixture passes | implementation behavior is coherent |
-| Empirical QA | real ACLED/GeoGCDF materialization with provenance | source-backed measurement exists as declared |
-| Experiment gates | real projected sample passes/fails support/coverage/placebo checks | declared design is or is not ready for deeper analysis |
-| Estimator result | coefficient / interval / event-study output | result for that specific gated experiment |
+### Synthetic null
 
-The [Validation Status](../data-products/validation-status.md) page is the human ledger for those states.
+`delta = 0` is first-class.
 
-## 10. Current reference lanes
+It calibrates rejection and interval behavior around **known injected zero truth**. It is not a declaration that the real treatment effect should equal zero.
 
-### ACLED
+### Output
 
-ACLED is the first fully developed example of the current boundary:
-
-```text
-source-native ACLED
-→ contract-backed measurement
-→ validated harness bundle
-→ explicit taxonomy/value/timing projection
-→ E1/E2 experiment machinery
-```
-
-The current contracted path has synthetic end-to-end acceptance. A real run using the current materialized artifacts should be reported separately from historical E1/E2 calibration evidence.
-
-### Investment
-
-Investment measurements are moving through the same seam.
-
-The empirical repo now has source-native investment verticals and a GeoGCDF contracted measurement path. The harness now has machinery for deriving treatment downstream from a contracted empirical measurement.
-
-This is intentionally different from a source pipeline that emits a ready-made treatment flag.
-
-### Surveys
-
-Survey infrastructure is being designed to support respondent/household/cluster/EA grains without forcing them into an area-period panel.
-
-The same boundary should apply:
+The instrument produces:
 
 ```text
-survey facts and design metadata upstream
-        ↓
-explicit geography/timing/exposure linkage
-        ↓
-experiment chooses outcome/covariate/treatment use
+repetition_results.csv
+effect_size_summary.csv
+detection_curve.csv
+null_calibration_summary.csv
 ```
 
-## 11. Interpretation rule
+The empirical frame itself is not written by the output function.
 
-The traffic-light framing remains operational, not evidentiary:
+## C3. External commissioning and positive controls
 
-- **GREEN** — the named gate does not currently block further investigation;
-- **YELLOW** — a material weakness or uncertainty remains visible;
-- **RED** — the current design should not be interpreted until repaired or changed;
-- **NOT RUN** — the relevant real-data test has not been executed;
-- **BLOCKED** — an upstream empirical object or scientific definition is not ready enough for a meaningful run.
+Synthetic recovery is necessary but not sufficient.
 
-> **Green means permission to investigate further, not causal validation.**
+The Observability Lab can also ask whether the rebuilt instrument reproduces externally known behavior.
 
-## 12. What should drive the next design decision?
+A `CalibrationBenchmarkSpec` declares `purpose = calibration` and one of:
 
-The next experiment should not be chosen because it is easy to code or because an old coefficient was attractive.
+- commissioning;
+- positive control;
+- negative control;
+- synthetic injection;
+- measurement agreement.
 
-It should be chosen because:
+### Recovery levels
 
-1. the required empirical measurements exist with known provenance and coverage;
-2. the scientific-use rules are explicit;
-3. the design has enough support and outcome coverage;
-4. the main selection/timing/falsification risks can be diagnosed;
-5. the estimator is appropriate for the remaining identification problem.
+```text
+Level 1 — pipeline recovery
+Level 2 — qualitative known behavior
+Level 3 — quantitative compatibility
+```
 
-The architecture is useful only if it makes that sequence easier to follow in practice.
+Levels are independent. Exact numeric parity should not be demanded when source/design equivalence does not justify it.
+
+### First commissioning sequence
+
+The current queue is:
+
+```text
+auxiliary empirical input seam (#16)
+        ↓
+Nigeria DHS 2018 electricity = 59.4%
+        ↓
+additional official DHS statistic if diagnostic value is high
+        ↓
+Briggs (2017) published positive control
+        ↓
+reassess instrument bottleneck
+```
+
+Breckner & Sunde is deferred until regular-grid geography and monthly/subannual time semantics exist as shared capabilities.
+
+See [Calibration Benchmark Catalog](../experiments/calibration-benchmark-catalog.md).
+
+## Calibration input firewall
+
+Calibration benchmarks may need both semantic measurements and source-native auxiliary facts.
+
+Example:
+
+```text
+semantic input: dhs.household.electricity_access
+auxiliary fact: HR Silver HV005 weight
+```
+
+The desired generic seam is:
+
+```text
+EmpiricalMeasurementBundle
++
+provenance-validated auxiliary DatasetRef / RunManifest artifact
+        ↓
+source-specific benchmark adapter
+```
+
+The adapter—not the kernel—owns joins, weighting, denominators, and source-specific transformations.
+
+Protected data remains local; benchmark outputs are sanitized aggregate diagnostics and provenance identities.
+
+## Instrument-health report
+
+A calibration suite can summarize separate dimensions:
+
+- source / contract integrity;
+- commissioning;
+- positive controls;
+- negative controls;
+- synthetic detectability;
+- measurement agreement;
+- known limitations.
+
+There is deliberately no aggregate score.
+
+A failure in one dimension should remain visible because it tells us which part of the scientific instrument needs attention.
+
+## D. Estimation and interpretation
+
+Only after empirical integrity, experiment specification, validity gates, and appropriate observability/commissioning evidence should a substantive estimator result be interpreted deeply.
+
+The estimator output remains specific to:
+
+- the declared empirical products;
+- experiment projections;
+- eligibility/timing;
+- comparison design;
+- model family;
+- uncertainty procedure.
+
+A coefficient is not an architecture test, and an architecture test is not a coefficient.
+
+## Evidence ladder
+
+The current system should communicate at least six evidence levels:
+
+```text
+1. software / synthetic implementation acceptance
+2. real empirical materialization + QA
+3. real experiment gates
+4. synthetic observability characterization
+5. external commissioning / known-behavior recovery
+6. substantive estimator result
+```
+
+The ordering is not mechanically linear for every project, but the meanings should never be conflated.
+
+## Reference lanes
+
+### Current contracted panel lane
+
+```text
+GeoGCDF / investment measurement
++ ACLED measurement
+→ fully contracted experiment
+→ gates
+→ estimator
+→ observability grid
+```
+
+Current real durable-artifact run is still pending in the human ledger.
+
+### DHS lane
+
+```text
+HR + GC + GPS
+→ integration QA
+→ semantic household measurements
+→ official DHS report commissioning
+→ cross-grain exposure experiment
+→ survey-design-aware gates / estimator
+```
+
+This is now the preferred sequence: commission the survey instrument before a complex substantive DHS exposure model.
+
+### Recovered calibration lane
+
+The historical WBad/WBkg → ACLED E2 checkpoint remains genuine real-data calibration evidence, including 24,852 area-periods / 4,142 GIDs and the old 30/30 `0.20 SD` injection recovery.
+
+It is not automatically evidence for the newer current-artifact contracted path.
+
+## Operating principle
+
+The workflow should increasingly answer three questions before asking for a substantive coefficient:
+
+1. **Do we know exactly what the measurement is?**
+2. **Do we know exactly how the experiment uses it?**
+3. **Do we know what this apparatus can recover when truth is known?**
+
+That is the core operating logic of the rebuilt FCV scientific instrument.

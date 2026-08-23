@@ -41,6 +41,22 @@ const sidebars: SidebarsConfig = {
           label: 'Experiment Surface Catalog',
         },
         {
+          type: 'category',
+          label: 'Africa Observability Lab',
+          collapsed: false,
+          link: {
+            type: 'doc',
+            id: 'experiments/observability-lab',
+          },
+          items: [
+            {
+              type: 'doc',
+              id: 'experiments/calibration-benchmark-catalog',
+              label: 'Calibration Benchmark Catalog',
+            },
+          ],
+        },
+        {
           type: 'doc',
           id: 'continuation/experimental-infrastructure',
           label: 'Research Workflow & Validation',
