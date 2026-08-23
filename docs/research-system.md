@@ -98,6 +98,15 @@ with this coverage contract
 and this source/run provenance
 ```
 
+or, for a survey product:
+
+```text
+this is a DHS household observation
+linked to this survey and cluster identity
+with these source design facts
+and this source/run provenance
+```
+
 It should not state, as an intrinsic source fact:
 
 ```text
@@ -105,7 +114,7 @@ this row is the outcome
 this project is treatment
 this missing row is control
 this period is post-treatment
-this variable is a regression covariate
+this survey variable is a regression covariate
 ```
 
 Those are experiment choices.
@@ -120,11 +129,13 @@ interpret an investment measurement > 0 as treatment
 restrict treatment eligibility to declared periods
 ```
 
+A future DHS design can likewise explicitly choose an HR outcome variable, cluster-level GC controls, an exposure linkage, a displacement-aware spatial rule, survey timing, and a survey-design estimator without rewriting the upstream source products.
+
 The same upstream measurement can therefore be reused by another experiment without rebuilding or relabeling the source data.
 
 ## What crosses the empirical boundary
 
-The current harness boundary consumes a durable empirical artifact together with shared contract evidence:
+The current panel-oriented harness boundary consumes a durable empirical artifact together with shared contract evidence:
 
 ```text
 DatasetRef
@@ -139,6 +150,8 @@ explicit experiment projection
 ```
 
 The loader checks artifact identity and declared structure before scientific use. It does not silently fill sparse data, reconstruct source-specific ingestion logic, or invent treatment/control meaning.
+
+Survey experiments may require an additional explicit cross-grain projection seam because household/person observations, cluster covariates, and cluster geography do not naturally share an area-period grain. That seam belongs in scientific use; the empirical repository should not flatten those grains merely to fit the current panel machinery.
 
 Detailed executable semantics belong in the producing and consuming repositories. This site should explain the boundary and link to those repositories rather than copy their API documentation.
 
@@ -180,7 +193,7 @@ Important consequences:
 
 Current FCV empirical work includes independent source verticals rather than one pre-harmonized treatment table.
 
-Implemented or active source paths include:
+Implemented source paths include:
 
 - AidData CLG-LMIC source-native Silver;
 - World Bank Projects API source-native Silver;
@@ -188,22 +201,59 @@ Implemented or active source paths include:
 
 A project amount remains a source/project fact. It is not automatically local spending, treatment intensity, or a quantity that can be multiplied across project locations.
 
-The harness may later derive a treatment state from a contracted investment measurement using an explicit experiment rule. That derivation belongs downstream.
+The harness may derive a treatment state from a contracted investment measurement using an explicit experiment rule. That derivation belongs downstream.
 
-### Surveys
+### Survey substrate
 
-DHS and Afrobarometer require a different natural architecture from area-period event panels.
+Complex surveys require a different natural architecture from area-period event panels.
 
-The current survey work is therefore moving toward a reusable FCV survey substrate that can represent, for example:
+The reusable FCV survey substrate is now implemented and can represent:
 
 ```text
 DHS household / person / cluster observations
 Afrobarometer respondent / EA observations
 ```
 
-without forcing respondents or households into `GID × TimePeriod` rows and without labeling survey variables as outcomes/covariates upstream.
+while keeping survey identity independent of any one file/snapshot and preserving sampling/design facts, weights, variable metadata, temporal semantics, and explicit geography-link states.
 
-Survey identity, release/source identity, observation grain, design metadata, variable metadata, and geography-linkage metadata belong in the empirical domain. Exposure rules and outcome roles belong in experiment use.
+It does not force respondents or households into `GID × TimePeriod` rows and does not label survey variables as outcomes/covariates upstream.
+
+### DHS empirical stack
+
+DHS is now the first concrete survey family built on that substrate.
+
+```text
+                         SurveyCatalogEntry
+                                │
+             ┌──────────────────┼──────────────────┐
+             │                  │                  │
+             ▼                  ▼                  ▼
+        HR source           GC source          GE / GPS source
+             │                  │                  │
+             ▼                  ▼                  ▼
+ household-native      cluster covariate      cluster-coordinate
+     Silver                 Silver                 Silver
+                                │                  │
+                                ▼                  ▼
+                       temporal semantics   reported-coordinate
+                                            geography relation
+```
+
+The three products share verified survey/cluster identity but retain different natural grains.
+
+**Household Recode (HR)** preserves household observations, cluster/PSU/stratum facts, source household weights unchanged, source-native variables, source snapshots, QA, and run provenance. It does not decide which variable is an outcome or how the survey weight should be normalized/used in an estimator.
+
+**Geospatial Covariates (GC)** remain measurements associated with DHS clusters. The authoritative wide grain is `survey × cluster`, with an optional derived long `survey × cluster × source_variable` view. Temporal semantics are documentation/registry-driven; GC is not silently converted into a polygon-wide or area-period covariate panel.
+
+**GE/GPS geography** preserves public reported cluster coordinates with explicit displacement metadata. The auditable geography relation is deliberately `reported_coordinate_membership`: it says where the reported public coordinate falls, not where the undisplaced true cluster is known to be. Boundary ambiguity, outside/invalid points, and linkage discrepancies remain visible.
+
+A future uncertainty-aware `possible_geography_under_displacement` product could enumerate geography candidates consistent with documented displacement rules. It is separate from—and not implied by—the current reported-coordinate relation.
+
+The forward-looking DHS blocker has therefore moved downstream. The source-native HR/GC/GPS stack exists; a scientific experiment still needs variable-role mapping, household/person ↔ cluster projection, named exposure and timing, displacement-aware uncertainty rules, survey-design/weight choices, harness integration, and protected real-source acceptance.
+
+See [DHS Empirical Stack](./data-products/products/dhs-overview.md) for the collaborator-facing product map and [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md) for current scientific readiness.
+
+Afrobarometer remains at the earlier stage: the substrate exists, but a current respondent/EA ingestion vertical has not yet been implemented.
 
 ## Evidence and status have different levels
 
@@ -217,6 +267,8 @@ The project should distinguish at least four levels:
 | **Empirical materialization / QA** | A source-backed measurement was produced with declared provenance and QA | The measurement is an appropriate treatment/outcome for a specific design |
 | **Experiment gate run** | A declared research design has measurable support, coverage, timing, and diagnostics | Causal identification or substantive truth |
 | **Estimator / research result** | A declared estimator produced an estimate for a gated experiment | Automatic causal validity, robustness, or policy relevance |
+
+For restricted sources such as DHS, another practical distinction is essential: **synthetic acceptance does not prove protected real-source acceptance**. Real-source validation should be summarized through non-sensitive identities, hashes, counts, QA, and linkage diagnostics rather than exposing protected values.
 
 The [Validation Status](./data-products/validation-status.md) page summarizes the current evidence state across experiment surfaces.
 
@@ -234,7 +286,7 @@ Use the recovered archive for:
 
 Do not assume a recovered file is current canonical truth merely because it was used in an earlier notebook.
 
-The new architecture deliberately allows rebuilt products to diverge from legacy outputs when the old pipeline applied filters, implicit zero-filling, lossy joins, or source-specific assumptions. Such divergence should be explained, not automatically removed.
+The new architecture deliberately allows rebuilt products to diverge from legacy outputs when the old pipeline applied filters, implicit zero-filling, lossy joins, source-specific assumptions, or collapsed survey/spatial uncertainty. Such divergence should be explained, not automatically removed.
 
 ## Where should a collaborator look?
 
@@ -242,6 +294,8 @@ The new architecture deliberately allows rebuilt products to diverge from legacy
 |---|---|---|
 | What is the project doing now? | [Current Research Status](./current-status.md) | Linked active repositories / PRs |
 | How do the repositories fit together? | This page | Each repository's README / architecture docs |
+| What empirical products exist now? | [Empirical Product Catalog](./data-products/product-catalog.md) | `fcv-empirical-data` product docs/run artifacts |
+| What is the current DHS stack? | [DHS Empirical Stack](./data-products/products/dhs-overview.md) | `fcv-empirical-data` HR/GC/GPS docs and artifacts |
 | What exactly does a contract field mean? | High-level summary here only | `empirical-data-contracts` |
 | What geography/period engine is authoritative? | High-level summary here only | `spatial-data-foundation` |
 | How was an empirical source materialized? | Dataset/status summary here | `fcv-empirical-data` |
@@ -256,8 +310,8 @@ Research updates should name the level at which a claim is being made.
 Prefer statements such as:
 
 - **Architecture:** “Treatment derivation now lives downstream of contracted investment measurements.”
-- **Empirical product:** “The GeoGCDF commitment-period measurement has a contract-backed materialization path.”
-- **Experiment readiness:** “The contracted ACLED path passes synthetic acceptance; the real current-artifact run is still pending.”
+- **Empirical product:** “DHS HR, GC, and reported-coordinate GPS geography now have source-native materialization paths.”
+- **Experiment readiness:** “The DHS empirical stack passes synthetic acceptance; protected real-source acceptance and harness-side scientific use are still pending.”
 - **Historical evidence:** “The recovered E2 calibration ran on the legacy-backed canonical panel and produced these gate results.”
 
 Avoid compressing those into a vague statement such as “the pipeline works.”

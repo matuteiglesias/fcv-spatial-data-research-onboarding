@@ -1,9 +1,9 @@
 import type {SidebarsConfig} from '@docusaurus/plugin-content-docs';
 
 // Explicit sidebar for the FCV spatial-data research documentation.
-// Current authority/status overlays receive first-class prominence; detailed recovered
-// and strategy/design-history pages remain available as reference without being mistaken
-// for the current technical source of truth.
+// Current authority/status overlays and human-facing catalogs receive first-class prominence;
+// detailed recovered and strategy/design-history pages remain available as reference without
+// being mistaken for the current technical source of truth.
 
 const sidebars: SidebarsConfig = {
   tutorialSidebar: [
@@ -35,6 +35,11 @@ const sidebars: SidebarsConfig = {
       label: 'Active Research',
       collapsed: false,
       items: [
+        {
+          type: 'doc',
+          id: 'experiments/experiment-surface-catalog',
+          label: 'Experiment Surface Catalog',
+        },
         {
           type: 'doc',
           id: 'continuation/experimental-infrastructure',
@@ -79,6 +84,68 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'data-products/current-data-authority',
           label: 'Current Data Authority',
+        },
+        {
+          type: 'category',
+          label: 'Empirical Product Catalog',
+          collapsed: false,
+          link: {
+            type: 'doc',
+            id: 'data-products/product-catalog',
+          },
+          items: [
+            {
+              type: 'doc',
+              id: 'data-products/products/acled',
+              label: 'ACLED Violence',
+            },
+            {
+              type: 'doc',
+              id: 'data-products/products/aiddata-geogcdf',
+              label: 'AidData GeoGCDF',
+            },
+            {
+              type: 'doc',
+              id: 'data-products/products/worldbank-projects',
+              label: 'World Bank Projects API',
+            },
+            {
+              type: 'doc',
+              id: 'data-products/products/aiddata-clg-lmic',
+              label: 'AidData CLG-LMIC',
+            },
+            {
+              type: 'doc',
+              id: 'data-products/products/survey-substrate',
+              label: 'Survey-Native Substrate',
+            },
+            {
+              type: 'category',
+              label: 'DHS Survey Stack',
+              collapsed: false,
+              link: {
+                type: 'doc',
+                id: 'data-products/products/dhs-overview',
+              },
+              items: [
+                {
+                  type: 'doc',
+                  id: 'data-products/products/dhs-hr',
+                  label: 'Household Recode (HR)',
+                },
+                {
+                  type: 'doc',
+                  id: 'data-products/products/dhs-gc',
+                  label: 'Geospatial Covariates (GC)',
+                },
+                {
+                  type: 'doc',
+                  id: 'data-products/products/dhs-gps',
+                  label: 'GE/GPS Geography',
+                },
+              ],
+            },
+          ],
         },
         {
           type: 'doc',

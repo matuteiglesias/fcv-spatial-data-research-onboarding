@@ -51,19 +51,62 @@ These sources remain independent. Their records are not silently deduplicated, s
 - ACLED period assignment uses the shared period index.
 - The current Gold reference measurement is sparse and contract-backed; absent rows acquire zero meaning only where an explicit coverage contract licenses that interpretation.
 
-### Surveys
+### Surveys and DHS
 
-A **survey-native substrate** is now implemented in `fcv-empirical-data` for DHS/Afrobarometer-shaped empirical systems. It can represent:
+The reusable **survey-native substrate** is implemented in `fcv-empirical-data` and is now exercised by concrete DHS source verticals.
 
-- survey identity independent of one file or snapshot;
-- multiple source files and snapshots per survey;
-- respondent/household/EA/cluster-like natural grains;
-- source weight facts and explicitly derived normalized weights;
-- geography links with exact shared geography identity and ambiguous/unmatched states;
-- source-native variable metadata;
-- explicit temporal semantics including `unknown`.
+#### DHS Household Recode authority
 
-This is substrate, not yet a completed DHS or Afrobarometer ingestion vertical. It does not define weighted estimators, treatment/outcome roles, area-period aggregation, or survey-variable scientific mappings.
+Current authority for DHS HR source facts is the contract-backed HR Silver product:
+
+```text
+survey_id × household
+```
+
+It preserves source household/cluster/PSU/stratum identity, source household weight unchanged, source-native HR columns, exact DHS file/release identity, source snapshot/hash, QA, and run provenance.
+
+It does **not** own outcome/covariate roles, normalized analysis weights, household geography exposure, or estimator design.
+
+#### DHS Geospatial Covariates authority
+
+Current authority for DHS GC is the cluster-associated measurement product:
+
+```text
+survey_id × cluster_id
+```
+
+plus an optional derived long view:
+
+```text
+survey_id × cluster_id × source_variable
+```
+
+GC identity fields remain identifiers rather than covariate measurements. Temporal meaning is registry/documentation-driven, and cluster absence or missing source values never acquire zero meaning. GC is not authoritative polygon-wide covariate coverage and is not aggregated to GID upstream.
+
+#### DHS GE/GPS geography authority
+
+Current authority for DHS public cluster coordinates is the source-native GPS cluster Silver plus the separate `reported_coordinate_membership` relation.
+
+That relation says where the **reported public coordinate** falls in the declared analytical geography. It is not authority for the true undisplaced cluster location. Displacement metadata, ambiguous/outside/invalid states, and geography identity remain explicit.
+
+A future uncertainty-aware `possible_geography_under_displacement` product would be a separate derived authority surface; it is not implied by reported-coordinate membership.
+
+#### What remains downstream
+
+The DHS products can now be linked through verified survey/cluster identity, but the empirical repository still does not own:
+
+- DHS outcome/treatment/covariate roles;
+- household/person → cluster scientific projection;
+- exposure timing;
+- displacement-aware treatment rules;
+- survey-weight/variance-estimation choices;
+- estimator-ready DHS analysis tables.
+
+Those belong in experiment use.
+
+For the human-facing map, see [DHS Empirical Stack](./products/dhs-overview.md).
+
+Afrobarometer remains substrate-only in the current architecture; a source-native respondent/EA vertical has not yet been implemented.
 
 ## What the recovered Dataset Inventory is now
 
@@ -128,6 +171,7 @@ Do not infer that:
 - a historical time-window label proves the same current `PeriodScheme`;
 - a project amount is local spending;
 - a project/event/survey variable is intrinsically a treatment or outcome;
+- a historical DHS GID/cluster link is automatically equivalent to current reported-coordinate or displacement-aware geography;
 - equality with a historical output is required for the rebuilt product to be correct.
 
 Those meanings require explicit current contracts or experiment-use rules.
@@ -138,8 +182,10 @@ For current work:
 
 1. [Research System Architecture](../research-system.md)
 2. this page
-3. [Validation Status](./validation-status.md)
-4. [Source Data Implementation Status](../continuation/source-data-implementation-status.md)
-5. [Experimental Design Status](../continuation/experimental-design-status.md)
+3. [Empirical Product Catalog](./product-catalog.md)
+4. [DHS Empirical Stack](./products/dhs-overview.md) when working on surveys
+5. [Validation Status](./validation-status.md)
+6. [Source Data Implementation Status](../continuation/source-data-implementation-status.md)
+7. [Experimental Design Status](../continuation/experimental-design-status.md)
 
 For archaeology and parity work, then continue into the detailed [Dataset Inventory](./dataset-inventory.md), [2023 Duke Overview](../main-pipeline/duke-overview.md), and [Archive Map](../archive-map.md).
