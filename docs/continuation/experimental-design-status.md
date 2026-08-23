@@ -1,201 +1,161 @@
 ---
 title: Experimental Design Status
 sidebar_position: 2
-description: Current authority overlay for the recovered experimental-design and regression memo.
+description: Current authority overlay for experiment design, scientific roles, estimator choices, and their boundary with calibration.
 last_verified: "2026-08-23"
 ---
 
 # Experimental Design Status
 
-**Document status: CURRENT DESIGN AUTHORITY OVERLAY**  
-**Last verified: 2026-08-23**
+**Document status: CURRENT DESIGN AUTHORITY OVERLAY**
 
-The detailed [Experimental Design and Regression Pipeline](./experimental-design-regression-pipeline.md) remains the main design-history and methods reference for the recovered FCV work. It should now be read through the current repository boundary.
+The detailed [Experimental Design and Regression Pipeline](./experimental-design-regression-pipeline.md) remains useful design history. Read it through the current architecture.
 
-The compact rule is:
+The compact rules are now:
 
-> **Empirical repositories describe what was measured. Experiments decide how those measurements are used scientifically.**
-
-For the full technical map, see [Research System Architecture](../research-system.md).
+> **Empirical repositories describe what was measured. Experiments decide how those measurements are used scientifically. Calibration asks whether the resulting apparatus recovers known behavior.**
 
 ## Current scientific boundary
-
-The active system is now:
 
 ```text
 empirical-data-contracts
 + spatial-data-foundation
         ↓
 fcv-empirical-data
-    source facts / measurements
-        ↓
-contract-backed empirical input boundary
+  source facts + reusable measurements
         ↓
 fcv-experiment-harness
-    measurement projection
-    treatment/outcome roles
-    timing / eligibility
-    counterfactual / sample
-    gates / estimator
-    falsification / calibration
+  experiment projection
+  treatment/outcome/covariate roles
+  timing / eligibility / comparison sample
+  gates / estimator / falsification
+        ↓
+Africa Observability Lab
+  commissioning / controls / injection / agreement
 ```
 
-This matters when reading historical language such as:
+The calibration layer is inside the harness but should remain conceptually distinct from substantive experiment design.
 
-```text
-WB treatment
-China treatment
-jobs treatment
-ACLED outcome
-pure control
-```
+## Current design principles
 
-Those phrases are scientifically meaningful **inside a declared experiment**. They are not canonical properties of the upstream source datasets.
-
-## What is current versus historical in the detailed memo
-
-### CURRENT DESIGN PRINCIPLE
-
-The following ideas remain current:
+The following remain active:
 
 - treatment is experiment-specific;
-- timing rules must be explicit;
+- timing is explicit;
 - geography/exposure rules are scientific parameters;
-- counterfactual families should be distinguished rather than mixed casually;
-- effective identifying support matters more than total row count;
-- validity gates precede substantive coefficient interpretation;
-- placebo/falsification and signal-recovery checks are part of experiment construction;
-- matching is one estimator family, not the definition of the research design;
-- planned/future project locations are a candidate counterfactual family, not a universal default;
-- different outcome families may require different grains and linkage rules.
-
-### REFERENCE / DESIGN HISTORY
-
-The detailed memo's reconstruction of:
-
-- 2023 notebooks;
-- historical source families;
-- `GID × TimePeriod` panels;
-- pair/trio matching designs;
-- recovered treatment names;
-- matching grids;
-- regression prototypes;
-- old covariate/outcome surfaces;
-
-remains useful as design genealogy and recovered evidence.
-
-It should not be interpreted as saying that those exact materialized files are the current source authority.
-
-### SUPERSEDED IMPLEMENTATION ASSUMPTION
-
-The old mental model:
-
-```text
-project source
-→ area-period exposure table
-→ treatment column
-→ regression
-```
-
-is no longer the preferred architecture.
-
-The current system inserts an explicit measurement boundary:
-
-```text
-source-native fact
-→ contracted empirical measurement
-→ experiment projection
-→ scientific role / treatment derivation
-→ gates
-→ estimator
-```
-
-This prevents source engineering from silently absorbing causal-design choices.
+- counterfactual families are distinct designs;
+- effective support matters more than row count;
+- gates precede coefficient interpretation;
+- falsification is part of design;
+- matching is one estimator family, not the design itself;
+- survey weights/design facts remain upstream facts until an experiment chooses their inferential use;
+- codebook-backed survey meaning is not an experiment role;
+- calibration recovery targets are not substantive hypotheses.
 
 ## Current contracted experiment capability
 
-The experiment harness now contains a generic validated empirical-input seam over:
+The harness validates:
 
 ```text
 DatasetRef
 + MeasurementContract
 + CoverageContract
 + RunManifest
-+ durable measurement artifact
++ durable artifact
+        ↓
+EmpiricalMeasurementBundle
 ```
 
-The loader validates the artifact and its lineage before exposing an empirical measurement bundle to experiment code.
+Experiment projection then owns:
 
-Experiment projection then makes scientific use explicit, including:
-
-- taxonomy/category selectors;
-- normalized value column;
-- role in the experiment;
+- selectors/categories;
+- value column;
+- scientific role;
 - timing offset;
 - geography linkage;
 - coverage interpretation;
-- optional downstream transformations.
+- downstream transforms.
 
-Unknown sparse absence is not converted into zero merely because an experiment would prefer a dense panel.
+Treatment derivation can operate over contracted investment measurements with explicit eligibility and threshold/rule semantics.
 
-## Current treatment ownership
+Unknown absence does not become zero and unavailable measurement does not silently become control.
 
-Treatment derivation now exists explicitly in the harness over contracted empirical measurements.
+## Observability is now an explicit design diagnostic
 
-Conceptually:
+The old question:
 
-```text
-contract-backed investment measurement
-        ↓
-experiment projection
-        ↓
-declared treatment derivation rule
-        ↓
-treated / control / unavailable / outside eligibility
-```
+> can the E2 estimator recover a single 0.20-SD injected signal?
 
-This is an important update to the older design memo.
+has become:
 
-A project, event, amount, or area-period record is not itself "treatment" upstream. The harness may derive treatment using a declared rule such as a threshold, category selector, source family, timing window, or future scientific mapping.
+> across a declared effect-size grid, what is the probability and quality of recovery under the existing design?
 
-Likewise, a conflict measurement becomes an experiment outcome only when the experiment assigns it that role.
+The reusable observability engine characterizes:
 
-## Evidence state: do not merge two experiment histories
+- sign recovery;
+- rejection;
+- joint detection;
+- interval coverage;
+- estimate distribution;
+- recovery error;
+- sample/support context.
 
-There are currently two evidence tracks.
+This is stronger design evidence than one MDE or one injected effect point, but it still does not prove that the real effect exists.
 
-### A. Current contract-backed path
+## Calibration benchmark boundary
 
-Implemented and synthetically exercised:
+A `CalibrationBenchmarkSpec` is not another substantive experiment spec.
 
-- contract-backed empirical bundle loading;
-- exact geography / period compatibility checks;
-- ACLED measurement projection;
-- coverage-aware structural-zero handling;
-- downstream treatment derivation from contracted investment measurements;
-- fully contracted experiment preflight interfaces;
-- reuse of existing gate / estimator / signal-recovery machinery downstream.
+It declares `purpose = calibration` and a known-behavior target such as:
 
-A canonical human-facing real-data run using the new current source-native materializations is still a separate acceptance step and should be recorded explicitly when executed.
+- official DHS report statistic;
+- published positive-control pattern;
+- negative control;
+- synthetic injected truth;
+- measurement agreement.
 
-### B. Recovered real-data calibration path
+Recovery is tracked independently at Level 1 pipeline, Level 2 qualitative, and Level 3 quantitative compatibility.
 
-The reconstructed panel produced real E1/E2 calibration evidence before the new source-native architecture was complete.
+A benchmark may use a regression while still being calibration rather than substantive inference.
 
-That evidence remains scientifically useful as:
+## Evidence state: three lanes
 
-- calibration history;
-- measurement-stability evidence;
-- a reference point for current real-data acceptance;
-- a source of design lessons.
+### A. Current contract-backed experiment path
 
-It must not be relabeled as if it had been generated from the current fully contracted upstream products.
+Implemented/synthetic:
 
-See [Validation Status](../data-products/validation-status.md) for the two-track ledger.
+- empirical bundle validation;
+- ACLED projection;
+- coverage-aware timing/absence handling;
+- contracted treatment derivation;
+- existing gates/estimator reuse.
 
-## How to read historical treatment definitions
+Real current-artifact canonical run remains pending.
 
-The detailed memo contains names such as:
+### B. Observability / commissioning
+
+Implemented:
+
+- E2 effect-size observability engine;
+- synthetic null calibration;
+- generic calibration benchmark kernel;
+- instrument-health reporting.
+
+Designed/not run:
+
+- Nigeria DHS 2018 commissioning;
+- Briggs 2017 positive control;
+- Breckner–Sunde benchmark.
+
+### C. Recovered real-data calibration
+
+Historical WBad/WBkg → ACLED E2 remains genuine real-data calibration evidence and design genealogy.
+
+It is not automatically current contracted or external commissioning evidence.
+
+## Historical treatment vocabulary
+
+Names such as:
 
 ```text
 cnwb_pooled
@@ -207,89 +167,71 @@ jobs_indirect
 pure_control
 ```
 
-Interpret these as one of three things:
+should be read as recovered/candidate experiment vocabulary, not required upstream columns.
 
-1. **recovered experiment definitions** — what historical notebooks attempted;
-2. **candidate experiment roles** — scientifically plausible definitions that may be re-expressed over current measurements;
-3. **design vocabulary** — useful labels for discussing contrasts.
-
-Do not interpret them as required columns in `fcv-empirical-data` or `empirical-data-contracts`.
-
-If a definition becomes active again, it should be represented through explicit experiment configuration/projection and retain the measurement provenance used to derive it.
+If revived, they should be explicitly derived from current measurements and retain provenance.
 
 ## Annotation boundary
 
-Project classification remains scientifically relevant, but classification and treatment are distinct.
+Project annotations may be derived empirical/review facts.
 
-A project-level annotation such as:
+An experiment decides whether they affect:
 
-```text
-jobs_direct
-jobs_indirect
-locally_implemented
-macro_policy
-```
-
-may be a derived empirical/review fact with its own provenance.
-
-An experiment then decides whether that annotation participates in:
-
-- treatment eligibility;
-- treatment definition;
+- eligibility;
+- treatment;
 - subgroup analysis;
-- exclusion rules;
+- exclusions;
 - descriptive stratification.
 
-An annotation convenience must not silently mutate source-native Silver or become causal meaning by default.
+Annotation is not causal meaning by default.
 
 ## Counterfactual status
 
-No single counterfactual family is yet globally canonical.
+No global counterfactual is canonical.
 
-Current candidate families include:
+Candidate families include:
 
-- never/pure controls where absence semantics and source coverage support that interpretation;
-- covariate-matched controls;
+- never/pure controls where coverage justifies absence interpretation;
+- matched controls;
 - future/planned project locations;
 - within-area longitudinal contrasts;
 - multi-arm investment comparisons;
-- combinations used for triangulation.
+- triangulation across several designs.
 
-Each changes the estimand and identifying assumptions. They should be compared as distinct experiments rather than treated as interchangeable robustness switches.
+These define different estimands and assumptions.
 
 ## Estimator status
 
-The current architecture deliberately keeps estimator choice downstream of measurement and preflight.
+Estimator choice remains downstream of measurement, support, timing, and observability.
 
-Recovered/current candidate families include:
+Candidate families include:
 
 - descriptive comparisons;
 - OLS calibration;
-- matching-based estimators;
+- matching estimators;
 - longitudinal / staggered-treatment designs;
-- count/rate or hurdle-style models where outcome structure warrants them;
-- future spatial/spillover-aware designs.
+- count/rate/hurdle models where warranted;
+- future spatial/spillover-aware methods.
 
-Estimator complexity should not be used to repair an experiment that lacks timing resolution, outcome coverage, treatment/control support, or credible counterfactual structure.
+Estimator complexity should not repair a design that fails basic measurement or commissioning tests.
 
 ## Current design priorities
 
-The next useful design work is driven by empirical bottlenecks rather than by expanding the estimator menu.
+The latest harness work changes the priority order.
 
-Near-term priorities are:
-
-1. execute and record a real-data fully contract-backed experiment acceptance path;
-2. compare its projection/support/coverage evidence with the recovered calibration history without requiring coefficient equality;
-3. define the next concrete investment contrast over current measurements;
-4. use the merged survey substrate to build a named DHS or Afrobarometer measurement only when a specific survey experiment is ready to consume it;
-5. preserve explicit geography, period, coverage, and grain contracts as designs broaden beyond the recovered panel lane.
+1. close the generic calibration auxiliary-input seam tracked in issue #16;
+2. commission the DHS survey measurement system against Nigeria 2018 electricity before building a complex DHS exposure design;
+3. run the real current-artifact GeoGCDF → ACLED reference experiment and observability curve;
+4. use failures/discrepancies to decide whether the next bottleneck is measurement, geography, time, support, or model design;
+5. implement Briggs after simpler DHS commissioning passes;
+6. broaden estimator families only when the instrument and design justify it.
 
 ## Reading order
 
-For current work:
-
 1. [Research System Architecture](../research-system.md)
-2. [Research Workflow and Validation](./experimental-infrastructure.md)
-3. this page
-4. [Validation Status](../data-products/validation-status.md)
-5. detailed [Experimental Design and Regression Pipeline](./experimental-design-regression-pipeline.md) when design history or recovered implementation detail is needed.
+2. [Africa Observability Lab](../experiments/observability-lab.md)
+3. [Research Workflow and Validation](./experimental-infrastructure.md)
+4. [Calibration Benchmark Catalog](../experiments/calibration-benchmark-catalog.md)
+5. this page
+6. [Validation Status](../data-products/validation-status.md)
+7. [Experimental Design and Regression Pipeline](./experimental-design-regression-pipeline.md) for detailed historical design genealogy.
