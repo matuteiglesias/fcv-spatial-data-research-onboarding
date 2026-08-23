@@ -1,231 +1,219 @@
 ---
 title: Validation Status
 sidebar_position: 3
-description: Human-facing evidence and readiness board for FCV empirical measurements and experiment surfaces.
+description: Human-facing evidence and readiness board for empirical products, experiments, observability, and commissioning.
 date: "2026-08-23"
 ---
 
 # Validation Status
 
-This page is the human-facing readiness and evidence ledger for active FCV empirical work.
+This page is the human-facing evidence ledger for the active FCV scientific instrument.
 
-The project has **two different evidence tracks** that must not be conflated:
+The project now has **three different evidence lanes** that must remain separate:
 
-1. **recovered/legacy-backed real-data calibration evidence** from the reconstructed area-period system; and
-2. **current contract-backed architecture evidence** from the newer source-native empirical stack and harness boundary.
+1. **current contract-backed architecture** — whether the rebuilt empirical + experiment machinery behaves coherently;
+2. **observability / external commissioning** — whether the instrument can recover known injected or external behavior;
+3. **recovered real-data calibration** — historical/reconstruction-backed E1/E2 evidence that predates the fully contracted stack.
 
-The first has real-data E1/E2 calibration results. The second has stronger provenance and scientific boundaries but has not yet been promoted here as a completed canonical real-data experiment run over the current upstream artifacts.
+None of these lanes is interchangeable with substantive causal evidence.
 
-For the system map, see [Research System Architecture](../research-system.md). For empirical objects, see the [Empirical Product Catalog](./product-catalog.md). For DHS specifically, see [DHS Empirical Stack](./products/dhs-overview.md) and [DHS Household Semantic Measurements](./products/dhs-household-measurements.md).
+See [Africa Observability Lab](../experiments/observability-lab.md), [Calibration Benchmark Catalog](../experiments/calibration-benchmark-catalog.md), and [Experiment Surface Catalog](../experiments/experiment-surface-catalog.md).
 
 ## Evidence vocabulary
 
-Four kinds of evidence should remain separate.
-
 | Evidence | What it establishes | What it does not establish |
 |---|---|---|
-| **Software / synthetic acceptance** | Code and scientific-boundary logic behave as declared on controlled fixtures. | Real FCV data quality or a substantive research effect. |
-| **Empirical materialization / QA** | A source-backed measurement exists with declared provenance, hashes, coverage, and QA. | That the measurement is the right treatment/outcome for a particular experiment. |
-| **Experiment gate run** | A declared design has measurable support, coverage, timing, and diagnostics on real data. | Automatic causal identification. |
-| **Estimator / calibration result** | A declared estimator produced an estimate for that gated experiment. | Robust causal truth or policy relevance. |
+| **Software / synthetic acceptance** | Code and boundary logic behave as declared on controlled fixtures. | Real-source acceptance or a real effect. |
+| **Empirical materialization / QA** | A source-backed product exists with provenance, hashes, coverage, and QA. | Correct experiment role or identification. |
+| **Experiment gate run** | A declared design has support, coverage, timing, and diagnostics on real data. | Automatic causal validity. |
+| **Synthetic observability** | Known injected truth can or cannot be recovered with a certain probability/quality. | That the real treatment effect exists. |
+| **External commissioning** | The instrument reproduces an authoritative external measurement/pattern at declared recovery levels. | A new FCV substantive result. |
+| **Estimator result** | A declared estimator produced an estimate for a gated experiment. | Robust causal truth. |
 
-For restricted sources such as DHS, two more distinctions now matter operationally:
-
-- **synthetic acceptance is not protected-source acceptance**;
-- **codebook-backed empirical meaning is not experiment-role assignment**.
+For restricted data, synthetic acceptance is not protected-source acceptance. For DHS, codebook-backed empirical meaning is not experiment-role assignment.
 
 ## Status vocabulary
 
 | Status | Meaning |
 |---|---|
-| **GREEN** | The named real-data gate passed for the stated experiment/specification. Permission to investigate further, **not causal validation**. |
-| **YELLOW** | The gate or experiment is usable enough to inspect but a material caveat or unresolved sensitivity remains. |
-| **RED** | The current experiment failed a required gate. |
-| **NOT RUN** | The relevant real-data gate sequence has not yet been executed under the stated architecture. |
-| **BLOCKED** | A required empirical object or scientific definition is not stable enough for a meaningful run. |
-| **SYNTHETIC PASS** | The implementation path passes controlled synthetic acceptance; this is not a real-data readiness status. |
+| **GREEN / PASS** | The named required gate or recovery target passed. Permission to continue, not causal validation. |
+| **YELLOW** | Usable diagnostic evidence exists but a material caveat remains. |
+| **RED / FAIL** | A required gate or recovery level failed. |
+| **NOT RUN** | The relevant real-data or benchmark execution has not occurred. |
+| **BLOCKED** | A required empirical/scientific capability is not ready enough to run meaningfully. |
+| **SYNTHETIC PASS** | Controlled implementation acceptance only. |
 
 ## Track A — Current contract-backed architecture
 
-### A1. Shared contract and spatial foundations
+### A1. Shared foundations
 
-`empirical-data-contracts` and `spatial-data-foundation` provide the shared contract, geography, period, membership, and provenance machinery.
+`empirical-data-contracts` and `spatial-data-foundation` provide shared contracts, geography/time, membership, and provenance.
 
 **Status: INFRASTRUCTURE AVAILABLE**
 
-### A2. FCV empirical-data kernel
+### A2. FCV empirical kernel and source verticals
 
-`fcv-empirical-data` has contract-backed materialization, source snapshots, output hashes, QA, failure visibility, natural-grain support, and parity evidence.
+Contract-backed source snapshots, natural grains, output hashes, QA, coverage, and failure visibility are implemented across current empirical verticals.
 
-**Status: SYNTHETIC PASS / IMPLEMENTED**
+**Status: IMPLEMENTED / SYNTHETIC PASS**
 
-### A3. ACLED source-native measurement path
+### A3. ACLED → harness projection
 
 ```text
-ACLED snapshot
-→ source-native Silver events
-→ shared geography membership
-→ shared period membership
-→ sparse area × period × native-event measurement
-→ MeasurementContract / CoverageContract / RunManifest
+ACLED source-native measurement
+→ validated bundle
+→ explicit taxonomy/value/timing projection
+→ experiment frame
 ```
-
-**Status: SYNTHETIC PASS; REAL CONTRACTED ACCEPTANCE NOT YET RECORDED HERE**
-
-### A4. Contracted ACLED → harness experiment projection
-
-The harness validates contract-backed empirical bundles and projects ACLED measurements into scientific roles explicitly.
 
 **Status: SYNTHETIC PASS**  
-**Real current-artifact E1/E2 run: NOT RUN / NOT YET RECORDED AS CANONICAL**
+**Canonical real current-artifact E1/E2 run: NOT YET RECORDED**
 
-### A5. Contracted investment measurement → treatment derivation
+### A4. Contracted investment → treatment derivation
 
-The empirical repository contains source-native investment verticals including AidData CLG-LMIC, World Bank Projects API, and GeoGCDF. The harness can derive treatment downstream from a projected empirical measurement.
-
-**Status: SYNTHETIC PASS / IMPLEMENTED**  
-**Canonical real-data fully contracted investment → ACLED experiment: NOT RUN**
-
-### A6. Survey-native empirical substrate
-
-The reusable survey substrate is implemented without forcing household/respondent/cluster observations into area-period semantics.
-
-**Status: IMPLEMENTED FOUNDATION / SYNTHETIC PASS**
-
-### A7. DHS Household Recode (HR)
-
-Implemented source path:
-
-```text
-external protected HR source
-→ SourceSnapshotRef
-→ verified DHS survey/file identity
-→ household observations in Silver
-→ QA + DatasetRef + RunManifest
-```
-
-The latest hardening makes the grain contract truthful:
-
-- conceptual observations remain households;
-- source `household_id` remains visible even when missing/duplicated;
-- unique `source_row_id` is the durable physical `DatasetRef.grain`;
-- source defects are audited rather than repaired merely to satisfy uniqueness.
+The harness can derive treatment downstream from a projected contracted empirical measurement under explicit eligibility and derivation rules.
 
 **Status: IMPLEMENTED / SYNTHETIC PASS**  
-**Protected real-source materialization reviewed here: NOT RUN / NOT RECORDED**
+**Real fully contracted investment → ACLED reference run: NOT YET RECORDED**
 
-### A8. DHS Geospatial Covariates (GC)
+### A5. DHS empirical stack
 
-Cluster-native wide Silver, optional long `survey × cluster × source_variable` view, registry-driven temporal semantics, and explicit cluster availability are implemented.
+Implemented and synthetically accepted:
 
-Identity fields remain identity; missing rows/values never become zero; no GID aggregation or fake survey-year assignment is performed.
+- HR household Silver with truthful physical `source_row_id` grain;
+- GC cluster measurements and temporal semantics;
+- GE/GPS reported-coordinate geography with displacement evidence;
+- HR/GC/GPS integration QA without a mega-table;
+- initial DHS-VII codebook-backed household semantic measurements.
 
-**Status: IMPLEMENTED / SYNTHETIC PASS**  
-**Protected/current real-source materialization: NOT RUN / NOT RECORDED**
-
-### A9. DHS GE/GPS reported-coordinate geography
-
-```text
-external DHS GE/GPS source
-→ cluster-coordinate Silver
-→ survey/GPS identity audit
-→ reported_coordinate_membership
-→ SurveyGeographyLink + displacement/uncertainty metadata
-```
-
-The implementation does not claim reported coordinate = true location, perform de-displacement, or build displacement-buffer candidate geography.
-
-**Status: IMPLEMENTED / SYNTHETIC PASS**  
-**Protected/current real-source geography acceptance: NOT RUN / NOT RECORDED**
-
-### A10. DHS HR + GC + GPS integration QA
-
-The latest DHS mini-wave adds explicit integrated validation without creating an analysis mega-table.
-
-`build_dhs_survey_integration_report` verifies that:
-
-- HR, GPS, and GC resolve to one explicit `SurveyCatalogEntry`;
-- optional dataset roles cannot masquerade as another product;
-- declared `DatasetRef.grain` keys exist, contain no nulls, and actually uniquely identify supplied rows;
-- HR-only, GPS-only, and GC-only clusters remain visible rather than disappearing through an inner join;
-- GC uses `DHSCLUST` as the cross-product cluster link when available while keeping `DHSID` distinct;
-- numeric-equivalent but text-distinct identities such as `001` and `1` remain unresolved evidence rather than being silently normalized.
-
-The report contains support/count/provenance evidence only. It does not join household values, coordinates, or GC covariates into a scientific frame.
-
-**Status: IMPLEMENTED / SYNTHETIC PASS**  
-**Real protected one-survey integrated report: NOT RUN / NOT RECORDED**
-
-### A11. DHS codebook-backed household semantic measurements
-
-The initial DHS-VII HR registry defines three reusable empirical measurements:
-
-| Source | Measurement | Evidence boundary |
-|---|---|---|
-| `HV206` | `dhs.household.electricity_access` | standard 0/1 semantics; documented missing stays missing; unsupported codes unresolved |
-| `HV270` | `dhs.household.wealth_quintile` | ordered source quintile; explicitly survey-relative |
-| `HV201` | `dhs.household.drinking_water_source_code` | source category preserved; no improved/safe-water harmonization |
-
-The derived product:
+Initial semantic measurements:
 
 ```text
-content-hashed HR Silver
-→ versioned codebook-backed registry
-→ source_row_id × measurement_id
-→ MeasurementContract + QA + RunManifest
+HV206 → dhs.household.electricity_access
+HV270 → dhs.household.wealth_quintile
+HV201 → dhs.household.drinking_water_source_code
 ```
 
-Measurement statuses distinguish `observed`, `missing_source_value`, `source_missing_code`, and `unmapped_source_code`. Unsupported codes never become zero.
+**Status: EMPIRICAL STACK + INITIAL SEMANTICS IMPLEMENTED / SYNTHETIC PASS**  
+**Protected real-source integrated acceptance: NOT RUN / NOT RECORDED**  
+**Current DHS scientific experiment: NOT RUN**
 
-The registry requires explicit codebook provenance and survey-phase compatibility. Unsupported historical notebook interpretations are not promoted to current semantics merely because old code used them.
+## Track B — Africa Observability Lab
 
-**Status: IMPLEMENTED / SYNTHETIC PASS / L3**  
-**Protected real-source semantic materialization: NOT RUN / NOT RECORDED**  
-**Treatment/outcome/covariate roles assigned: NONE**
+Track B asks whether the apparatus can recover known behavior. Every benchmark is explicitly `purpose = calibration`.
 
-### A12. DHS empirical stack → scientific experiment
+### B1. Calibration Lab kernel
 
-The empirical prerequisites have advanced materially:
+The harness now has a source-agnostic calibration benchmark substrate with:
+
+- `commissioning`;
+- `positive_control`;
+- `negative_control`;
+- `synthetic_injection`;
+- `measurement_agreement`.
+
+Recovery is tracked independently at:
 
 ```text
-HR + GC + GPS
-   ↓
-integration QA
-   ↓
-codebook-backed household semantic measurements
-   ↓
-scientific-use projection   ← still pending
+Level 1 — pipeline
+Level 2 — qualitative behavior
+Level 3 — quantitative compatibility
 ```
 
-A current experiment still needs:
+Sanitized calibration manifests/results record benchmark spec hash, empirical dataset identities, parameters, seed/code revision where supplied, and result hash without persisting protected tables or local paths.
 
-- named survey/recode scope;
-- experiment role selection over one or more semantic measurements;
-- household/person ↔ cluster projection;
-- named treatment/exposure measurement;
-- timing rules;
-- displacement-aware geography/exposure policy;
-- survey weight/PSU/strata use;
-- harness support for the cross-grain design;
-- protected-source acceptance summarized without exposing restricted values.
+**Status: IMPLEMENTED / SYNTHETIC PASS**
 
-**Status: PARTIAL — EMPIRICAL STACK + INITIAL SEMANTIC MEASUREMENTS IMPLEMENTED / SCIENTIFIC USE PENDING**
+### B2. Instrument-health reporting
 
-This is a different state from Afrobarometer, where current source-native ingestion remains unimplemented.
+A suite can be summarized across:
 
-## Track B — Recovered/legacy-backed real-data calibration
+- source/contract integrity;
+- commissioning;
+- positive controls;
+- negative controls;
+- synthetic detectability;
+- measurement agreement;
+- known limitations.
 
-Before the new upstream architecture was complete, the recovered 2023 area-period surfaces were converted into a more explicit canonical analysis checkpoint and taken through E1/E2 real-data calibration.
+There is deliberately no aggregate instrument score.
 
-This evidence remains useful, but should remain labeled as recovered/reconstruction-backed evidence rather than current fully contracted evidence.
+**Status: IMPLEMENTED**
+
+### B3. Reusable E2 observability instrument
+
+The old single `0.20 SD` signal-recovery check is now a caller-declared effect-size grid over the existing E2 design.
+
+For each repetition/effect size it can record effect recovery, SE/CI, sign recovery, rejection, joint detection, CI coverage, recovery error, sample size, clusters, outcome SD, and support.
+
+Durable outputs include a detection curve and null-calibration summary.
+
+**Status: IMPLEMENTED / SYNTHETIC PASS**
+
+The fully contracted investment + ACLED E2 reference path is explicitly covered by synthetic acceptance.
+
+### B4. Synthetic null calibration
+
+`delta = 0` is a first-class known synthetic null for calibrating false-positive behavior and CI coverage around zero.
+
+**Status: IMPLEMENTED / SYNTHETIC PASS**
+
+This does not assert that the real FCV social relationship is null.
+
+### B5. Official DHS commissioning
+
+First recommended target:
+
+```text
+Nigeria DHS 2018
+household electricity = 59.4%
+```
+
+This benchmark tests survey/release identity, `HV206`, `HV005` weighting, denominator definition, and missing-value handling.
+
+Additional designed Nigeria 2018 targets include detailed drinking-water categories and urban de jure wealth-quintile distribution.
+
+**Status: DESIGNED / NOT RUN**
+
+#### Current blocker
+
+Harness issue #16 is the shared prerequisite: calibration needs a generic provenance-validated **auxiliary dataset** input in addition to semantic measurement bundles.
+
+The kernel should accept source-native HR facts through verified `DatasetRef + RunManifest + bytes` without fabricating a `MeasurementContract`; DHS joins/weights/denominators remain adapter logic.
+
+**Status: BLOCKED ON GENERIC AUXILIARY-INPUT SEAM + PROTECTED LOCAL EXECUTION**
+
+### B6. Briggs (2017) published positive control
+
+The first recommended published-study survey benchmark tests DHS weighting/denominators, survey-region geography, donor-project aggregation, and published regression behavior.
+
+Required first acceptance is qualitative recovery of the reported rich-region aid-targeting pattern; Level-3 coefficient compatibility is conditional on exact historical source/design recovery.
+
+**Status: IMPLEMENTATION HANDOFF READY AFTER DHS COMMISSIONING + ISSUE #16**
+
+### B7. Breckner & Sunde (2019)
+
+This complementary ACLED/weather positive control stresses event coverage, event-to-space assignment, structural zeros, external weather alignment, regular-grid geography, monthly periods, and fixed-effects estimation.
+
+Its native design is `0.75° grid × month`.
+
+Current reusable time/geography foundations do not yet represent that design truthfully.
+
+**Status: DEFERRED / BLOCKED ON SHARED REGULAR-GRID + MONTHLY PERIOD CAPABILITIES**
+
+The project should not fake grid cells as GADM or months as annual periods.
+
+## Track C — Recovered/legacy-backed real-data calibration
+
+The recovered area-period system has genuine real-data E1/E2 calibration evidence and remains scientifically useful as a historical instrument checkpoint.
 
 ### Real E2 calibration matrix
 
-| Treatment source/definition | Role in calibration | Real-data hard-gate result |
+| Treatment source/definition | Role | Real-data gate state |
 |---|---|---|
 | WBad `record_present` | PRIMARY | hard gates passed |
 | WBkg `record_present` | PRIMARY | hard gates passed |
-| WBad `amount_positive` | STRESS | hard gates passed with a **YELLOW within-period support caveat** because 2013–2014 had zero treated WBad units |
+| WBad `amount_positive` | STRESS | hard gates passed; YELLOW within-period caveat in 2013–2014 |
 | WBkg `amount_positive` | STRESS | hard gates passed |
 
 Common model sample:
@@ -235,7 +223,9 @@ Common model sample:
 4,142 GIDs
 ```
 
-Synthetic recovery of the predeclared 0.20-SD injected signal was `30/30` in every cell.
+Historical one-point synthetic recovery at the predeclared `0.20 SD` truth was `30/30` in every cell.
+
+That old check remains evidence, but the new reusable observability instrument is a broader characterization API rather than merely this one historical point.
 
 ### Calibration estimates
 
@@ -246,82 +236,42 @@ Synthetic recovery of the predeclared 0.20-SD injected signal was `30/30` in eve
 | WBad `amount_positive` | +0.1591 | 0.2250 | +0.0089 | 0.0352 |
 | WBkg `amount_positive` | +0.0665 | 0.2506 | +0.0037 | 0.0392 |
 
-All reported 95% coefficient intervals included zero, and observed effect sizes were below the approximate 80% detectable scale reported by the calibration.
+All reported 95% intervals included zero; observed effect sizes were below the approximate detectable scale reported at that checkpoint.
 
-### WB measurement agreement
+### Measurement agreement
 
-Reported `record_present` agreement included approximately:
-
-```text
-exact area-period agreement  0.889
-Jaccard among treated union  0.600
-```
-
-For `amount_positive`, treated-union Jaccard was lower and WBad 2013–2014 positive-amount treatment collapsed while WBkg retained treated cells.
-
-## Why Track B is not automatically Track A
-
-The recovered calibration used a reconstructed historical/canonical panel. The newer architecture instead aims for:
+For historical WBad/WBkg `record_present`:
 
 ```text
-source snapshot
-→ source-native empirical materialization
-→ shared contract-backed measurement
-→ validated empirical bundle
-→ explicit experiment projection
-→ treatment/outcome roles
-→ gates / estimator
+exact area-period agreement  ~0.889
+treated-union Jaccard        ~0.600
 ```
 
-A result from Track B should not be relabeled as a Track A result merely because the research question sounds similar. Historical coefficient equality is not an acceptance criterion.
+This is now naturally interpretable as a `measurement_agreement` calibration lane, while remaining recovered-data evidence.
 
-## Current experiment surfaces
+## Current readiness summary
 
-| Experiment surface | Current empirical state | Current readiness |
-|---|---|---:|
-| **Recovered WB → ACLED calibration** | Real recovered area-period E1/E2 checkpoint exists. | **REAL CALIBRATION COMPLETED**; recovered-lane evidence only. |
-| **Contracted investment → contracted ACLED** | Upstream verticals + generic harness boundary + downstream treatment derivation exist. | **NOT RUN on canonical real current artifacts** |
-| **GeoGCDF → ACLED** | Contracted GeoGCDF measurement path and contracted ACLED path exist. | **NOT RUN** as a declared real experiment |
-| **Jobs-related investment → ACLED** | Annotation protocol exists; source facts are separate from jobs treatment semantics. | **BLOCKED** pending validated annotation/use design and contracted experiment projection |
-| **Afrobarometer spatial experiment** | Survey-native substrate implemented; source-native respondent/EA ingestion absent. | **BLOCKED — SOURCE INGESTION NEEDED** |
-| **DHS-linked experiment** | HR + GC + GPS + integration QA + initial household semantic measurements are implemented. | **PARTIAL — protected-source integrated acceptance + scientific-use/harness integration pending** |
+| Surface / instrument test | Current state |
+|---|---|
+| Fully contracted GeoGCDF → ACLED experiment | **IMPLEMENTED / REAL RUN PENDING** |
+| Fully contracted E2 observability curve | **IMPLEMENTED / SYNTHETIC PASS / REAL CURRENT-ARTIFACT CHARACTERIZATION PENDING** |
+| Nigeria 2018 DHS electricity commissioning | **DESIGNED / BLOCKED ON #16 + LOCAL DATA** |
+| Briggs 2017 positive control | **READY AFTER DHS COMMISSIONING PREREQUISITES** |
+| Breckner–Sunde 2019 positive control | **DEFERRED — GRID + MONTHLY SUPPORT NEEDED** |
+| DHS scientific exposure experiment | **PARTIAL — empirical semantics exist; protected acceptance + cross-grain scientific use pending** |
+| Recovered WB → ACLED E2 | **REAL CALIBRATION COMPLETED — RECOVERED LANE** |
 
-## Core gate families
+## Next evidence transitions
 
-The active harness should continue to gate candidate experiments on:
+The highest-value evidence transitions are now:
 
-1. data / lineage integrity;
-2. timing;
-3. treatment / comparison support;
-4. outcome coverage and sparsity;
-5. pretreatment balance / selection;
-6. placebo / falsification behavior;
-7. synthetic signal recovery;
-8. spatial precision / ambiguity / bandwidth sensitivity where relevant;
-9. survey linkage / design-weight / displacement sensitivity where relevant;
-10. semantic comparability / unresolved-code diagnostics for survey measurements where relevant.
-
-## What should be updated after the next real DHS run?
-
-For one protected DHS survey, record only non-sensitive evidence such as:
-
-- survey/release/file identities;
-- source and output hashes;
-- HR/GC/GPS row and cluster counts;
-- integration support counts and source-only clusters;
-- suspicious numeric-equivalent/text-distinct ID counts;
-- missingness/QA counts;
-- GPS membership-status counts and displacement-policy provenance;
-- GC temporal-semantics/availability summaries;
-- semantic registry hash and measurement-status counts;
-- experiment projection/gate evidence once harness use exists.
-
-Do not turn synthetic acceptance into a GREEN real-data gate, and do not expose protected household values merely to prove that a run occurred.
+1. close calibration auxiliary-input issue #16;
+2. execute the Nigeria 2018 electricity commissioning benchmark locally;
+3. record one real protected DHS integrated acceptance without protected values;
+4. run current durable GeoGCDF + ACLED artifacts through the fully contracted experiment and observability path;
+5. implement Briggs only after the survey instrument has passed simpler external commissioning;
+6. let calibration discrepancies determine the next engineering/scientific bottleneck.
 
 ## Interpretation rule
 
-The board exists to answer:
-
-> **What exactly has been established, under which empirical architecture, and what is still permission rather than evidence?**
-
-That is more useful than a single global statement that “the pipeline works.”
+> **The purpose of this board is to state exactly what the instrument has demonstrated—not to collapse software tests, commissioning, experiment gates, and substantive inference into one claim that “the pipeline works.”**
