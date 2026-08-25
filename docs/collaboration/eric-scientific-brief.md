@@ -11,9 +11,7 @@ last_verified: "2026-08-23"
 **Purpose:** scientific orientation, not implementation history  
 **Reading time:** ~7 minutes
 
-> **Over the last week, the FCV reconstruction changed character. What began as recovering an old empirical workflow has become the construction of a calibrated scientific measurement system.**
-
-The central idea is:
+> **Calibrated scientific measurement system.**
 
 > **measurement first, experiment second.**
 
