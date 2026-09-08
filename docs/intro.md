@@ -21,44 +21,50 @@ source facts
 
 ## What changed most recently
 
-The DHS HR measurement arm is now **commissioned on real protected-source data**, rather than merely implemented synthetically.
+Two major real-data milestones now exist.
 
-Three authoritative DHS releases have been materialized from their distributed fixed-width `.DAT + .DCT` representation:
+### DHS measurement commissioning
 
-- Nigeria 2018;
-- Uganda 2016;
-- Zambia 2018.
+The DHS HR measurement arm has reproduced **8 / 8 official report benchmarks** across Nigeria 2018, Uganda 2016, and Zambia 2018 using canonical `.DAT + .DCT` source authority.
 
-The initial semantic registry remains deliberately small:
+This is external measurement commissioning, not a substantive DHS exposure result.
+
+### Current GeoGCDF → ACLED real gate run
+
+The rebuilt current-artifact E2 path has now crossed from synthetic acceptance to real experiment evidence.
+
+The PRIMARY reference uses:
 
 ```text
-HV206 → household electricity access
-HV270 → survey-relative wealth quintile
-HV201 → drinking-water source code
+47 GeoGCDF-covered countries
+6,420 GADM ADM2 units
+38,520 ADM2-period rows
+6 treatment periods
+GeoGCDF project_count > 0
+→ ACLED VAC fatalities at t+1
 ```
 
-Across those three releases, the rebuilt instrument reproduced **8 / 8 official DHS report benchmarks** within the predeclared publication-rounding tolerance.
+All declared E0–E6 gates were GREEN. Treated/control support exists in all six periods; pretreatment balance and prior-outcome placebo are very small; the predeclared 0.20-SD injected signal recovered 30 / 30 times.
 
-The commissioning wave exercises household weights, de-jure population multipliers, urban-domain selection, wealth-quintile semantics, and release-local drinking-water categories. No joined protected microdata were persisted in the benchmark outputs.
+The real reference coefficient is modest and imprecise (`+0.550`, SE `0.458`, `z ≈ 1.20`). This is not strong substantive evidence. It demonstrates why instrument health and real signal strength must remain separate questions.
 
-This is external commissioning evidence. It is not a new FCV substantive result and it does not yet validate a DHS spatial-exposure experiment.
+A clean supported-environment numerical replication and the full real-frame observability curve are now in progress.
 
 ## Current scientific frontier
 
-The highest-value readiness transition is now the first **real current-artifact GeoGCDF → ACLED fully contracted experiment**, followed by observability characterization on the exact same prepared frame.
-
-The desired sequence is:
+The project is now climbing a **small-effect credibility ladder**:
 
 ```text
-hash-backed empirical inputs
-→ explicit experiment projection
-→ coverage / support / timing gates
-→ placebo / falsification diagnostics
-→ estimator if hard gates permit
-→ effect-size observability curve + delta=0 calibration
+clean numerical reproduction
+→ real-frame observability from 0 to 0.20 SD
+→ uncertainty / interval calibration
+→ influence + leave-one-country/period-out stability
+→ stronger timing / negative-control falsification
+→ external published positive control
+→ bounded model-family sensitivity where justified
 ```
 
-The goal is not to obtain a preferred coefficient. The goal is to know whether the current scientific apparatus is coherent on real data and what signal scale it can reliably resolve.
+The goal is to know not merely whether a coefficient can be estimated, but whether very small signals can be distinguished from noise, spatial dependence, influential units, timing artifacts, and miscalibrated uncertainty.
 
 ## How to read this site
 
@@ -69,9 +75,7 @@ Start with:
 3. [Validation Status](./data-products/validation-status.md) — evidence ledger;
 4. [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md) — substantive scientific surfaces;
 5. [Calibration Benchmark Catalog](./experiments/calibration-benchmark-catalog.md) — known-behavior commissioning and positive controls;
-6. [Africa Observability Lab](./experiments/observability-lab.md) — instrument characterization machinery.
-
-For historical reconstruction, use the archive/recovery pages separately.
+6. [Africa Observability Lab](./experiments/observability-lab.md) — detector and uncertainty characterization.
 
 ## Repository boundaries
 
@@ -85,12 +89,10 @@ For historical reconstruction, use the archive/recovery pages separately.
 
 > **A successful materialization is not automatically an experiment.**
 
-> **A codebook-backed measurement is not automatically an outcome or control.**
-
 > **A GREEN experiment gate is permission to investigate further, not causal validation.**
 
 > **Synthetic detectability is not evidence that the real effect exists.**
 
-> **External commissioning is evidence about the instrument, not a new substantive FCV finding.**
+> **A healthy instrument can legitimately produce a small, imprecise real coefficient.**
 
-The value of the rebuilt architecture is increasingly that these statements can remain true simultaneously while evidence advances from one layer to the next.
+> **Robustness checks should characterize fragility, not search for significance.**
