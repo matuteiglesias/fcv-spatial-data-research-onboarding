@@ -2,67 +2,56 @@
 title: Current Research Status
 sidebar_position: 1
 description: Current state of the FCV empirical system, experiment harness, observability lab, and immediate evidence-producing work.
-date: "2026-08-23"
+date: "2026-09-08"
 ---
 
 # Current Research Status
 
-The FCV project has moved from archive recovery into **scientific-instrument construction and commissioning**.
+The FCV project has moved from archive recovery into **scientific-instrument construction, commissioning, and real-design readiness testing**.
 
-The active stack now separates four questions that older workflows often collapsed:
+The active stack separates four questions that older workflows often collapsed:
 
 ```text
 1. WHAT WAS MEASURED?
-   source facts + empirical measurements
+   source facts + reusable empirical measurements
 
 2. HOW IS IT USED SCIENTIFICALLY?
    experiment projection + roles + timing + eligibility
 
-3. CAN THE DESIGN OBSERVE KNOWN SIGNALS?
-   observability / calibration / commissioning
+3. CAN THE APPARATUS RECOVER KNOWN SIGNALS?
+   observability / calibration / external commissioning
 
 4. WHAT DOES THE SUBSTANTIVE ESTIMATE SAY?
    estimator output after the preceding gates
 ```
 
-The recovered 2021–2023 pipeline remains important research memory and real calibration evidence, but it is no longer the architectural center of the project.
+The recovered 2021–2023 pipeline remains important research memory and genuine recovered-lane calibration evidence, but it is no longer the architectural center of the project.
 
-For orientation, see [Research System Architecture](./research-system.md), [Africa Observability Lab](./experiments/observability-lab.md), [Empirical Product Catalog](./data-products/product-catalog.md), and [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md).
+## September 8, 2026: DHS commissioning checkpoint
 
-## Current system state
+The most important status change is that **protected real-source DHS commissioning is no longer pending**.
 
-### 1. Reusable foundations are external to FCV
-
-[`empirical-data-contracts`](https://github.com/matuteiglesias/empirical-data-contracts) owns reusable identity, provenance, grain, geography/time, coverage, measurement, QA, and run-manifest contracts.
-
-[`spatial-data-foundation`](https://github.com/matuteiglesias/spatial-data-foundation) owns reusable geography authority, analytical geometry, period indexing, spatial membership, source registration, and spatial provenance.
-
-Neither package owns FCV treatment/outcome semantics or estimators.
-
-### 2. `fcv-empirical-data` now produces source-native facts and reusable measurements
-
-The empirical repository currently includes:
-
-- AidData CLG-LMIC relational Silver;
-- World Bank Projects API Silver;
-- AidData GeoGCDF project geometry + contracted commitment-period measurements;
-- ACLED source-native events + contracted area-period-native-event measurements;
-- reusable survey substrate;
-- DHS HR, GC, and GE/GPS verticals;
-- DHS HR/GC/GPS integration QA;
-- initial codebook-backed DHS household semantic measurements.
-
-The current DHS mini-wave is materially mature:
+Canonical DHS HR ingestion now uses the authoritative fixed-width release representation distributed by DHS:
 
 ```text
-HR + GC + GPS
-      ↓
-integration QA
-      ↓
-codebook-backed household measurements
+.DAT + .DCT
+→ verified fixed-width decoding
+→ source-native HR Silver
+→ codebook-backed semantic household measurements
+→ aggregate external-reference commissioning
 ```
 
-Initial DHS household meanings are:
+The convenience CSV derivatives were not treated as canonical authority after real release inspection showed that they omitted standard fields needed by the scientific design, including `HV025`, `HV206`, and `HV270`.
+
+Three authoritative releases now have successful real HR Silver products:
+
+| Survey | HR rows | Output columns | Row groups |
+|---|---:|---:|---:|
+| Nigeria 2018 (`NGHR7BFL`) | 40,427 | 4,972 | 79 |
+| Uganda 2016 (`UGHR7BFL`) | 19,588 | 4,021 | 39 |
+| Zambia 2018 (`ZMHR71FL`) | 12,831 | 3,316 | 26 |
+
+The corresponding semantic products preserve exactly the initial governed registry:
 
 ```text
 HV206 → dhs.household.electricity_access
@@ -70,152 +59,83 @@ HV270 → dhs.household.wealth_quintile
 HV201 → dhs.household.drinking_water_source_code
 ```
 
-These are empirical meanings, not automatic outcome/control roles.
+Real semantic materialization produced one row per household × registry measurement with all semantic QA GREEN and no missing, source-missing, or unmapped values in these three releases.
 
-Protected real-source DHS acceptance is still pending.
+### External commissioning result
 
-### 3. `fcv-experiment-harness` now has a full contract-backed scientific-use seam
+The current commissioning ledger is:
 
-The harness validates durable empirical artifacts before scientific use:
+| Survey | Benchmarks | State |
+|---|---:|---|
+| Nigeria 2018 | 4 / 4 | GREEN |
+| Uganda 2016 | 2 / 2 | GREEN |
+| Zambia 2018 | 2 / 2 | GREEN |
+| **Total** | **8 / 8** | **GREEN** |
 
-```text
-DatasetRef
-+ MeasurementContract
-+ CoverageContract
-+ RunManifest
-+ durable artifact
-        ↓
-validated EmpiricalMeasurementBundle
-        ↓
-explicit MeasurementProjectionSpec
-        ↓
-scientific role / timing / treatment derivation
-        ↓
-gates / estimator
-```
+The eight checks exercise several independent pieces of the survey machinery:
 
-The active E1/E2 path uses contracted ACLED measurements and can derive treatment downstream from contracted investment measurements.
+- household electricity with source-native `HV005` weights;
+- de-jure electricity with `HV005 × HV012` effective weights;
+- Nigeria urban de-jure wealth with `HV025 == 1` domain selection and `HV270` semantics;
+- Nigeria detailed drinking-water distribution using an explicit release-local `HV201` raw-code → report-cell map verified against distributed release documentation.
 
-Important firewall behavior remains explicit:
+All published cells recovered within the predeclared one-decimal rounding tolerance. Missing measurement weight and unmapped measurement/category weight were zero throughout.
 
-- unknown sparse absence does not become zero;
-- unavailable treatment measurements do not silently become controls;
-- geography and period identities are contract-checked;
-- experiment selectors and timing live downstream;
-- the existing estimator is reused rather than hidden inside source processing.
+No commissioning implementation was tuned to force agreement after seeing the results. No joined protected microdata were persisted; durable commissioning outputs are aggregate evidence and provenance only.
 
-A canonical real current-artifact fully contracted experiment has still not been recorded in this human ledger.
+### What this establishes — and what it does not
 
-### 4. The harness now contains a reusable observability instrument
+This establishes:
 
-The old one-off E2 `0.20 SD` synthetic recovery check has been generalized.
+- real protected-source HR materialization on three releases;
+- source authority and source-variable recovery;
+- household semantic registry behavior on real data;
+- household and de-jure weighting semantics;
+- denominator/domain behavior;
+- release-local category semantics;
+- external quantitative compatibility with eight authoritative report checks.
 
-The new observability engine maps:
+It does **not** establish:
 
-```text
-known injected effect size
-        ↓
-probability + quality of recovery
-```
+- a DHS household/cluster exposure experiment;
+- true-location knowledge for displaced DHS GPS coordinates;
+- a survey-design-aware substantive estimator;
+- causal validity of any FCV effect.
 
-for caller-declared effect-size grids on the actual prepared E2 design substrate.
+DHS HR measurement commissioning should therefore be treated as **PASSED and frozen as evidence**, while DHS spatial scientific use remains a separate downstream frontier.
 
-It records sign recovery, rejection, joint detection, CI coverage, recovery error, estimate distribution, uncertainty, sample size, clusters, outcome scale, and treatment support.
+## Current system state
 
-`delta = 0` is a first-class synthetic null, allowing false-positive and interval-coverage calibration against **known zero truth** without claiming the real social effect is null.
+### Reusable foundations
 
-The reference fully contracted investment + ACLED observability path passes synthetic acceptance.
+[`empirical-data-contracts`](https://github.com/matuteiglesias/empirical-data-contracts) owns reusable identity, provenance, grain, geography/time, coverage, measurement, QA, and run-manifest contracts.
 
-This is now a real instrument-characterization capability, not merely a unit test.
+[`spatial-data-foundation`](https://github.com/matuteiglesias/spatial-data-foundation) owns reusable geography authority, analytical geometry, period indexing, spatial membership, source registration, and spatial provenance.
 
-### 5. The Africa Observability Lab calibration kernel is implemented
+Neither owns FCV treatment/outcome semantics or estimators.
 
-The harness now has a source-agnostic `CalibrationBenchmarkSpec` substrate for explicit `purpose = calibration` runs.
+### `fcv-empirical-data`
 
-Supported benchmark kinds include:
+The empirical repository now includes source-native/contract-backed investment, ACLED, and survey verticals, including:
 
-- commissioning;
-- positive control;
-- negative control;
-- synthetic injection;
-- measurement agreement.
+- AidData CLG-LMIC relational Silver;
+- World Bank Projects API Silver;
+- AidData GeoGCDF project geometry + contracted commitment-period measurements;
+- ACLED source-native events + contracted area-period-native-event measurements;
+- DHS HR, GC, and GE/GPS verticals;
+- DHS HR/GC/GPS integration QA;
+- codebook-backed DHS household semantic measurements;
+- real external-reference DHS commissioning outputs.
 
-Recovery is represented independently at:
+### `fcv-experiment-harness`
 
-```text
-Level 1 — pipeline recovery
-Level 2 — qualitative known behavior
-Level 3 — quantitative compatibility
-```
+The harness validates durable empirical artifacts before scientific use and owns explicit experiment projection, treatment derivation, timing, eligibility, gates, estimators, falsification, and the Africa Observability Lab.
 
-The kernel writes sanitized benchmark manifests/results and can render a multidimensional instrument-health report across commissioning, controls, detectability, agreement, source integrity, and limitations.
+The fully contracted GeoGCDF + ACLED path is implemented and synthetically accepted, but a canonical **real current-artifact experiment gate run is still not recorded**.
 
-There is deliberately **no single instrument score**.
+The reusable E2 observability engine can map a caller-declared effect-size grid to sign recovery, rejection, CI coverage, recovery error, and support diagnostics on a prepared design. `delta = 0` remains a first-class known synthetic null.
 
-The Calibration Lab is not a second estimator framework and does not turn calibration results into new FCV substantive findings.
-
-See [Africa Observability Lab](./experiments/observability-lab.md).
-
-## External commissioning is now designed, not hypothetical
-
-The project now has concrete authoritative/published calibration targets.
-
-### First DHS commissioning target
-
-The cleanest first external measurement is:
-
-> **Nigeria DHS 2018 — 59.4% of households have electricity**
-
-This will test survey identity, `HV206` semantics, `HV005` household weighting, denominator construction, and missing-value handling against an official DHS publication.
-
-The benchmark is designed but not yet executed on protected local data.
-
-### Additional DHS report targets
-
-The current research memo also defines:
-
-- Nigeria 2018 detailed drinking-water source distribution;
-- Nigeria 2018 urban de jure wealth-quintile distribution.
-
-The latter stresses `HV270` plus source-native auxiliary facts such as weights, de jure household-member counts, and urban/rural domain selection.
-
-### First published-study positive control
-
-**Briggs (2017), _Does Foreign Aid Target the Poorest?_** is the recommended first published-study survey benchmark after basic DHS commissioning.
-
-It tests survey weighting/denominators, survey-region geography, donor-project aggregation, and regression behavior across 17 African countries.
-
-### Complementary event/time/geography benchmark
-
-**Breckner & Sunde (2019)** is the recommended complementary ACLED/weather benchmark, but is intentionally deferred until reusable regular-grid geography and monthly/subannual period semantics exist.
-
-The project should not fake 0.75° grid cells as GADM or months as year periods just to implement one benchmark.
-
-See [Calibration Benchmark Catalog](./experiments/calibration-benchmark-catalog.md).
-
-## The most important current calibration blocker
-
-The first DHS commissioning consumer exposed one generic harness gap: **auxiliary provenance-validated empirical datasets**.
-
-The benchmark needs both:
-
-```text
-semantic measurement
-HV206 → household electricity access
-
-and
-
-source-native auxiliary fact
-HV005 → household sample weight
-```
-
-The current Calibration Lab input seam accepts semantic measurement bundles. It does not yet have a generic way to pass HR Silver as an auxiliary `DatasetRef + RunManifest` input without fabricating a `MeasurementContract`.
-
-Harness issue #16 tracks the correct source-agnostic extension.
-
-The kernel should not learn DHS variable names; adapters should own joins, weighting, denominators, and source-specific transformations.
-
-## Evidence now has three active lanes
+## Evidence lanes
 
 ### Lane A — current contract-backed architecture
 
@@ -223,71 +143,79 @@ Implemented and synthetically accepted:
 
 - empirical bundle validation;
 - ACLED projection;
-- fully contracted treatment derivation;
-- DHS integrated empirical/semantic substrate;
-- reusable E2 observability instrument;
-- calibration benchmark kernel.
+- contracted investment treatment derivation;
+- coverage-aware timing/absence handling;
+- reusable experiment gates/estimator path;
+- DHS integrated empirical/semantic substrate.
 
-A canonical real current-artifact fully contracted experiment remains **NOT RUN / not recorded here**.
+Real current-artifact GeoGCDF → ACLED acceptance remains the major missing transition.
 
-### Lane B — observability / commissioning
+### Lane B — observability / external commissioning
 
-Implemented now:
+Now demonstrated:
 
-- synthetic effect-size observability curves;
+- synthetic E2 effect-size observability machinery;
 - synthetic null calibration;
-- source-agnostic benchmark/recovery kernel;
-- instrument-health reporting.
+- source-agnostic calibration kernel;
+- **DHS external commissioning across three real releases: 8 / 8 GREEN**.
 
-Designed but not yet executed on real external data:
+Still pending:
 
-- Nigeria DHS 2018 commissioning;
-- Briggs positive control;
-- Breckner–Sunde benchmark.
-
-These are **instrument tests**, not substantive FCV results.
+- real-current-artifact E2 observability characterization;
+- Briggs (2017) published-study positive control;
+- Breckner–Sunde after truthful grid/month infrastructure exists.
 
 ### Lane C — recovered real-data calibration
 
-The historical/reconstructed WB→ACLED E2 lane still provides genuine real-data calibration evidence:
+The historical/reconstructed WB→ACLED E2 lane remains genuine calibration evidence:
 
 ```text
 24,852 area-periods
 4,142 GIDs
 4 declared WB measurement cells passed hard gates
-30/30 recovery for the old predeclared 0.20-SD injection in every cell
+30/30 recovery at the old predeclared 0.20-SD injected truth in every cell
 ```
 
-Those results remain useful but must not be relabeled as current fully contracted or Observability Lab commissioning results.
+This remains recovered-lane evidence, not a substitute for a current fully contracted run.
 
-## What is now the highest-value next work?
+## The current bottleneck has moved
 
-The highest-value sequence is increasingly clear:
+The highest-value next push is no longer DHS commissioning.
 
-1. **close harness issue #16** with a generic provenance-validated auxiliary dataset seam;
-2. **commission DHS on one authoritative statistic**, beginning with Nigeria 2018 household electricity;
-3. record the first **real protected-source integrated DHS acceptance** with only non-sensitive hashes/counts/QA;
-4. run the **fully contracted GeoGCDF → ACLED** real current-artifact reference experiment and observability characterization;
-5. once basic DHS commissioning passes, implement **Briggs (2017)** as the first published-study survey positive control;
-6. use instrument-health failures to decide which capability to strengthen next instead of adding sources or models indiscriminately;
-7. revisit Breckner–Sunde only when shared regular-grid/monthly infrastructure is scientifically justified.
+The next scientific-readiness checkpoint is:
 
-## Reading order
+```text
+CURRENT durable GeoGCDF measurement
++ CURRENT durable ACLED measurement
+        ↓
+fully contracted experiment projection
+        ↓
+real support / coverage / timing / pretreatment gates
+        ↓
+falsification / placebo diagnostics
+        ↓
+estimator
+        ↓
+observability curve on the exact real prepared frame
+```
 
-For current work:
+The target is a **gate packet + estimator packet + observability packet** tied to exact hash-backed empirical inputs. A desirable coefficient is not the acceptance criterion.
 
-1. [Research System Architecture](./research-system.md)
-2. [Africa Observability Lab](./experiments/observability-lab.md)
-3. [Calibration Benchmark Catalog](./experiments/calibration-benchmark-catalog.md)
-4. [Empirical Product Catalog](./data-products/product-catalog.md)
-5. [DHS Empirical Stack](./data-products/products/dhs-overview.md)
-6. [Experiment Surface Catalog](./experiments/experiment-surface-catalog.md)
-7. [Research Workflow and Validation](./continuation/experimental-infrastructure.md)
-8. [Validation Status](./data-products/validation-status.md)
+After that, Briggs (2017) becomes the preferred first published-study survey positive control. Its value is precisely that the simpler DHS machinery has now been externally commissioned first.
+
+Harness issue #16 should be reinterpreted accordingly: it remains useful as a generic provenance-validated auxiliary-input seam for the Calibration Lab and future multi-input benchmark adapters, especially Briggs, but it is no longer a blocker to the already-completed DHS commissioning evidence.
+
+## Highest-value next work
+
+1. **Record and preserve the DHS 8/8 commissioning checkpoint** in the human evidence ledger.
+2. **Run the real current-artifact GeoGCDF → ACLED reference experiment** through its full gate sequence.
+3. **Run the reusable observability curve on that exact real prepared frame**, including `delta = 0`.
+4. Diagnose failures before adding estimator complexity.
+5. Implement **Briggs (2017)** as the first published-study positive control once its exact source/release inputs are pinned.
+6. Advance a substantive DHS exposure experiment only after household↔cluster projection, displacement-aware exposure semantics, timing, and survey-design strategy are declared.
+7. Revisit Breckner–Sunde only when regular-grid/monthly support is scientifically justified as shared infrastructure.
 
 ## Interpretation policy
-
-The current project needs several explicit non-equivalences:
 
 > **A successful materialization is not automatically an experiment.**
 
@@ -301,4 +229,4 @@ The current project needs several explicit non-equivalences:
 
 > **Failure to match an external benchmark should be diagnosed, not tuned away.**
 
-That separation is increasingly the core strength of the rebuilt FCV scientific instrument.
+That separation remains the core strength of the rebuilt FCV scientific instrument.
