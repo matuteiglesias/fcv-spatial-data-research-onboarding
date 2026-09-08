@@ -14,195 +14,143 @@ This page answers:
 
 > **Which known-behavior benchmarks has the FCV instrument reproduced, what did they test, and what should be commissioned next?**
 
-The benchmark strategy favors a small complementary set rather than a literature-review list.
-
 ## At a glance
 
 | Benchmark | Kind | What it primarily tests | Current status |
 |---|---|---|---|
-| Nigeria DHS 2018 household electricity | commissioning | survey identity, `HV206`, `HV005`, denominator, missing values | **GREEN** |
-| Nigeria DHS 2018 de-jure electricity | commissioning | `HV005 × HV012`, population denominator | **GREEN** |
-| Nigeria DHS 2018 drinking-water distribution | commissioning | release-local `HV201`, weights, denominator, category mapping | **GREEN** |
-| Nigeria DHS 2018 urban de-jure wealth | commissioning | `HV270`, `HV005 × HV012`, `HV025` domain | **GREEN** |
-| Uganda DHS 2016 household electricity | commissioning | cross-release survey identity, `HV206`, `HV005` | **GREEN** |
-| Uganda DHS 2016 de-jure electricity | commissioning | cross-release `HV005 × HV012` logic | **GREEN** |
-| Zambia DHS 2018 household electricity | commissioning | cross-release survey identity, `HV206`, `HV005` | **GREEN** |
-| Zambia DHS 2018 de-jure electricity | commissioning | cross-release `HV005 × HV012` logic | **GREEN** |
-| Briggs (2017), aid targeting | positive control / published study | survey weighting, region geography, donor-project aggregation, regression | **UNLOCKED; SOURCE/DESIGN RECOVERY NEEDED** |
-| Breckner & Sunde (2019) | positive control / published study | ACLED event/time/geography, grid/month alignment, weather, FE estimation | **DEFERRED — GRID + MONTHLY SUPPORT NEEDED** |
-| E2 effect-size injections | synthetic injection | probability/quality of recovery under actual design structure | **IMPLEMENTED / SYNTHETIC PASS** |
-| E2 `delta = 0` | synthetic null | false-positive behavior, interval coverage at known zero truth | **IMPLEMENTED / SYNTHETIC PASS** |
-| WBad ↔ WBkg treatment overlap | measurement agreement | inherited measurement stability | **REAL RECOVERED-LANE EVIDENCE EXISTS** |
+| Nigeria DHS 2018 household electricity | commissioning | survey identity, `HV206`, `HV005`, denominator | **GREEN** |
+| Nigeria DHS 2018 de-jure electricity | commissioning | `HV005 × HV012` | **GREEN** |
+| Nigeria DHS 2018 drinking-water distribution | commissioning | release-local `HV201`, weights, category map | **GREEN** |
+| Nigeria DHS 2018 urban de-jure wealth | commissioning | `HV270`, `HV025`, population weights | **GREEN** |
+| Uganda DHS 2016 household electricity | commissioning | cross-release identity/weights | **GREEN** |
+| Uganda DHS 2016 de-jure electricity | commissioning | cross-release population weighting | **GREEN** |
+| Zambia DHS 2018 household electricity | commissioning | cross-release identity/weights | **GREEN** |
+| Zambia DHS 2018 de-jure electricity | commissioning | cross-release population weighting | **GREEN** |
+| Current GeoGCDF→ACLED 0.20-SD injection | real-frame synthetic positive control | detector recovery on the actual prepared E2 design | **GREEN — 30 / 30** |
+| Current GeoGCDF→ACLED `delta=0 ... 0.20 SD` grid | detector characterization | false positives, coverage, detection threshold | **IN PROGRESS** |
+| Briggs (2017), aid targeting | published positive control | survey weighting, region geography, donor-project aggregation, regression | **UNLOCKED; SOURCE/DESIGN RECOVERY NEEDED** |
+| Breckner & Sunde (2019) | published positive control | ACLED grid/month alignment, weather, FE estimation | **DEFERRED — GRID + MONTHLY SUPPORT NEEDED** |
+| WBad ↔ WBkg treatment overlap | measurement agreement | inherited measurement stability | **REAL RECOVERED-LANE EVIDENCE** |
 
 ## DHS commissioning checkpoint — 8 / 8 GREEN
 
-The initial DHS commissioning wave is complete across three authoritative releases.
+The initial DHS commissioning wave is complete across Nigeria 2018, Uganda 2016, and Zambia 2018. It commissions survey/release identity, source-native weights, de-jure population multipliers, urban-domain selection, wealth semantics, release-local drinking-water categories, denominator construction, and missing/unmapped accounting.
 
-### Nigeria 2018
+Published one-decimal percentages were tested at the implied ±0.05 percentage-point tolerance. All required cells recovered within tolerance. No joined protected microdata were persisted.
 
-Four benchmarks passed:
+These are commissioning results, not FCV substantive findings.
 
-1. national household electricity;
-2. national de-jure electricity;
-3. detailed national household drinking-water source distribution;
-4. urban de-jure wealth-quintile distribution.
+## Current E2 real-frame calibration checkpoint
 
-The electricity checks commission `HV206`, `HV005`, denominator semantics, and missing-value accounting. The de-jure variant additionally commissions `HV012` as a population multiplier.
+The current fully contracted GeoGCDF→ACLED reference has now passed its real E0–E6 gate run.
 
-The wealth benchmark commissions:
+PRIMARY real frame:
 
 ```text
-HV270
-+ HV005 × HV012
-+ HV025 == 1
+38,520 ADM2-period rows
+6,420 ADM2 units
+47 countries
+6 treatment periods
+7,667 treated
+30,853 controls
 ```
 
-without reinterpreting wealth quintiles as an absolute cross-survey wealth scale.
+Relevant known-behavior results:
 
-The drinking-water benchmark uses release-local raw `HV201` values. Every observed positive-weight source code was explicitly mapped to a report cell using distributed Nigeria release documentation. No improved/unimproved or safe/unsafe classification was inferred.
+- pretreatment `|SMD| = 0.0040`;
+- prior-outcome placebo = `0.0047` outcome SD;
+- 0.20-SD injected signal recovered 30 / 30 times.
 
-### Uganda 2016
+The positive-reported-amount STRESS treatment also passed all gates and recovered the 0.20-SD signal 30 / 30.
 
-Two benchmarks passed:
+This is the first current-artifact positive-control evidence on the exact real E2 frame. The full detector curve is still needed because one success point at 0.20 SD does not tell us the minimum useful resolution.
 
-- national household electricity;
-- national de-jure electricity.
+The first numerical run emitted a SciPy/NumPy compatibility warning. Clean-environment reproduction is required before the exact estimate/SE packet is treated as frozen numerical authority.
 
-### Zambia 2018
+## Full detector characterization
 
-Two benchmarks passed:
-
-- national household electricity;
-- national de-jure electricity.
-
-### Quantitative rule
-
-Published one-decimal percentages were tested against the interval implied by publication precision: ±0.05 percentage points.
-
-All eight benchmarks recovered every required cell inside that tolerance.
-
-Missing measurement weight and unmapped measurement/category weight were zero throughout.
-
-### Scientific interpretation
-
-These are **commissioning results**, not FCV substantive findings.
-
-They establish that the rebuilt DHS HR measurement apparatus can recover authoritative known quantities across three releases while preserving source-native weight/domain/category semantics.
-
-They do not validate a later FCV household/cluster exposure model, displaced-coordinate treatment assignment, or causal estimator.
-
-## Source authority learned during commissioning
-
-Real commissioning exposed that convenience CSV derivatives were not sufficient canonical authority for these releases: standard variables needed by the benchmark design were absent there while present in the distributed fixed-width release dictionaries.
-
-Canonical HR commissioning therefore rests on:
+The frozen real-frame grid is:
 
 ```text
-<release>.DAT
-+
-<release>.DCT
-→ verified fixed-width decoding
-→ contract-backed HR Silver
+0.00, 0.02, 0.05, 0.10, 0.20 SD
 ```
 
-This was not a benchmark-specific workaround. It is now the source-authority decision for canonical HR materialization.
+For each effect size the instrument should report:
 
-## Harness issue #16 after commissioning
+- sign recovery;
+- rejection / joint detection;
+- CI coverage;
+- recovery error;
+- CI width;
+- sample / cluster / treatment support.
 
-Issue #16 originally appeared to block the first DHS benchmark because the generic Calibration Lab input seam had no source-agnostic representation for auxiliary source-native facts such as `HV005`.
+`delta = 0` is an explicit synthetic null for false-positive and interval-coverage calibration.
 
-The governed empirical commissioning API has now executed the DHS wave successfully without fabricating measurement contracts for those facts.
+## Next calibration family: uncertainty procedures
 
-Issue #16 therefore remains useful as a **generic Calibration Lab integration capability**, especially for multi-input adapters and published-study controls such as Briggs. It should not be described as a blocker to the completed DHS commissioning evidence.
+Once the detector curve is known, a small predeclared uncertainty suite should apply multiple inference procedures to the **same known-truth simulations**. Candidate families include:
 
-## Published positive control 1 — Briggs (2017)
+- ADM2-clustered covariance;
+- country-clustered or finite-cluster-aware inference;
+- wild-cluster bootstrap;
+- spatial-HAC / Conley-style covariance over a small declared bandwidth grid.
 
-**Study:** *Does Foreign Aid Target the Poorest?*
+Selection must be based on null rejection and CI coverage behavior, not on which method gives the smallest SE on the observed coefficient.
 
-**Role:** first published-study survey/cross-source positive control after official DHS commissioning.
+## Briggs (2017) — preferred external published positive control
+
+Briggs remains the preferred next external benchmark because internal synthetic recovery can still miss a self-consistent implementation error.
 
 The benchmark stresses:
 
 - multiple DHS survey identities;
 - `HV270` wealth semantics;
-- household sample weights;
-- de-jure population denominators;
+- household weights and de-jure denominators;
 - survey-region geography;
-- historical World Bank / African Development Bank geocoded project releases;
-- country fixed-effects regression;
+- historical donor-project geography/aggregation;
+- country fixed effects;
 - clustered uncertainty.
 
 ### Expected Level-2 behavior
 
-The target is the published qualitative pattern:
+- richer regional population share positively associated with aid allocation;
+- poorest-quintile share does not show a corresponding stable pro-poor pattern.
 
-- richer regional population share is positively associated with aid allocation;
-- the poorest-quintile share does not show a corresponding stable pro-poor relationship.
+### What remains
 
-This remains calibration, not a new FCV claim about aid targeting.
+1. pin exact DHS surveys/releases;
+2. recover historical donor-project releases;
+3. reconstruct survey-region membership/denominators;
+4. freeze reference regression and uncertainty procedure;
+5. declare Level-2 recovery before execution;
+6. require Level-3 coefficient compatibility only if source/design equivalence is strong enough.
 
-### What remains before execution
+## Breckner & Sunde (2019)
 
-DHS commissioning no longer blocks Briggs. The remaining work is primarily source/design recovery:
+Still deferred. Its native `0.75° regular grid × calendar month` design should wait for truthful regular-grid geography and monthly/subannual period support.
 
-1. pin the exact DHS surveys/releases used by the reference study;
-2. recover the historical donor-project release(s);
-3. reconstruct survey-region membership and denominator definitions;
-4. freeze the reference regression specification and uncertainty procedure;
-5. declare Level-2 recovery before running the FCV adapter;
-6. require Level-3 coefficient compatibility only if historical source/design equivalence is strong enough to justify it.
-
-## Published positive control 2 — Breckner & Sunde (2019)
-
-This benchmark remains deliberately deferred.
-
-Its native design is:
+## Recommended pull order
 
 ```text
-0.75° regular grid × calendar month
-```
-
-It is valuable because it stresses ACLED event retention, event-to-space assignment, structural zeros, external weather exposure, monthly alignment, and fixed-effects estimation.
-
-But the project should not represent grid cells as fake GADM units or months as fake annual periods. Reusable regular-grid geography and monthly/subannual period semantics should exist first if this benchmark becomes high priority.
-
-## Synthetic benchmark lane
-
-The reusable E2 observability engine remains independently useful wherever a prepared contracted E2 frame exists.
-
-For a caller-declared effect-size grid it asks:
-
-> Under the actual analysis structure, estimator, treatment support, fixed effects, clustering, and outcome scale, how does recovery change as known truth increases?
-
-`delta = 0` remains a separate known synthetic null.
-
-The next important transition is to run this characterization on the **real current-artifact GeoGCDF → ACLED prepared frame**, not merely on synthetic fixtures.
-
-## Measurement-agreement lane
-
-The recovered E2 checkpoint still contains useful WBad/WBkg agreement evidence. It remains a recovered-lane characterization of measurement instability and must not be used to select whichever inherited source gives the most attractive coefficient.
-
-## Recommended pull order from this checkpoint
-
-```text
-1. freeze DHS commissioning as 8 / 8 GREEN
-2. run real current-artifact GeoGCDF → ACLED gates
-3. run observability curve on that exact real prepared frame
-4. recover exact Briggs sources/design
-5. implement Briggs published positive control
-6. reassess instrument-health bottleneck
-7. Breckner–Sunde only if grid/month support is then justified
+1. reproduce the current E2 numerical packet in a supported environment
+2. complete the real-frame 0 ... 0.20 SD observability curve
+3. calibrate uncertainty procedures on known truths
+4. add influence / omission and stronger falsification diagnostics
+5. recover exact Briggs sources/design
+6. run Briggs external positive control
+7. reassess the instrument-health bottleneck
+8. Breckner–Sunde only if grid/month infrastructure is then justified
 ```
 
 ## Definition of ready for a new external benchmark
 
-Before a benchmark moves to execution, confirm:
+Before execution, confirm:
 
-- exact source/release identity is known;
-- required data can be lawfully obtained and kept outside Git where restricted;
-- each input crosses the empirical boundary truthfully;
-- source-specific joins/weighting/denominators live in the adapter rather than the generic kernel;
-- Level-1 diagnostics can localize failure;
-- Level-2 expected behavior is declared before execution;
-- Level-3 target/tolerance is justified or explicitly not required;
-- the run is labeled `purpose = calibration`.
+- exact source/release identity;
+- lawful/local data availability;
+- truthful empirical-boundary representation;
+- source-specific joins/weights/denominators outside the generic kernel;
+- Level-1 diagnostics that localize failure;
+- Level-2 expected behavior declared in advance;
+- Level-3 target/tolerance justified or explicitly unnecessary;
+- `purpose = calibration` recorded.
