@@ -7,292 +7,184 @@ date: "2026-09-08"
 
 # Research System Architecture
 
-The FCV research system is best understood as a **scientific instrument with separate production, scientific-use, and characterization layers**.
-
-The short rule is:
+The FCV research system is a **scientific instrument with separate production, scientific-use, and characterization layers**.
 
 > **Facts are produced upstream; reusable empirical meaning is added with explicit provenance; scientific roles are assigned in experiments; the instrument is characterized against known behavior; readiness is summarized here.**
 
 ## System at a glance
 
 ```text
-REUSABLE FOUNDATIONS — not FCV-specific
-
 empirical-data-contracts
   identity / provenance / grain / geography / time /
   coverage / measurement / QA / run-manifest contracts
 
 spatial-data-foundation
-  geography authority / analytical geometry /
-  period indexing / spatial membership / provenance
+  geography authority / period indexing /
+  spatial membership / provenance
 
-                    ↓ used by
-
-FCV EMPIRICAL DOMAIN
+                    ↓
 
 fcv-empirical-data
   source-native facts
-  reusable empirical measurements
-  natural grains
+  reusable measurements
   durable Silver / Gold
-  coverage / QA / parity / integration evidence
+  coverage / QA / commissioning evidence
 
-                    ↓ contracted empirical boundary
-
-FCV SCIENTIFIC USE
+                    ↓ contracted boundary
 
 fcv-experiment-harness
   measurement projection
-  treatment / outcome / covariate roles
-  timing / eligibility / samples
-  gates / estimators / falsification
+  treatment / outcome roles
+  timing / eligibility / comparison sample
+  gates / estimator / falsification
 
-                    ↓ same declared designs can feed
-
-FCV INSTRUMENT CHARACTERIZATION
+                    ↓ same prepared designs
 
 Africa Observability Lab
-  commissioning benchmarks
+  synthetic detector curves
+  external commissioning
   positive / negative controls
-  synthetic injection curves
-  measurement agreement
-  Level 1 / 2 / 3 recovery
-  instrument-health reports
+  uncertainty calibration
+  influence / stability characterization
 
-                    ↓ summarized for people
+                    ↓
 
-THIS ONBOARDING SITE
-  orientation / status / benchmark catalog /
-  readiness / research memory / authority links
+this onboarding site
+  orientation / status / readiness / research memory
 ```
-
-The calibration layer is not “below” ordinary experiments in an inferential hierarchy. It reuses empirical/experiment machinery to ask a different question: **can the apparatus recover known behavior?**
 
 ## Repository ownership
 
-| Repository | Owns | Explicitly does not own |
+| Repository | Owns | Does not own |
 |---|---|---|
-| `empirical-data-contracts` | Reusable typed empirical contracts | FCV treatments, source adapters, estimators |
-| `spatial-data-foundation` | Geography/time authority and spatial membership | FCV scientific roles or survey estimators |
-| `fcv-empirical-data` | Source-native facts, reusable measurements, natural grains, materialization, provenance, QA, coverage | Treatment/control roles, counterfactuals, causal interpretation |
-| `fcv-experiment-harness` | Scientific projection, treatment derivation, timing, eligibility, gates, estimators, observability/calibration | Raw source ingestion authority or a duplicate empirical-data platform |
-| `fcv-spatial-data-research-onboarding` | Human orientation, current status, scientific framing, readiness summaries, archive memory | Canonical APIs, executable adapter semantics, generated run artifacts |
-
-## Three important boundaries
-
-### 1. Source fact → reusable empirical meaning
-
-A source variable acquires reusable semantic meaning only when authoritative metadata supports it.
-
-Example:
-
-```text
-DHS HV206
-→ codebook-backed registry
-→ household electricity access
-```
-
-This is still empirical production.
-
-### 2. Empirical meaning → experiment role
-
-An experiment may then choose whether that measurement is an outcome, control, subgroup, or unused variable.
-
-The same separation applies to ACLED taxonomy selection, investment thresholds, timing offsets, and eligibility.
-
-### 3. Experiment/design → calibration benchmark
-
-A declared design can also be used in a known-behavior benchmark:
-
-```text
-prepared empirical / experiment substrate
-→ known external target or injected truth
-→ calibration adapter
-→ recovery diagnostics
-```
-
-Every Observability Lab benchmark remains explicitly `purpose = calibration`.
-
-## Contract-backed empirical input seam
-
-Ordinary semantic measurements cross the harness boundary as:
-
-```text
-DatasetRef
-+ MeasurementContract
-+ CoverageContract
-+ RunManifest
-+ durable artifact
-→ EmpiricalMeasurementBundle
-```
-
-The loader validates bytes, lineage, grain, geography, periods, and coverage before exposing a table. It does not reindex sparse data, zero-fill unknown absence, invent controls, or assign scientific roles.
-
-Calibration adapters may also need source-native auxiliary facts. The generic long-term boundary remains a provenance-validated auxiliary `DatasetRef + RunManifest` seam rather than fabricated semantic contracts.
-
-Harness issue #16 tracks that generic capability. After the September 8 DHS checkpoint it should be read as a **Calibration Lab integration capability**, not as a blocker to the already-completed DHS commissioning runs.
+| `empirical-data-contracts` | reusable typed empirical contracts | FCV treatments or estimators |
+| `spatial-data-foundation` | geography/time authority and spatial membership | FCV scientific roles |
+| `fcv-empirical-data` | source-native facts, reusable measurements, materialization, provenance, QA, coverage | treatment/control roles or causal interpretation |
+| `fcv-experiment-harness` | scientific projection, treatment derivation, timing, eligibility, gates, estimators, observability | raw source authority |
+| onboarding repo | human orientation and evidence state | executable canonical APIs |
 
 ## Current empirical reference paths
+
+### GeoGCDF
+
+```text
+AidData GeoGCDF v3.0.1
+→ project Silver
+→ project↔ADM2 geography relation
+→ commitment-period relation
+→ commitment area-period Gold
+```
+
+The current Gold uses `resolution_policy = exclude_unresolved`: 22 project geometries are explicitly excluded, zero commitment-time projects are unresolved, and structural-zero semantics are defined relative to the resolved eligible project universe.
 
 ### ACLED
 
 ```text
-immutable source snapshot
+ACLED event source
 → event Silver
-→ auditable geography membership
-→ shared period membership
-→ sparse contracted area × period × native-event measurement
-→ harness projection
+→ geography / period relations
+→ sparse native-event Gold (absence = unknown)
+→ explicit coverage certification
+→ certified dense Gold (zero only within licensed coverage)
 ```
 
-Key boundaries:
-
-- source precision is data, not an automatic filter;
-- zero-fatality events remain events;
-- ambiguity remains explicit;
-- sparse absence becomes zero only when coverage licenses it;
-- taxonomy/value/timing selection is downstream.
-
-### Investment
-
-AidData CLG-LMIC, World Bank Projects API, and GeoGCDF remain independent empirical source families.
-
-The current harness can derive treatment downstream from a contracted investment measurement under explicit eligibility and threshold rules.
-
-A source project amount is not automatically local spending or treatment intensity.
+The current E2 outcome uses the certified derivative. Sparse absence is never automatically reinterpreted as zero.
 
 ### DHS
 
-DHS remains an integrated survey family with separate natural-grain products:
+Canonical HR source authority now uses distributed `.DAT + .DCT` releases. Nigeria 2018, Uganda 2016, and Zambia 2018 passed real HR materialization, initial semantic materialization, and **8 / 8 official-report commissioning checks**.
+
+The HR measurement arm is therefore externally commissioned. DHS spatial exposure remains downstream scientific work because public GPS coordinates are displaced and survey-design-aware inference is not yet declared.
+
+## Current scientific-use reference path
+
+The modern E2 reference is now exercised on real current artifacts:
 
 ```text
-                         SurveyCatalogEntry
-                                │
-             ┌──────────────────┼──────────────────┐
-             ▼                  ▼                  ▼
-        HR household        GC cluster         GPS cluster
-           Silver             Silver              Silver
-             │                  │                  │
-             └──────────────┬───┴──────────────────┘
-                            ▼
-                   integration QA
-                            │
-              ┌─────────────┴──────────────┐
-              ▼                            ▼
-     household semantic             reported-coordinate
-       measurements                    geography
-```
+GeoGCDF treatment measurement
+→ project_count > 0
 
-The initial semantic registry supports:
+certified ACLED measurement
+→ Violence against civilians fatalities at t+1
+→ same outcome at t-1
 
-```text
-HV206 → household electricity access
-HV270 → survey-relative wealth quintile
-HV201 → drinking-water source code
-```
-
-#### September 8 real-source checkpoint
-
-Canonical HR source authority now uses DHS-distributed fixed-width `.DAT + .DCT` releases.
-
-Real authoritative HR materialization passed for:
-
-- Nigeria 2018 — 40,427 rows / 4,972 output columns;
-- Uganda 2016 — 19,588 rows / 4,021 output columns;
-- Zambia 2018 — 12,831 rows / 3,316 output columns.
-
-Real semantic products passed for all three releases, and the official-report commissioning suite recovered **8 / 8 benchmarks GREEN**.
-
-The benchmark wave commissions household weights, de-jure population weighting, domain selection, wealth semantics, and release-local water categories.
-
-This establishes the HR **measurement arm**. It does not convert public displaced GPS coordinates into true locations or create a substantive household exposure design.
-
-## Scientific-use reference path
-
-A fully contracted panel experiment can now look like:
-
-```text
-contracted investment measurement
-→ explicit projection + eligibility + derivation
-→ experiment treatment
-
-contracted ACLED measurement
-→ explicit selector + timing
-→ outcome / pre-outcome
-
-→ gates
+47-country GADM ADM2 lattice
+→ support / coverage / timing gates
+→ placebo / positive control
 → estimator
 ```
 
-The current GeoGCDF→ACLED path is implemented and synthetically accepted. The important missing transition is the first canonical **real current-artifact** gate/estimator run.
+Real PRIMARY frame:
+
+```text
+38,520 rows
+6,420 ADM2 units
+47 countries
+6 periods
+7,667 treated
+30,853 controls
+```
+
+All declared E0–E6 gates were GREEN. Pretreatment balance was `|SMD| = 0.0040`, prior-outcome placebo `0.0047` outcome SD, and 0.20-SD synthetic recovery was 30 / 30.
+
+The first reference estimate was approximately `+0.550` fatalities with SE `0.458`. It is not strong substantive evidence. A clean supported-environment reproduction is required because the first run emitted a SciPy/NumPy compatibility warning.
 
 ## Africa Observability Lab
 
-The harness supports benchmark kinds including:
+The lab now has three distinct real evidence types:
 
-- commissioning;
-- positive control;
-- negative control;
-- synthetic injection;
-- measurement agreement.
+- DHS external commissioning: **8 / 8 GREEN**;
+- current E2 real experiment gates: **E0–E6 GREEN**;
+- current E2 one-point real-frame observability: **0.20 SD recovered 30 / 30**.
 
-Recovery remains independent at:
+The next missing characterization is the full real-frame curve at:
 
 ```text
-Level 1 — pipeline coherence
-Level 2 — qualitative expected behavior
-Level 3 — quantitative compatibility
+0.00, 0.02, 0.05, 0.10, 0.20 SD
 ```
 
-There is deliberately no single instrument score.
+After that, the instrument should expand in directions that specifically matter for tiny effects:
 
-### Current evidence
-
-- reusable E2 observability engine: implemented / synthetic pass;
-- `delta = 0` synthetic null: implemented / synthetic pass;
-- DHS official-report commissioning: **8 / 8 GREEN across three real releases**;
-- real current-artifact E2 observability curve: pending;
-- Briggs published-study positive control: scientifically unlocked, exact source/design recovery pending;
-- Breckner–Sunde: deferred until regular-grid/monthly support is truthful.
+1. uncertainty / interval calibration;
+2. country/period influence stability;
+3. stronger timing and negative-control falsification;
+4. external published positive control via Briggs (2017);
+5. bounded model-family/spatial-dependence sensitivity where diagnostics justify it.
 
 ## Evidence levels
 
 | Evidence | Meaning |
 |---|---|
-| **Software acceptance** | implementation behaves on controlled fixtures |
-| **Empirical QA** | real source-backed product exists as declared |
-| **Experiment gate run** | a declared design has real support/coverage/diagnostics |
-| **Synthetic observability** | known injected truth has characterized recovery behavior |
-| **External commissioning** | authoritative known measurement/pattern is recovered |
-| **Estimator result** | an estimate exists for a specific gated experiment |
+| Software acceptance | implementation behaves on controlled fixtures |
+| Empirical QA | real source-backed product exists as declared |
+| Experiment gate run | declared design has real support/coverage/diagnostics |
+| Synthetic observability | known injected truth has characterized recovery behavior |
+| External commissioning | authoritative known measurement/pattern is recovered |
+| Estimator result | an estimate exists for a specific gated experiment |
 
 None automatically implies the next.
 
 ## Current scientific frontier
 
-The next highest-value transition is:
-
 ```text
-current GeoGCDF + ACLED durable artifacts
-→ fully contracted experiment projection
-→ real lineage/support/coverage/timing gates
-→ placebo/falsification
-→ estimator if permitted
-→ observability curve on the exact same real frame
+real current E2 gates       PASSED
+clean numerical replication IN PROGRESS
+full observability curve    IN PROGRESS
+uncertainty calibration     NEXT
+influence / falsification   NEXT
+Briggs external control     NEXT+
 ```
 
-After that, Briggs (2017) is the preferred first published-study positive control.
-
-A substantive DHS exposure experiment should advance only after explicit household↔cluster projection, displacement-aware exposure semantics, timing, and survey-design strategy are declared.
+The system should now become better at distinguishing **small real signals from noisy, spatially dependent, fragile, or miscalibrated estimates**, rather than adding unrelated infrastructure.
 
 ## Communication policy
 
 Prefer claims that name the layer:
 
-- **Empirical:** “The Nigeria 2018 HR release materialized from canonical `.DAT + .DCT` bytes.”
-- **Commissioning:** “The DHS HR measurement arm recovered 8/8 official report benchmarks across three releases.”
-- **Experiment:** “A declared GeoGCDF→ACLED design passed these real support/timing gates.”
-- **Observability:** “That real prepared design recovers injected effects of this size at this rate.”
+- **Empirical:** “The GeoGCDF treatment product has explicit 47-country coverage and 22 governed exclusions.”
+- **Experiment:** “The current GeoGCDF→ACLED design passed E0–E6 on the real frame.”
+- **Observability:** “That real design recovers injected effects of this size at this rate.”
+- **Commissioning:** “The DHS HR measurement arm recovered 8/8 external benchmarks.”
 - **Substantive:** “The gated FCV experiment estimates X.”
 
 These are different claims and should remain different in papers, PRs, and collaboration discussions.
