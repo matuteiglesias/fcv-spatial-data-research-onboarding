@@ -7,19 +7,17 @@ last_verified: "2026-09-08"
 
 # Africa Observability Lab
 
-**Status: CALIBRATION KERNEL + E2 OBSERVABILITY INSTRUMENT IMPLEMENTED**  
-**Real external commissioning: DHS HR 8 / 8 GREEN ACROSS THREE RELEASES**  
+**Status: REAL CURRENT-ARTIFACT E2 GATES PASSED; FULL REAL-FRAME DETECTOR CURVE IN PROGRESS**  
+**External commissioning: DHS HR 8 / 8 GREEN ACROSS THREE RELEASES**  
 **Purpose: calibration, not substantive FCV inference**
 
-The Africa Observability Lab asks a different question from ordinary FCV estimation:
+The Africa Observability Lab asks:
 
-> **Given the empirical measurement system and a declared scientific design, what known behavior can the apparatus recover?**
-
-It coordinates heterogeneous instrument tests without creating a second substantive estimator framework.
+> **Given the empirical measurement system and a declared scientific design, what known behavior can the apparatus recover, at what effect scale, and with what uncertainty?**
 
 ## Benchmark kinds
 
-The harness supports first-class `purpose = calibration` runs for:
+The harness supports first-class `purpose = calibration` work for:
 
 - commissioning;
 - positive controls;
@@ -27,7 +25,7 @@ The harness supports first-class `purpose = calibration` runs for:
 - synthetic injection;
 - measurement agreement.
 
-Recovery is represented independently at:
+Recovery remains separated into:
 
 ```text
 Level 1 — pipeline coherence
@@ -35,51 +33,40 @@ Level 2 — qualitative known behavior
 Level 3 — quantitative compatibility
 ```
 
-A Level-3 target is required only when exact numeric compatibility is scientifically justified.
+## Real E2 checkpoint — September 8, 2026
 
-## September 8, 2026 external commissioning checkpoint
+The first current fully contracted GeoGCDF → ACLED real gate run is now recorded.
 
-The first real protected-source commissioning wave is now complete.
-
-The rebuilt DHS HR measurement system was pointed at three authoritative releases:
-
-- Nigeria 2018 (`NGHR7BFL`);
-- Uganda 2016 (`UGHR7BFL`);
-- Zambia 2018 (`ZMHR71FL`).
-
-Canonical HR ingestion uses distributed fixed-width `.DAT + .DCT` source authority.
-
-The commissioning ledger is:
+Reference surface:
 
 ```text
-Nigeria  4 / 4 GREEN
-Uganda   2 / 2 GREEN
-Zambia   2 / 2 GREEN
--------------------
-TOTAL    8 / 8 GREEN
+47 GeoGCDF-covered countries
+6,420 GADM ADM2 units
+38,520 unit-period rows
+6 treatment periods
+GeoGCDF project_count > 0
+→ ACLED VAC fatalities at t+1
 ```
 
-The checks commission several distinct parts of the survey instrument:
+All declared E0–E6 PRIMARY gates were GREEN:
 
-- `HV206` household electricity semantics;
-- source-native `HV005` household weighting;
-- `HV005 × HV012` de-jure population weighting;
-- `HV025` urban-domain selection;
-- `HV270` survey-relative wealth-quintile semantics;
-- release-local `HV201` drinking-water categories;
-- denominator, missing-state, and unmapped-code accounting.
+- no unresolved pre/post outcome rows;
+- 7,667 treated and 30,853 controls;
+- treated/control support in all 6 periods;
+- outcome zero share 0.9222;
+- pretreatment `|SMD| = 0.0040`;
+- prior-outcome placebo = `0.0047` outcome SD;
+- 0.20-SD known-signal recovery = 30 / 30.
 
-All required cells recovered within the predeclared ±0.05 percentage-point tolerance implied by one-decimal report precision.
+The positive-reported-amount STRESS cell also passed all gates.
 
-No joined protected microdata were persisted. The durable commissioning outputs contain aggregate diagnostics and provenance identities only.
+The real calibration estimate was approximately `+0.550` fatalities with SE `0.458` (`z ≈ 1.20`). This is not strong substantive evidence. The point of the checkpoint is that the instrument remains healthy even when the observed coefficient is not compelling.
 
-This is **instrument commissioning evidence**, not a new substantive result about electricity, wealth, water, aid, or conflict.
+The initial run used a system Python stack that emitted a SciPy/NumPy compatibility warning. Clean-environment numerical reproduction is therefore part of acceptance before the exact coefficient/SE packet is frozen.
 
 ## Reusable E2 observability
 
-The old one-point `0.20 SD` injection check has been generalized into a reusable detector-characterization engine.
-
-For each declared effect size and repetition it can report:
+The one-point historical `0.20 SD` injection check has been generalized into a detector-characterization engine. For each declared effect size and repetition it reports:
 
 - injected truth;
 - estimate / SE / CI;
@@ -92,100 +79,115 @@ For each declared effect size and repetition it can report:
 - outcome SD;
 - treatment support.
 
-`delta = 0` is a first-class known synthetic null for false-positive and interval-coverage calibration around zero. It is not a statement that the real FCV effect is null.
+`delta = 0` is a first-class synthetic null for false-positive and interval-coverage calibration.
 
-## Current missing transition
-
-The observability machinery is implemented and synthetically accepted, but the most important current characterization has not yet been recorded:
-
-> run the observability curve on the **real current-artifact GeoGCDF → ACLED prepared experiment frame**.
-
-That should come after the same real frame passes its ordinary lineage, support, coverage, timing, and falsification gates.
-
-The desired packet is:
+The frozen real-frame grid is:
 
 ```text
-real hash-backed experiment inputs
-→ experiment projection + gates
-→ estimator if permitted
-→ effect-size observability curve
-→ delta=0 null calibration
+0.00 SD
+0.02 SD
+0.05 SD
+0.10 SD
+0.20 SD
 ```
 
-The observability result should characterize resolution; it should not be used to optimize the empirical specification toward significance.
+The same prepared PRIMARY frame that passed E0–E6 must feed this curve. The result characterizes detector resolution; it must not be used to optimize the empirical specification toward significance.
 
-## Positive controls
+## The next observability layer: uncertainty calibration
+
+For very small effects, detecting the point estimate is only half the problem. The uncertainty procedure itself must behave correctly.
+
+The next reusable calibration family should compare a deliberately small set of variance/inference procedures on **identical injected truths and identical prepared frames**. Candidate families include:
+
+- canonical ADM2-clustered covariance;
+- country-clustered / finite-cluster-aware uncertainty;
+- wild-cluster bootstrap inference;
+- spatial-HAC / Conley-style covariance over predeclared distance bandwidths.
+
+The output should be a calibration table over known null/non-null truths:
+
+```text
+method
+× effect_size_sd
+→ rejection rate
+→ CI coverage
+→ median CI width
+→ recovery error
+```
+
+The goal is not to select the method with the smallest SE. It is to learn which uncertainty procedures have credible false-positive and coverage behavior on the actual FCV design.
+
+## Stability / influence characterization
+
+Tiny effects are vulnerable to hidden concentration. A reusable stability packet should report:
+
+- leave-one-country-out estimates and support;
+- leave-one-period-out estimates and support;
+- influential/high-leverage units;
+- change in treatment share and effective sample under each omission;
+- normalized effect movement relative to outcome SD and canonical SE.
+
+This is more informative than adding many arbitrary regression variants.
+
+## Stronger falsification
+
+The current prior-outcome placebo is very clean. The next falsification family should include, where scientifically meaningful:
+
+- fake/shifted treatment timing;
+- treatment leads;
+- alternative pretreatment windows;
+- permutation/randomization negative controls that preserve country/period support and clustering structure.
+
+These should be declared before inspecting whether they make the real coefficient look better or worse.
+
+## External positive controls
 
 ### Briggs (2017)
 
-DHS commissioning has now removed the basic survey-measurement prerequisite for the first published-study positive control.
+DHS commissioning has removed the basic survey-measurement prerequisite. Briggs remains the preferred next published-study positive control because it combines survey identity, weights, population denominators, survey-region geography, donor-project geography, fixed effects, and clustered uncertainty.
 
-Briggs is valuable because it combines:
-
-- multiple DHS survey identities;
-- survey weights and population denominators;
-- survey-region geography;
-- donor-project geography/aggregation;
-- fixed-effects regression;
-- clustered uncertainty.
-
-The next blocker is exact historical source/design recovery, not basic DHS HR semantics.
+It provides evidence that internal injection cannot: whether the rebuilt system can recover known behavior reported outside the FCV codebase.
 
 ### Breckner & Sunde (2019)
 
-This remains deliberately deferred because its native `0.75° grid × calendar month` design requires truthful regular-grid geography and monthly/subannual period infrastructure.
-
-The project should not fake grid cells as GADM units or months as annual periods to implement one benchmark.
-
-## Auxiliary empirical inputs and issue #16
-
-Some calibration adapters need both semantic measurements and source-native auxiliary facts.
-
-Conceptually:
-
-```text
-semantic measurement
-+
-provenance-validated auxiliary DatasetRef / RunManifest artifact
-→ source-specific benchmark adapter
-```
-
-Harness issue #16 tracks the generic source-agnostic seam for this pattern.
-
-After the successful DHS commissioning wave, issue #16 should be understood as a **generic Calibration Lab integration capability**—particularly useful for Briggs and future multi-input adapters—not as a blocker to the DHS commissioning evidence already obtained through the governed empirical commissioning API.
+Still deferred. Its native `0.75° grid × calendar month` design should wait for truthful regular-grid geography and monthly/subannual period infrastructure.
 
 ## Instrument-health view
 
-The lab deliberately avoids a single aggregate score. Instrument health should remain separable across:
+Instrument health remains multidimensional:
 
 - source / contract integrity;
-- commissioning;
+- external commissioning;
+- real experiment gate behavior;
 - positive controls;
 - negative controls;
 - synthetic detectability;
+- uncertainty calibration;
+- influence/stability;
 - measurement agreement;
 - known limitations.
 
-A failure in one dimension is useful diagnostic evidence because it tells us which component needs attention.
+No single scalar instrument score should replace these dimensions.
 
 ## Current pull order
 
 ```text
-1. freeze DHS official-report commissioning: 8 / 8 GREEN
-2. run real current-artifact GeoGCDF → ACLED gates
-3. run real-frame E2 observability curve + delta=0
-4. recover exact Briggs historical inputs/design
-5. run Briggs as published positive control
-6. reassess the instrument-health bottleneck
-7. revisit Breckner–Sunde only if grid/month support is justified
+1. clean-environment reproduction of the real E2 gate packet
+2. full real-frame observability curve + delta=0
+3. uncertainty-calibration suite
+4. influence / country-period omission stability
+5. stronger timing / negative-control falsification
+6. Briggs (2017) external positive control
+7. only then broaden model families where diagnostics justify it
+8. Breckner–Sunde when grid/month infrastructure becomes shared capability
 ```
 
 ## Interpretation firewall
 
 > **Synthetic recovery does not prove a real effect exists.**
 
+> **A healthy detector can legitimately return a small, imprecise real coefficient.**
+
 > **External commissioning does not create a new substantive FCV finding.**
 
-> **A positive control validates aspects of an apparatus/design; it is not evidence for the FCV target hypothesis.**
-
-> **A benchmark discrepancy should be diagnosed, not tuned away.**
+> **Robustness and uncertainty checks characterize fragility; they are not a specification search for significance.**
