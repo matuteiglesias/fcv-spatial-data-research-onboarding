@@ -2,7 +2,7 @@
 title: Experimental Design Status
 sidebar_position: 2
 description: Current authority overlay for experiment design, scientific roles, estimator choices, and their boundary with calibration.
-last_verified: "2026-08-23"
+last_verified: "2026-09-08"
 ---
 
 # Experimental Design Status
@@ -11,7 +11,7 @@ last_verified: "2026-08-23"
 
 The detailed [Experimental Design and Regression Pipeline](./experimental-design-regression-pipeline.md) remains useful design history. Read it through the current architecture.
 
-The compact rules are now:
+The compact rules remain:
 
 > **Empirical repositories describe what was measured. Experiments decide how those measurements are used scientifically. Calibration asks whether the resulting apparatus recovers known behavior.**
 
@@ -34,11 +34,7 @@ Africa Observability Lab
   commissioning / controls / injection / agreement
 ```
 
-The calibration layer is inside the harness but should remain conceptually distinct from substantive experiment design.
-
-## Current design principles
-
-The following remain active:
+## Active design principles
 
 - treatment is experiment-specific;
 - timing is explicit;
@@ -52,138 +48,108 @@ The following remain active:
 - codebook-backed survey meaning is not an experiment role;
 - calibration recovery targets are not substantive hypotheses.
 
+## What changed on September 8, 2026
+
+The DHS HR measurement system moved from synthetic/implemented to **real external commissioning**.
+
+Three authoritative releases were materialized from canonical `.DAT + .DCT` source representations, semantic measurements were produced, and the commissioning suite recovered:
+
+```text
+Nigeria  4 / 4 GREEN
+Uganda   2 / 2 GREEN
+Zambia   2 / 2 GREEN
+-------------------
+TOTAL    8 / 8 GREEN
+```
+
+This directly commissions survey identity, `HV206`, `HV270`, `HV201`, `HV005`, `HV012`, `HV025`, denominator construction, and release-local category handling.
+
+Therefore **basic DHS measurement commissioning is no longer the design bottleneck**.
+
+It does not mean that a substantive DHS exposure design is ready. The remaining work there is cross-grain scientific projection, displacement-aware exposure semantics, timing, and survey-design-aware inference.
+
 ## Current contracted experiment capability
 
-The harness validates:
+The harness validates contract-backed empirical bundles, keeps absence semantics explicit, projects measurements under declared roles/timing, and derives treatment downstream from contracted investment measurements.
 
-```text
-DatasetRef
-+ MeasurementContract
-+ CoverageContract
-+ RunManifest
-+ durable artifact
-        ↓
-EmpiricalMeasurementBundle
-```
+The GeoGCDF + ACLED reference path is implemented and synthetically accepted.
 
-Experiment projection then owns:
+The missing scientific transition is now a **real current-artifact experiment run**.
 
-- selectors/categories;
-- value column;
-- scientific role;
-- timing offset;
-- geography linkage;
-- coverage interpretation;
-- downstream transforms.
+## Next real-design gate packet
 
-Treatment derivation can operate over contracted investment measurements with explicit eligibility and threshold/rule semantics.
+The next reference run should expose at least:
 
-Unknown absence does not become zero and unavailable measurement does not silently become control.
+### Data / lineage integrity
 
-## Observability is now an explicit design diagnostic
+- exact input DatasetRefs / hashes;
+- grain/key coherence;
+- geography and period contract compatibility;
+- one-for-one projection row accounting;
+- unresolved/outside-coverage states visible rather than dropped.
 
-The old question:
+### Treatment / comparison support
 
-> can the E2 estimator recover a single 0.20-SD injected signal?
+- treated and control counts;
+- support by period / stratum;
+- effective identifying sample;
+- collapse or near-universality diagnostics;
+- unavailable measurement distinct from control.
 
-has become:
+### Outcome coverage
 
-> across a declared effect-size grid, what is the probability and quality of recovery under the existing design?
+- outcome availability after timing projection;
+- structural-zero authority;
+- zero inflation / sparsity;
+- missing versus absent record accounting.
 
-The reusable observability engine characterizes:
+### Pretreatment / falsification
 
+- pre-outcome differences;
+- prior-outcome placebo;
+- shifted/fake timing where meaningful;
+- alternative pretreatment windows or negative-control diagnostics.
+
+A GREEN gate means permission to investigate the estimator, not proof of causal validity.
+
+## Observability after the gate run
+
+The same real prepared frame should feed the reusable observability engine.
+
+The required characterization should include:
+
+- a caller-declared effect-size grid;
+- `delta = 0` synthetic-null behavior;
 - sign recovery;
-- rejection;
-- joint detection;
-- interval coverage;
-- estimate distribution;
+- rejection / joint detection;
+- CI coverage;
 - recovery error;
-- sample/support context.
+- sample/cluster/support context.
 
-This is stronger design evidence than one MDE or one injected effect point, but it still does not prove that the real effect exists.
+This tells us what effect scale the actual current design can resolve. It should not be used to tune the empirical specification toward significance.
 
-## Calibration benchmark boundary
+## DHS substantive design frontier
 
-A `CalibrationBenchmarkSpec` is not another substantive experiment spec.
+The HR measurement arm is commissioned. The substantive DHS path still needs:
 
-It declares `purpose = calibration` and a known-behavior target such as:
+1. explicit scientific role selection over commissioned semantic measurements;
+2. household ↔ cluster projection;
+3. named investment/exposure measurement;
+4. displacement-aware spatial uncertainty rule;
+5. survey/exposure timing;
+6. weight / PSU / strata strategy;
+7. linkage/support/displacement-sensitivity gates;
+8. a survey-compatible estimator.
 
-- official DHS report statistic;
-- published positive-control pattern;
-- negative control;
-- synthetic injected truth;
-- measurement agreement.
+Public DHS GPS coordinates remain displaced measurements. Reported-coordinate geography is not true-location authority.
 
-Recovery is tracked independently at Level 1 pipeline, Level 2 qualitative, and Level 3 quantitative compatibility.
+## Calibration boundary after DHS commissioning
 
-A benchmark may use a regression while still being calibration rather than substantive inference.
+Briggs (2017) is now scientifically unlocked as the next published-study positive control, subject to exact historical source/design recovery.
 
-## Evidence state: three lanes
+Harness issue #16 remains relevant as a generic Calibration Lab auxiliary-input capability, especially for multi-input benchmark adapters, but it is no longer a blocker to the completed DHS commissioning runs.
 
-### A. Current contract-backed experiment path
-
-Implemented/synthetic:
-
-- empirical bundle validation;
-- ACLED projection;
-- coverage-aware timing/absence handling;
-- contracted treatment derivation;
-- existing gates/estimator reuse.
-
-Real current-artifact canonical run remains pending.
-
-### B. Observability / commissioning
-
-Implemented:
-
-- E2 effect-size observability engine;
-- synthetic null calibration;
-- generic calibration benchmark kernel;
-- instrument-health reporting.
-
-Designed/not run:
-
-- Nigeria DHS 2018 commissioning;
-- Briggs 2017 positive control;
-- Breckner–Sunde benchmark.
-
-### C. Recovered real-data calibration
-
-Historical WBad/WBkg → ACLED E2 remains genuine real-data calibration evidence and design genealogy.
-
-It is not automatically current contracted or external commissioning evidence.
-
-## Historical treatment vocabulary
-
-Names such as:
-
-```text
-cnwb_pooled
-wb_only
-cn_only
-jobs_any
-jobs_direct
-jobs_indirect
-pure_control
-```
-
-should be read as recovered/candidate experiment vocabulary, not required upstream columns.
-
-If revived, they should be explicitly derived from current measurements and retain provenance.
-
-## Annotation boundary
-
-Project annotations may be derived empirical/review facts.
-
-An experiment decides whether they affect:
-
-- eligibility;
-- treatment;
-- subgroup analysis;
-- exclusions;
-- descriptive stratification.
-
-Annotation is not causal meaning by default.
+Breckner–Sunde remains deferred until regular-grid geography and monthly/subannual period semantics exist truthfully.
 
 ## Counterfactual status
 
@@ -204,34 +170,16 @@ These define different estimands and assumptions.
 
 Estimator choice remains downstream of measurement, support, timing, and observability.
 
-Candidate families include:
+Candidate families include descriptive comparisons, OLS calibration, matching, longitudinal/staggered designs, count/rate/hurdle models where warranted, and future spatial/spillover-aware methods.
 
-- descriptive comparisons;
-- OLS calibration;
-- matching estimators;
-- longitudinal / staggered-treatment designs;
-- count/rate/hurdle models where warranted;
-- future spatial/spillover-aware methods.
-
-Estimator complexity should not repair a design that fails basic measurement or commissioning tests.
+Estimator complexity should never repair a design that fails basic measurement or support gates.
 
 ## Current design priorities
 
-The latest harness work changes the priority order.
-
-1. close the generic calibration auxiliary-input seam tracked in issue #16;
-2. commission the DHS survey measurement system against Nigeria 2018 electricity before building a complex DHS exposure design;
-3. run the real current-artifact GeoGCDF → ACLED reference experiment and observability curve;
-4. use failures/discrepancies to decide whether the next bottleneck is measurement, geography, time, support, or model design;
-5. implement Briggs after simpler DHS commissioning passes;
-6. broaden estimator families only when the instrument and design justify it.
-
-## Reading order
-
-1. [Research System Architecture](../research-system.md)
-2. [Africa Observability Lab](../experiments/observability-lab.md)
-3. [Research Workflow and Validation](./experimental-infrastructure.md)
-4. [Calibration Benchmark Catalog](../experiments/calibration-benchmark-catalog.md)
-5. this page
-6. [Validation Status](../data-products/validation-status.md)
-7. [Experimental Design and Regression Pipeline](./experimental-design-regression-pipeline.md) for detailed historical design genealogy.
+1. **Run the real current-artifact GeoGCDF → ACLED reference experiment and gate packet.**
+2. **Run the observability curve on that exact real prepared frame.**
+3. Interpret the estimator only in light of the gate + observability evidence.
+4. Use failures to decide whether the next bottleneck is measurement, geography, timing, support, or model design.
+5. Recover exact sources/design for Briggs and run it as a published positive control.
+6. Advance DHS spatial exposure only through explicit cross-grain/displacement-aware scientific design.
+7. Broaden estimator families only when the instrument and design justify it.

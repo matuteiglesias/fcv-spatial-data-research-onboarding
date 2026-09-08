@@ -2,160 +2,161 @@
 title: Africa Observability Lab
 sidebar_position: 2
 description: Human-facing map of FCV instrument characterization, calibration benchmarks, synthetic detectability, and commissioning.
-last_verified: "2026-08-23"
+last_verified: "2026-09-08"
 ---
 
 # Africa Observability Lab
 
 **Status: CALIBRATION KERNEL + E2 OBSERVABILITY INSTRUMENT IMPLEMENTED**  
-**Real external commissioning benchmarks: DESIGNED / NOT YET EXECUTED**  
+**Real external commissioning: DHS HR 8 / 8 GREEN ACROSS THREE RELEASES**  
 **Purpose: calibration, not substantive FCV inference**
 
-The harness now has a dedicated layer for a different scientific question from ordinary treatment-effect estimation:
+The Africa Observability Lab asks a different question from ordinary FCV estimation:
 
-> **Given this empirical measurement system and scientific design, what kind of signal should we be able to observe?**
+> **Given the empirical measurement system and a declared scientific design, what known behavior can the apparatus recover?**
 
-This is instrument characterization.
-
-It asks whether the FCV apparatus can recover **known behavior**: a published descriptive statistic, an expected positive-control pattern, a deliberately null benchmark, a known injected signal, or agreement between measurement implementations.
-
-It does **not** ask whether a new FCV substantive hypothesis is true.
-
-## Why this is a separate layer
-
-The active system now contains three distinct scientific activities:
-
-```text
-EMPIRICAL PRODUCTION
-what was measured?
-        ↓
-EXPERIMENT EXECUTION
-how is the measurement used scientifically?
-        ↓
-INSTRUMENT CHARACTERIZATION
-what known behavior can this apparatus recover?
-```
-
-A calibration benchmark can use the same contracted empirical inputs and experiment machinery without becoming a substantive research result.
-
-Every Observability Lab benchmark must declare:
-
-```text
-purpose = calibration
-```
-
-## Calibration Lab kernel
-
-The merged harness kernel makes calibration benchmarks first-class and declarative without creating a second estimator framework.
-
-A `CalibrationBenchmarkSpec` declares:
-
-- benchmark identity and description;
-- benchmark kind;
-- `purpose = calibration`;
-- empirical inputs;
-- optional measurement projections;
-- expected/reference behavior;
-- required recovery level;
-- adapter identity;
-- parameters, notes, and limitations.
-
-The kernel remains source-agnostic. DHS weighting logic, ACLED event construction, project-region aggregation, and similar source-specific behavior belong in benchmark adapters or upstream empirical products—not in the kernel.
+It coordinates heterogeneous instrument tests without creating a second substantive estimator framework.
 
 ## Benchmark kinds
 
-The current kernel supports five kinds:
+The harness supports first-class `purpose = calibration` runs for:
 
-| Kind | Human meaning | Example |
-|---|---|---|
-| **commissioning** | Can the rebuilt measurement system reproduce an authoritative external quantity? | Nigeria DHS 2018 household electricity share |
-| **positive control** | Can the apparatus recover a well-established directional/pattern result? | Briggs aid-targeting pattern |
-| **negative control** | Does the apparatus correctly fail to find behavior that should be absent? | declared null/control benchmark |
-| **synthetic injection** | If known truth is injected into the actual design substrate, how reliably is it recovered? | E2 effect-size detection curve |
-| **measurement agreement** | How strongly do two measurement implementations agree and where do they diverge? | WBad versus WBkg treatment agreement |
+- commissioning;
+- positive controls;
+- negative controls;
+- synthetic injection;
+- measurement agreement.
 
-These kinds are complementary. No single benchmark can characterize the whole instrument.
-
-## Recovery levels
-
-Each benchmark records recovery independently at three levels:
+Recovery is represented independently at:
 
 ```text
-Level 1 — pipeline
-Can the declared data + benchmark pipeline execute coherently?
-
-Level 2 — qualitative
-Does the expected sign / pattern / ordering / null behavior recover?
-
-Level 3 — quantitative
-Does a declared numeric target recover within a justified tolerance?
+Level 1 — pipeline coherence
+Level 2 — qualitative known behavior
+Level 3 — quantitative compatibility
 ```
 
-Each level can be:
+A Level-3 target is required only when exact numeric compatibility is scientifically justified.
+
+## September 8, 2026 external commissioning checkpoint
+
+The first real protected-source commissioning wave is now complete.
+
+The rebuilt DHS HR measurement system was pointed at three authoritative releases:
+
+- Nigeria 2018 (`NGHR7BFL`);
+- Uganda 2016 (`UGHR7BFL`);
+- Zambia 2018 (`ZMHR71FL`).
+
+Canonical HR ingestion uses distributed fixed-width `.DAT + .DCT` source authority.
+
+The commissioning ledger is:
 
 ```text
-pass
-fail
-not_required
-not_run
+Nigeria  4 / 4 GREEN
+Uganda   2 / 2 GREEN
+Zambia   2 / 2 GREEN
+-------------------
+TOTAL    8 / 8 GREEN
 ```
 
-This matters because exact coefficient parity is often scientifically unjustified even when a qualitative positive control should recover.
+The checks commission several distinct parts of the survey instrument:
 
-A published benchmark may therefore require Level 2 while making Level 3 conditional on exact historical source-release recovery.
+- `HV206` household electricity semantics;
+- source-native `HV005` household weighting;
+- `HV005 × HV012` de-jure population weighting;
+- `HV025` urban-domain selection;
+- `HV270` survey-relative wealth-quintile semantics;
+- release-local `HV201` drinking-water categories;
+- denominator, missing-state, and unmapped-code accounting.
 
-## E2 observability instrument
+All required cells recovered within the predeclared ±0.05 percentage-point tolerance implied by one-decimal report precision.
 
-The former one-off E2 `0.20 SD` injection check is now a reusable detector-characterization instrument.
+No joined protected microdata were persisted. The durable commissioning outputs contain aggregate diagnostics and provenance identities only.
 
-The reference path uses the existing fully contracted investment + ACLED E2 design and **does not change** treatment, outcome, geography, periodization, eligibility, or estimator semantics.
+This is **instrument commissioning evidence**, not a new substantive result about electricity, wealth, water, aid, or conflict.
 
-For caller-declared injected effect sizes, the instrument records repetition-level:
+## Reusable E2 observability
 
-- injected truth in outcome-SD and raw units;
-- estimated effect and standard error;
-- 95% interval;
+The old one-point `0.20 SD` injection check has been generalized into a reusable detector-characterization engine.
+
+For each declared effect size and repetition it can report:
+
+- injected truth;
+- estimate / SE / CI;
 - sign recovery;
-- rejection rate;
+- rejection;
 - joint sign + rejection recovery;
-- CI coverage of known truth;
-- absolute/relative recovery error;
+- CI coverage;
+- recovery error;
 - sample and cluster counts;
-- observed outcome SD;
+- outcome SD;
 - treatment support.
 
-The durable outputs include:
+`delta = 0` is a first-class known synthetic null for false-positive and interval-coverage calibration around zero. It is not a statement that the real FCV effect is null.
+
+## Current missing transition
+
+The observability machinery is implemented and synthetically accepted, but the most important current characterization has not yet been recorded:
+
+> run the observability curve on the **real current-artifact GeoGCDF → ACLED prepared experiment frame**.
+
+That should come after the same real frame passes its ordinary lineage, support, coverage, timing, and falsification gates.
+
+The desired packet is:
 
 ```text
-repetition_results.csv
-effect_size_summary.csv
-detection_curve.csv
-null_calibration_summary.csv
+real hash-backed experiment inputs
+→ experiment projection + gates
+→ estimator if permitted
+→ effect-size observability curve
+→ delta=0 null calibration
 ```
 
-The empirical analysis frame is deliberately not written by the observability output function.
+The observability result should characterize resolution; it should not be used to optimize the empirical specification toward significance.
 
-### Synthetic null
+## Positive controls
 
-`delta = 0` is first-class.
+### Briggs (2017)
 
-It calibrates false-positive behavior against known injected zero truth without making the much stronger claim that the real social relationship is null.
+DHS commissioning has now removed the basic survey-measurement prerequisite for the first published-study positive control.
 
-### Why this is stronger than one power number
+Briggs is valuable because it combines:
 
-The instrument maps:
+- multiple DHS survey identities;
+- survey weights and population denominators;
+- survey-region geography;
+- donor-project geography/aggregation;
+- fixed-effects regression;
+- clustered uncertainty.
+
+The next blocker is exact historical source/design recovery, not basic DHS HR semantics.
+
+### Breckner & Sunde (2019)
+
+This remains deliberately deferred because its native `0.75° grid × calendar month` design requires truthful regular-grid geography and monthly/subannual period infrastructure.
+
+The project should not fake grid cells as GADM units or months as annual periods to implement one benchmark.
+
+## Auxiliary empirical inputs and issue #16
+
+Some calibration adapters need both semantic measurements and source-native auxiliary facts.
+
+Conceptually:
 
 ```text
-injected effect size
-        ↓
-probability and quality of recovery
+semantic measurement
++
+provenance-validated auxiliary DatasetRef / RunManifest artifact
+→ source-specific benchmark adapter
 ```
 
-Rather than summarizing observability with a single MDE, it exposes detection, sign recovery, interval coverage, estimate distribution, and uncertainty as a curve over declared effect sizes.
+Harness issue #16 tracks the generic source-agnostic seam for this pattern.
 
-## Instrument health is multidimensional
+After the successful DHS commissioning wave, issue #16 should be understood as a **generic Calibration Lab integration capability**—particularly useful for Briggs and future multi-input adapters—not as a blocker to the DHS commissioning evidence already obtained through the governed empirical commissioning API.
 
-The calibration suite can render an instrument-health report across separate dimensions:
+## Instrument-health view
+
+The lab deliberately avoids a single aggregate score. Instrument health should remain separable across:
 
 - source / contract integrity;
 - commissioning;
@@ -165,107 +166,26 @@ The calibration suite can render an instrument-health report across separate dim
 - measurement agreement;
 - known limitations.
 
-There is deliberately **no global instrument score**.
+A failure in one dimension is useful diagnostic evidence because it tells us which component needs attention.
 
-A system can be healthy on source integrity and synthetic recovery while still failing an external commissioning benchmark. That discrepancy is diagnostic evidence, not something to average away.
-
-## Real/local data firewall
-
-Calibration can consume local durable empirical artifacts through the same contract-backed seam as ordinary experiments.
-
-The calibration layer records dataset identities, hashes, aggregate diagnostics, benchmark specification hash, code revision, seed, and sanitized result hashes.
-
-It does not persist:
-
-- protected input tables;
-- local filesystem paths;
-- DHS microdata;
-- source rows merely to prove execution.
-
-Missing local data should produce `NOT_RUN`; integrity failure should remain a visible pipeline failure.
-
-## Current Observability Lab state
-
-| Capability | Status |
-|---|---|
-| Contract-backed calibration benchmark kernel | **IMPLEMENTED / SYNTHETIC PASS** |
-| Level 1 / 2 / 3 recovery model | **IMPLEMENTED** |
-| Commissioning / positive / negative / injection / agreement benchmark kinds | **IMPLEMENTED** |
-| Sanitized calibration run manifests | **IMPLEMENTED** |
-| Multidimensional instrument-health report | **IMPLEMENTED** |
-| Reusable E2 observability injection engine | **IMPLEMENTED / SYNTHETIC PASS** |
-| Fully contracted investment + ACLED observability reference-path test | **SYNTHETIC PASS** |
-| Official DHS commissioning benchmark design | **DESIGNED / NOT RUN** |
-| Briggs (2017) published positive control | **RESEARCH-READY AFTER PREREQUISITES** |
-| Breckner & Sunde (2019) climate/conflict benchmark | **DEFERRED — SHARED GRID + MONTHLY TIME CAPABILITY NEEDED** |
-| Real current-artifact instrument-health suite | **NOT YET RECORDED** |
-
-## One important current kernel gap
-
-The first real DHS commissioning consumer exposed a useful generic limitation, tracked in harness issue #16.
-
-A commissioning benchmark may need both:
+## Current pull order
 
 ```text
-semantic measurement
-HV206 → household electricity access
-
-and
-
-source-native auxiliary facts
-HV005 household sample weight
+1. freeze DHS official-report commissioning: 8 / 8 GREEN
+2. run real current-artifact GeoGCDF → ACLED gates
+3. run real-frame E2 observability curve + delta=0
+4. recover exact Briggs historical inputs/design
+5. run Briggs as published positive control
+6. reassess the instrument-health bottleneck
+7. revisit Breckner–Sunde only if grid/month support is justified
 ```
 
-The current calibration input seam validates ordinary semantic `EmpiricalMeasurementBundle`s, but does not yet have a generic way to pass a provenance-validated source-native auxiliary dataset without fabricating a `MeasurementContract`.
+## Interpretation firewall
 
-The desired fix is generic:
+> **Synthetic recovery does not prove a real effect exists.**
 
-```text
-ordinary measurement input
-+
-auxiliary DatasetRef + RunManifest + verified bytes
-        ↓
-source-specific adapter performs join / weighting / denominator logic
-```
+> **External commissioning does not create a new substantive FCV finding.**
 
-The kernel itself should never learn DHS variable names.
+> **A positive control validates aspects of an apparatus/design; it is not evidence for the FCV target hypothesis.**
 
-## Near-term commissioning sequence
-
-The current evidence-driven order is:
-
-```text
-close generic auxiliary-input seam (#16)
-        ↓
-Nigeria DHS 2018 official-report commissioning
-        ↓
-Briggs (2017) published-study positive control
-        ↓
-reassess instrument bottleneck
-        ↓
-Breckner–Sunde only after shared regular-grid + monthly semantics exist
-```
-
-This sequence is deliberate. If the instrument cannot reproduce a simple authoritative DHS table cell, a failure on a multi-source published regression would be difficult to diagnose.
-
-## Interpretation rules
-
-Four rules should remain visible whenever Observability Lab results are discussed:
-
-> **Calibration is not substantive inference.**
-
-> **Synthetic detectability is not evidence that a real effect exists.**
-
-> **Failure to reproduce a benchmark is diagnostic evidence, not permission to tune the implementation until the target appears.**
-
-> **Level-3 numeric parity is required only when source/design equivalence makes it scientifically meaningful.**
-
-## Technical authority
-
-Detailed executable semantics live in `fcv-experiment-harness`:
-
-- [`CALIBRATION_LAB.md`](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/CALIBRATION_LAB.md)
-- [`OBSERVABILITY.md`](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/OBSERVABILITY.md)
-- [`docs/calibration/`](https://github.com/matuteiglesias/fcv-experiment-harness/tree/main/docs/calibration)
-
-For the current external targets and prerequisites, continue to [Calibration Benchmark Catalog](./calibration-benchmark-catalog.md).
+> **A benchmark discrepancy should be diagnosed, not tuned away.**

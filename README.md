@@ -2,7 +2,7 @@
 
 Human-facing documentation and collaboration layer for the FCV spatial-data scientific-instrument project.
 
-This repository is **not** the empirical-data implementation and it is **not** the experiment/calibration engine. Its job is to help collaborators understand the research system, its current status, scientific boundaries, observability and commissioning evidence, substantive experiment readiness, and recovered 2021–2023 research memory.
+This repository is **not** the empirical-data implementation and it is **not** the experiment/calibration engine. Its job is to help collaborators understand the research system, its current evidence state, scientific boundaries, experiment readiness, observability/commissioning results, and recovered 2021–2023 research memory.
 
 The public site is deployed at:
 
@@ -12,171 +12,105 @@ The public site is deployed at:
 
 The implementation is deliberately split across reusable foundations and FCV-owned layers.
 
-### Reusable foundations — not FCV-specific
-
-- [`empirical-data-contracts`](https://github.com/matuteiglesias/empirical-data-contracts) — typed contracts for empirical identity, provenance, grain, geography/time, coverage, measurement, QA, and run manifests.
-- [`spatial-data-foundation`](https://github.com/matuteiglesias/spatial-data-foundation) — reusable geography authority, period indexing, analytical spatial membership, source registration, and spatial provenance.
-
-### FCV empirical domain
-
-- [`fcv-empirical-data`](https://github.com/matuteiglesias/fcv-empirical-data) — source-native facts and reusable empirical measurements, natural grains, source snapshots, durable materialization, QA, coverage, parity, and integration evidence. It deliberately does **not** own treatment/control/outcome roles or estimators.
-
-### FCV scientific use and instrument characterization
-
-- [`fcv-experiment-harness`](https://github.com/matuteiglesias/fcv-experiment-harness) — scientific use of empirical measurements: experiment projection, treatment derivation, timing, eligibility, counterfactuals, gates, estimators, falsification, plus the Africa Observability Lab calibration kernel and reusable synthetic observability machinery.
-
-This onboarding site sits above those layers as the human communication surface.
+- [`empirical-data-contracts`](https://github.com/matuteiglesias/empirical-data-contracts) — typed empirical identity, provenance, grain, geography/time, coverage, measurement, QA, and run-manifest contracts.
+- [`spatial-data-foundation`](https://github.com/matuteiglesias/spatial-data-foundation) — geography authority, period indexing, analytical membership, source registration, and spatial provenance.
+- [`fcv-empirical-data`](https://github.com/matuteiglesias/fcv-empirical-data) — source-native facts and reusable empirical measurements. It does **not** own treatment/control/outcome roles or estimators.
+- [`fcv-experiment-harness`](https://github.com/matuteiglesias/fcv-experiment-harness) — experiment projection, treatment derivation, timing, eligibility, gates, estimators, falsification, and the Africa Observability Lab.
 
 The compact rule is:
 
 > **Facts are produced upstream; scientific roles are assigned in experiments; known-behavior calibration characterizes the instrument; readiness is summarized here.**
 
-See `docs/research-system.md` for the full ownership map.
+## September 8, 2026 commissioning checkpoint
+
+The DHS HR measurement arm has now crossed protected real-source commissioning.
+
+Canonical HR ingestion uses the authoritative fixed-width DHS release representation:
+
+```text
+<release>.DAT + <release>.DCT
+→ verified fixed-width decode
+→ contract-backed HR Silver
+→ codebook-backed semantic measurements
+→ external-reference commissioning
+```
+
+Three real DHS releases were materialized successfully:
+
+| Survey | HR rows | Output columns | External checks |
+|---|---:|---:|---:|
+| Nigeria 2018 | 40,427 | 4,972 | 4 / 4 GREEN |
+| Uganda 2016 | 19,588 | 4,021 | 2 / 2 GREEN |
+| Zambia 2018 | 12,831 | 3,316 | 2 / 2 GREEN |
+
+**DHS commissioning result: 8 / 8 GREEN.**
+
+The checks cover more than one descriptive percentage. They exercise:
+
+- survey/release identity;
+- `HV206` electricity semantics;
+- source-native `HV005` household weights;
+- `HV005 × HV012` de-jure population weighting;
+- `HV025` urban-domain selection;
+- `HV270` survey-relative wealth-quintile semantics;
+- release-local `HV201` drinking-water categories;
+- denominator and missing/unmapped-code accounting.
+
+Nigeria's detailed drinking-water benchmark mapped every observed positive-weight `HV201` code from distributed release documentation. No improved/unimproved or safe/unsafe classification was inferred.
+
+Commissioning produced aggregate evidence only; no joined protected microdata were persisted. The benchmark implementations did not need to be tuned to force agreement with the reports.
+
+This establishes **external commissioning of the DHS HR measurement system across three releases**. It does **not** establish a DHS spatial-exposure experiment, causal validity, or survey-design-aware substantive inference.
+
+## Current scientific frontier
+
+DHS HR commissioning is no longer the main FCV readiness bottleneck.
+
+The highest-value next evidence transition is the first **real current-artifact fully contracted GeoGCDF → ACLED experiment**, followed by detector characterization on that exact prepared frame:
+
+```text
+contract-backed GeoGCDF measurement
++ contract-backed ACLED measurement
+→ explicit experiment projection
+→ real support / coverage / timing / placebo gates
+→ estimator
+→ effect-size observability curve + synthetic null
+```
+
+The acceptance criterion is not a desirable coefficient. It is a coherent real-data gate packet plus observability evidence that states what the design can and cannot resolve.
+
+After that, **Briggs (2017)** is the preferred published-study positive control for survey weighting, survey-region geography, donor-project aggregation, and regression behavior. Breckner & Sunde (2019) remains deferred until regular-grid geography and monthly/subannual time semantics can be represented truthfully.
+
+Harness issue #16 should now be understood as a **generic Calibration Lab integration prerequisite**, especially for published-study adapters such as Briggs, rather than as a blocker to the already-completed DHS commissioning runs.
 
 ## Main current pages
 
-- `docs/current-status.md` — current architecture, three active evidence lanes, current blockers, and next evidence transitions.
+- `docs/current-status.md` — current evidence state and next scientific-readiness transitions.
 - `docs/research-system.md` — empirical, experiment, and instrument-characterization boundaries.
-- `docs/experiments/observability-lab.md` — Africa Observability Lab: calibration kernel, recovery levels, synthetic observability, and commissioning firewall.
-- `docs/experiments/calibration-benchmark-catalog.md` — official DHS commissioning, Briggs/Breckner-Sunde positive controls, synthetic injection, and measurement-agreement targets.
-- `docs/data-products/product-catalog.md` — current empirical products and natural grains.
-- `docs/experiments/experiment-surface-catalog.md` — substantive FCV scientific experiment surfaces, kept separate from calibration benchmarks.
-- `docs/continuation/experimental-infrastructure.md` — workflow from empirical production through experiment gates, observability/commissioning, estimation, and interpretation.
-- `docs/data-products/validation-status.md` — evidence ledger separating current contracted architecture, Observability Lab/commissioning, and recovered real-data calibration.
-- `docs/continuation/experimental-design-status.md` — current downstream scientific-design authority overlay.
-
-## Africa Observability Lab
-
-The experiment harness now supports first-class `purpose = calibration` benchmarks without creating a second substantive estimator framework.
-
-Supported calibration kinds include:
-
-- commissioning;
-- positive controls;
-- negative controls;
-- synthetic injection;
-- measurement agreement.
-
-Recovery is represented independently at:
-
-```text
-Level 1 — pipeline coherence
-Level 2 — qualitative expected behavior
-Level 3 — quantitative compatibility
-```
-
-The reusable E2 observability engine also maps caller-declared injected effect sizes to sign recovery, rejection/detection, CI coverage, recovery error, and uncertainty under the actual prepared design structure. `delta = 0` is an explicit known synthetic null.
-
-The current external commissioning sequence begins with Nigeria DHS 2018 household electricity (59.4%), then Briggs (2017) after the simple survey benchmark is commissioned. Breckner & Sunde (2019) is deliberately deferred until reusable regular-grid geography and monthly/subannual time semantics exist.
-
-## DHS state
-
-DHS now has:
-
-```text
-HR + GC + GPS
-→ integration QA
-→ codebook-backed household semantic measurements
-```
-
-The first reusable semantic measurements are:
-
-- `HV206` → household electricity access;
-- `HV270` → survey-relative wealth quintile;
-- `HV201` → drinking-water source code.
-
-Protected real-source integrated acceptance and downstream scientific exposure use remain separate next steps.
-
-Harness issue #16 currently tracks the generic auxiliary empirical dataset input needed to combine semantic measurements with source-native design facts such as `HV005` weights for commissioning.
+- `docs/experiments/observability-lab.md` — Africa Observability Lab and calibration boundaries.
+- `docs/experiments/calibration-benchmark-catalog.md` — completed DHS commissioning and next positive controls.
+- `docs/experiments/experiment-surface-catalog.md` — substantive experiment surfaces and current blockers.
+- `docs/data-products/validation-status.md` — evidence ledger separating current architecture, commissioning/observability, and recovered calibration.
 
 ## Evidence language
 
-When communicating progress, distinguish at least:
+Keep these evidence levels distinct:
 
 1. software/synthetic implementation acceptance;
-2. source-backed empirical materialization and QA;
-3. experiment gate evidence on real data;
+2. real source-backed empirical materialization + QA;
+3. real experiment gate evidence;
 4. synthetic observability / detector characterization;
 5. external commissioning / known-behavior recovery;
-6. substantive estimator/research results.
+6. substantive estimator result.
 
-A successful synthetic injection is not evidence that a real effect exists. A reproduced published statistic or paper pattern is an instrument-calibration result, not a new FCV substantive claim. A green experiment gate is permission to investigate further rather than proof of causal identification.
+A successful materialization is not automatically an experiment. A codebook-backed measurement is not automatically an outcome or control. A synthetic injection is not evidence that a real effect exists. A reproduced external statistic or published pattern is instrument-calibration evidence, not a new FCV substantive claim. A GREEN gate is permission to investigate further rather than proof of causal identification.
 
-## Recovered archive pages
+## Recovered archive
 
-The recovered archive remains part of the project's research memory, but it is no longer the sole or automatic source of current canonical empirical products.
-
-- `docs/archive-map.md` — top-level archive map.
-- `docs/main-pipeline/duke-overview.md` — main recovered 2023 pipeline.
-- `docs/data-products/spatial-data-overview.md` — reusable historical spatial products.
-- `docs/data-products/dataset-inventory.md` — detailed recovered dataset inventory.
-- `docs/notebooks/notebook-guide.md` — notebook/export guide.
-- `docs/recovery-plan.md` — historical recovery plan retained for provenance.
-
-Historical notebooks and outputs remain useful for reconstruction, parity, calibration history, and scientific context. They should not be promoted to current authority merely because they existed first.
-
-## Documentation ownership policy
-
-This repository should own:
-
-- collaborator orientation;
-- the current system map;
-- research status and open decisions;
-- scientific framing and experiment families;
-- observability/calibration/commissioning summaries;
-- validation/readiness summaries;
-- archive memory and recovered design history;
-- links to authoritative technical repositories.
-
-Technical repositories should own:
-
-- schemas and public APIs;
-- source-specific transformations;
-- materialization semantics;
-- detailed run-artifact formats;
-- benchmark adapter behavior;
-- executable commands;
-- tests and CI behavior.
-
-The onboarding site should summarize implementation facts when they materially change collaborator understanding, then link to the technical source rather than duplicating fast-moving API documentation.
-
-## Project structure
-
-```text
-docs/                 Research documentation, system map, catalogs, status, and archive memory
-src/pages/            Site landing page
-src/css/custom.css    Global theme customizations
-static/img/           Logo, favicon, and static images
-docusaurus.config.ts  Site configuration
-sidebars.ts           Curated navigation
-```
-
-## Install
-
-```bash
-npm install
-```
-
-## Run locally
-
-```bash
-npm start
-```
-
-## Build
-
-```bash
-npm run build
-```
-
-## Serve the production build locally
-
-```bash
-npm run serve
-```
+The recovered archive remains part of the project's research memory, but it is no longer the automatic source of current canonical empirical products. Historical notebooks and outputs remain useful for reconstruction, parity, calibration history, and scientific context.
 
 ## Maintenance rule
 
 Update this site when a technical change alters collaborator-facing architecture, research status, evidence state, calibration/commissioning readiness, or scientific boundaries.
 
-Do not mirror every code-level change here. Preserve genuine historical pages as historical evidence, and keep current status and benchmark catalogs explicitly current.
+Do not mirror every implementation detail here. Preserve historical pages as historical evidence and keep the current status/readiness pages explicitly current.
