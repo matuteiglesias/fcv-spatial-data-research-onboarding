@@ -2,7 +2,7 @@
 title: Validation Status
 sidebar_position: 3
 description: Human-facing evidence and readiness board for empirical products, experiments, observability, and commissioning.
-date: "2026-09-08"
+date: "2026-09-09"
 ---
 
 # Validation Status
@@ -94,23 +94,87 @@ The positive-reported-amount STRESS treatment also passed all gates.
 
 **Status: REAL CURRENT-ARTIFACT E0–E6 PASS**
 
-## Reference estimator
-
-PRIMARY calibration estimate:
+## Canonical estimator
 
 ```text
 effect = +0.54999 fatalities
 SE     = 0.45819
 z      = 1.20
+effect ≈ +0.0176 outcome SD
 ```
 
-This is not strong substantive evidence. The first execution also emitted a SciPy/NumPy compatibility warning; a clean supported-environment reproduction is required before exact numerical estimates/SEs are frozen as canonical.
+This is not strong substantive evidence.
 
-**Status: REAL ESTIMATE PRODUCED / NUMERICAL REPRODUCTION IN PROGRESS**
+**Status: REAL ESTIMATE PRODUCED / SMALL-IMPRECISE CANONICAL SIGNAL**
 
-# Track C — Africa Observability Lab
+# Track C — Current E2 R0–R5 characterization
 
-## DHS external commissioning
+## R0 reference lock
+
+The exact analysis identity and PRIMARY frame were frozen before characterization.
+
+**Status: COMPLETE**
+
+## R1 detector curve
+
+| Injected truth | Canonical rejection / detection |
+|---|---:|
+| 0.00 SD | 0.02; CI coverage 0.98 |
+| 0.02 SD | 0.25 |
+| 0.05 SD | 0.96 |
+| 0.10 SD | 1.00 |
+| 0.20 SD | 1.00 |
+
+**Status: COMPLETE — EMPIRICAL RESOLUTION BOUNDARY CHARACTERIZED**
+
+## R2 uncertainty calibration
+
+Predeclared families:
+
+```text
+ADM2 cluster              null rejection ≈ 0.020
+country cluster + t       null rejection ≈ 0.000
+wild country bootstrap    null rejection ≈ 0.045
+```
+
+Point estimates were identical; uncertainty behavior differed. No procedure was selected because it gave a more favorable SE.
+
+**Status: COMPLETE — CHARACTERIZED**
+
+## R3 influence / concentration
+
+No single country or high-influence ADM2 explains the canonical coefficient. Period dependence is materially stronger; omitting 2011–12 flips the fatalities sign.
+
+**Status: COMPLETE — GEOGRAPHIC CONCENTRATION LIMITED / TEMPORAL HETEROGENEITY MATERIAL**
+
+## R4 falsification
+
+```text
+t−2 placebo              ≈ 0.0039 outcome SD
+future-treatment placebo ≈ 0.0034 outcome SD
+structured-null p        ≈ 0.176
+```
+
+The empirical structured-null probability is calibration evidence only, not a causal randomization-test p-value.
+
+**Status: COMPLETE — TIMING CLEAN / CANONICAL NOT EXTREME UNDER STRUCTURED NULL**
+
+## R5 sparse-outcome family
+
+| Outcome representation | Natural result |
+|---|---|
+| fatalities OLS | `+0.0176 SD` |
+| VAC event-count OLS | `+0.0549 SD` |
+| any-VAC LPM | `+2.04 pp` |
+| VAC event-count PPML | IRR `1.348`; AME `+0.203` events |
+
+The canonical fatalities result is not replaced. Raw coefficients are not cross-model comparable.
+
+**Status: COMPLETE — POSITIVE INCIDENCE/COUNT PATTERN CLEARER THAN FATALITY SEVERITY**
+
+# Track D — External commissioning / positive controls
+
+## DHS official-report commissioning
 
 ```text
 Nigeria  4 / 4 GREEN
@@ -122,32 +186,39 @@ TOTAL    8 / 8 GREEN
 
 **Status: EXTERNAL COMMISSIONING PASS**
 
-## Real E2 positive control
+## Briggs (2017): DHS wealth measurement
 
-The current real E2 frame recovered the predeclared `0.20 SD` synthetic treatment signal 30 / 30 times.
+Independent historical DHS reconstruction using `HV270`, `HV005 × HV012`, and `HV024` recovers published regional wealth-quintile quantities essentially to rounding precision.
 
-**Status: REAL-FRAME ONE-POINT OBSERVABILITY PASS**
+**Status: STRONG POSITIVE CONTROL**
 
-## Full real-frame detector curve
+## Briggs (2017): full aid-targeting analogue
 
-Frozen grid:
+Published oracle:
 
 ```text
-0.00, 0.02, 0.05, 0.10, 0.20 SD
+log richest  +0.72034
+log poorest  +0.10460
+within R²     0.23685
+N = 195 / 17 countries
 ```
 
-This will characterize false-positive behavior, CI coverage, sign recovery, rejection, joint detection, and recovery error on the exact PRIMARY frame.
+Independent pragmatic analogue:
 
-**Status: IN PROGRESS**
+```text
+log richest  +2.3275
+log poorest  +0.9488
+within R²     0.1419
+N = 65 / 7 countries
+```
 
-## Next observability capabilities
+Known divergences are explicit: current GADM instead of exact historical region ontology, source-informed AidData parent/child semantics, and a reduced defensible country/region set.
 
-- uncertainty/inference calibration across a small predeclared covariance family;
-- leave-one-country/period-out influence characterization;
-- stronger timing / negative-control falsification;
-- published positive control via Briggs (2017).
+The rich-over-poor ordering survives trimming, equal-country weighting, and every leave-one-country-out run; richest LOO range `1.8398–3.0837`.
 
-# Track D — Recovered/legacy-backed calibration
+**Status: QUALITATIVE POSITIVE CONTROL / NUMERICAL PARITY NOT CLAIMED / CLOSED**
+
+# Track E — Recovered/legacy-backed calibration
 
 The recovered WB→ACLED E2 checkpoint remains genuine historical calibration evidence:
 
@@ -158,7 +229,7 @@ The recovered WB→ACLED E2 checkpoint remains genuine historical calibration ev
 0.20-SD injection recovery = 30/30 in every cell
 ```
 
-This is recovered-lane evidence, not a substitute for the now-completed current-artifact gate run.
+This is recovered-lane evidence, not a substitute for current-artifact characterization.
 
 # Current readiness summary
 
@@ -169,23 +240,27 @@ This is recovered-lane evidence, not a substitute for the now-completed current-
 | GeoGCDF current treatment Gold | **PASS — 22 EXPLICIT EXCLUSIONS** |
 | ACLED certified outcome Gold | **PASS** |
 | Current GeoGCDF → ACLED E0–E6 | **PASS — REAL FRAME** |
-| Current reference estimate | **PRODUCED / CLEAN NUMERICAL REPLICATION PENDING** |
-| 0.20-SD real-frame recovery | **PASS — 30 / 30** |
-| Full real-frame observability curve | **IN PROGRESS** |
-| Uncertainty calibration | **NEXT CAPABILITY** |
-| Influence / omission stability | **NEXT CAPABILITY** |
-| Briggs 2017 positive control | **UNLOCKED / SOURCE-DESIGN RECOVERY NEEDED** |
-| Breckner–Sunde 2019 | **DEFERRED — GRID + MONTHLY SUPPORT NEEDED** |
+| R0 exact reference lock | **COMPLETE** |
+| Full real-frame observability curve | **COMPLETE / CHARACTERIZED** |
+| Uncertainty calibration | **COMPLETE / CHARACTERIZED** |
+| Influence / omission stability | **COMPLETE / CHARACTERIZED** |
+| Timing / structured-null falsification | **COMPLETE / CHARACTERIZED** |
+| Sparse-outcome family | **COMPLETE / CHARACTERIZED** |
+| Briggs DHS measurement | **STRONG POSITIVE CONTROL** |
+| Briggs full analogue | **QUALITATIVE POSITIVE CONTROL / CLOSED** |
+| Supported-environment exact numerical rerun | **ARCHIVAL HOUSEKEEPING PENDING** |
 | DHS spatial exposure experiment | **PARTIAL — SCIENTIFIC USE PENDING** |
+| Current World Bank spatial-period measurement | **PARTIAL — MISSING EMPIRICAL MEASUREMENT** |
+| Breckner–Sunde 2019 | **DEFERRED — GRID + MONTHLY SUPPORT NEEDED** |
 
 # Next evidence transitions
 
-1. Reproduce the current E2 numerical packet in a supported environment.
-2. Complete the full real-frame observability curve including `delta = 0`.
-3. Calibrate uncertainty procedures under known injected truths.
-4. Add country/period omission and influence diagnostics.
-5. Add stronger timing and negative-control falsification.
-6. Run Briggs (2017) as the first published-study positive control.
-7. Broaden estimator families only when the diagnostics show a specific need.
+1. Reproduce the closed numerical packet in a supported environment for archival acceptance.
+2. Advance DHS spatial-exposure commissioning with explicit displacement, cross-grain linkage, timing, and survey design.
+3. Build a current World Bank spatial-period measurement only when it supplies an independent donor comparison.
+4. Undertake Breckner–Sunde only after regular-grid geography and calendar-month semantics exist truthfully.
+5. Prefer cross-source / convergent-validity benchmarks over more E2 specification variants.
 
-> **This board states what the instrument has demonstrated. It does not collapse materialization, experiment gates, detectability, uncertainty calibration, and substantive inference into one claim that “the pipeline works.”**
+> **This board states what the instrument has demonstrated. It does not collapse materialization, experiment gates, detectability, uncertainty calibration, external controls, and substantive inference into one claim that “the pipeline works.”**
+
+See [September 2026 Calibration Wave Closure](../experiments/calibration-wave-2026-09.md) for the detailed closed packet.
