@@ -2,7 +2,7 @@
 title: Experimental Design Status
 sidebar_position: 2
 description: Current authority overlay for experiment design, scientific roles, estimator choices, and their boundary with calibration.
-last_verified: "2026-09-08"
+last_verified: "2026-09-09"
 ---
 
 # Experimental Design Status
@@ -32,16 +32,23 @@ Africa Observability Lab
   commissioning / controls / injection / agreement
 ```
 
-## What changed on September 8, 2026
+## What changed on September 8–9, 2026
 
-Two major real-data transitions are now complete:
+The initial small-effect credibility ladder is now complete rather than aspirational.
 
-1. DHS HR external commissioning passed 8 / 8 authoritative report checks across Nigeria, Uganda, and Zambia.
-2. The current fully contracted GeoGCDF → ACLED E2 reference completed its first real gate run and passed E0–E6 for both the PRIMARY and positive-amount STRESS treatment definitions.
+1. DHS HR official-report commissioning passed 8 / 8 checks.
+2. Current GeoGCDF → ACLED E2 passed E0–E6 on the real 47-country frame.
+3. R0 froze the exact analysis identity and prepared frame.
+4. R1 measured detector resolution across `0–0.20 SD`.
+5. R2 calibrated a bounded inference family on known truth.
+6. R3 characterized country/period/unit influence.
+7. R4 added deeper timing and structured-null falsification.
+8. R5 characterized sparse-outcome severity/incidence/count representations.
+9. Briggs (2017) supplied the first external published positive control and is now closed.
 
-The real E2 PRIMARY frame contains 38,520 ADM2-period rows across 6,420 ADM2 units and 47 countries. Treated/control support exists in all six declared treatment periods. Pretreatment balance and prior-outcome placebo are very small, and the predeclared 0.20-SD positive control recovered 30 / 30 times.
+The canonical fatalities estimate remains small/imprecise (`+0.550`, SE `0.458`, about `0.0176 SD`). The instrument's own detector curve says effects around `0.02 SD` are difficult to distinguish, while `0.05 SD` is usually observable under the frozen synthetic world.
 
-The reference estimate is small/imprecise (`+0.550`, SE `0.458`, `z ≈ 1.20`). That is not a failure of the instrument; it is exactly why observability and uncertainty calibration must remain separate from substantive inference.
+This is exactly why observability remains separate from substantive inference.
 
 ## Current design principles
 
@@ -55,11 +62,12 @@ The reference estimate is small/imprecise (`+0.550`, SE `0.458`, `z ≈ 1.20`). 
 - standard-error calibration matters when target effects are small;
 - robustness checks must be predeclared and cannot replace the canonical specification based on significance;
 - survey weights/design facts remain upstream facts until an experiment chooses their inferential use;
-- synthetic recovery targets are not substantive hypotheses.
+- synthetic recovery targets are not substantive hypotheses;
+- once a calibration question is answered, prefer a new validation dimension over additional specification search.
 
 ## Current E2 reference status
 
-The reference is now a real current-artifact design rather than a synthetic-only implementation.
+The reference is a real current-artifact design:
 
 ```text
 GeoGCDF project_count > 0 at t
@@ -72,88 +80,68 @@ GeoGCDF project_count > 0 at t
 
 The analysis universe is upstream-authority-bounded: the 47 GeoGCDF treatment-covered countries must also exist in governed GADM and certified ACLED coverage. Treatment-zero semantics are not extended to countries outside the GeoGCDF MeasurementContract.
 
-The first numerical run emitted a SciPy/NumPy compatibility warning, so clean supported-environment reproduction is required before the exact coefficient/SE packet is frozen as canonical.
+## Closed small-effect credibility results
 
-## Small-effect credibility ladder
-
-The central design challenge is now **how to make very small effects scientifically interpretable in noisy, spatially correlated data**.
-
-### 1. Detector characterization
-
-Run the frozen real-frame effect grid:
+### Detector characterization
 
 ```text
-0.00, 0.02, 0.05, 0.10, 0.20 SD
+0.00 SD → null rejection ≈ 0.02
+0.02 SD → weak detection
+0.05 SD → usually observable
+0.10+ SD → essentially certain under frozen synthetic worlds
 ```
 
-Record rejection, sign recovery, joint detection, CI coverage, recovery error, and CI width.
+### Uncertainty calibration
 
-### 2. Uncertainty calibration
+The predeclared ADM2-cluster, finite-country-cluster, and wild-country-bootstrap procedures disagree about rejection behavior without changing the point estimate. They were characterized, not selected by observed-data favorability.
 
-The canonical estimator currently uses ADM2-clustered covariance. That is a reasonable baseline, but tiny-effect interpretation requires checking whether confidence intervals behave correctly under realistic dependence.
+### Influence / concentration
 
-A bounded uncertainty suite should compare a small number of predeclared procedures on identical known-truth injections, such as:
+No one country or high-influence ADM2 explains the canonical coefficient. Period dependence is materially stronger; omitting 2011–12 flips the fatalities sign.
 
-- ADM2-clustered covariance;
-- country-clustered / finite-cluster-aware inference;
-- wild-cluster bootstrap inference;
-- spatial-HAC / Conley-style covariance at a small declared bandwidth grid.
+### Falsification
 
-Acceptance should be based on false-positive and CI-coverage behavior, not whichever method produces the smallest SE.
+The t−2 and future-treatment placebos are very small. The canonical coefficient is not especially extreme under the structured within-country complete-treatment-history permutation null (`p ≈ 0.176`, calibration reading only).
 
-### 3. Influence / concentration
+### Sparse outcomes
 
-Add declarative diagnostics for:
+The canonical remains fatalities OLS. Predeclared alternative representations show clearer positive incidence/count associations:
 
-- leave-one-country-out;
-- leave-one-period-out;
-- high-leverage/high-influence ADM2 units;
-- treated/control support changes;
-- movement of the estimate in outcome-SD and canonical-SE units.
+```text
+OLS event count  +0.0549 SD
+LPM any VAC      +2.04 percentage points
+PPML event count IRR 1.348
+```
 
-A tiny effect that is driven by one country or one period is not robust even when the pooled SE is small.
+These models have different natural units. They do not replace the canonical fatalities estimator because they produce stronger-looking statistics.
 
-### 4. Stronger falsification
+## External calibration boundary — Briggs closed
 
-The existing prior-outcome placebo is clean. Next additions should be scientifically interpretable:
+Internal injection can prove that the estimator recovers known truth generated inside the apparatus. It cannot rule out every self-consistent implementation or measurement mistake.
 
-- shifted/fake treatment timing;
-- treatment leads;
-- alternative pretreatment windows;
-- cluster/support-preserving permutation negative controls.
+Briggs (2017) therefore supplied a complementary external test.
 
-### 5. Model-family sensitivity only when warranted
+Two conclusions are now frozen:
 
-The canonical VAC-fatalities outcome has zero share 0.9222. This justifies a bounded later comparison with:
+1. **DHS wealth-location measurement = STRONG POSITIVE CONTROL.** Independent historical DHS calculations reproduce published intermediate quantities essentially to rounding precision.
+2. **Full Briggs analogue = QUALITATIVE POSITIVE CONTROL.** Under explicitly documented source/geography substitutions, the richest-share coefficient remains positive and larger than poorest under trimming, equal-country weighting, and every country omission; numerical coefficient parity is not claimed.
 
-- VAC event counts;
-- any-VAC binary outcome;
-- count/PPML or hurdle-style models if implementation and diagnostics support them.
+This benchmark is closed. Do not tune historical geography, source semantics, or exclusions merely to move the analogue coefficient toward the published value.
 
-These are different outcome/estimator families; they should not replace the canonical OLS because they look more significant.
+## What is no longer a design priority
 
-## Counterfactual status
+Do not continue the sequence below as if it were unfinished:
 
-No global counterfactual is canonical beyond the current reference treatment/control definition.
+```text
+full detector curve
+uncertainty calibration
+influence characterization
+stronger timing falsification
+Briggs positive control
+sparse-outcome family
+```
 
-Future candidate families include:
-
-- never/pure controls where coverage justifies absence interpretation;
-- future/planned project locations;
-- within-area longitudinal contrasts;
-- matched controls;
-- multi-arm investment comparisons;
-- triangulation across several designs.
-
-Each defines a different estimand and assumption set.
-
-## External calibration boundary
-
-Internal injection can prove that the estimator recovers known truth generated inside the apparatus. It cannot by itself rule out a self-consistent implementation or measurement mistake.
-
-Therefore Briggs (2017) remains the preferred next published-study positive control after the current E2 characterization. It stresses multiple DHS survey identities, weighting/denominators, region geography, donor-project aggregation, fixed effects, and clustered uncertainty.
-
-Breckner–Sunde remains deferred until regular-grid geography and monthly/subannual period semantics exist truthfully.
+Those questions have been answered for this wave.
 
 ## DHS substantive design frontier
 
@@ -170,17 +158,25 @@ The HR measurement arm is commissioned. The substantive DHS path still needs:
 
 Public DHS GPS coordinates remain displaced measurements. Reported-coordinate geography is not true-location authority.
 
-## Current design priorities
+## Next design/calibration priorities
 
 ```text
-1. clean-environment reproduction of the real E2 packet
-2. full real-frame observability curve
-3. uncertainty-calibration suite
-4. country/period influence + stronger falsification
-5. Briggs external positive control
-6. bounded model-family sensitivity for sparse conflict outcomes
-7. DHS displacement-aware spatial exposure
-8. regular-grid/month infrastructure only when shared scientific demand justifies it
+1. supported-environment rerun of the closed E2 packet
+   — archival numerical acceptance, not a new design search
+
+2. DHS displacement-aware spatial exposure
+   — the next major scientific-use and commissioning frontier
+
+3. current World Bank spatial-period measurement when it supplies
+   an independent donor comparison to GeoGCDF
+
+4. Breckner–Sunde only after regular-grid geography and calendar-month
+   semantics exist as truthful shared infrastructure
+
+5. cross-source / convergent-validity benchmarks where independent
+   empirical systems measure the same latent quantity
 ```
 
-Estimator complexity should never repair a design that fails measurement, support, timing, falsification, or uncertainty calibration.
+Estimator complexity should never repair a design that fails measurement, support, timing, falsification, uncertainty calibration, or external validation.
+
+See [September 2026 Calibration Wave Closure](../experiments/calibration-wave-2026-09.md) for the detailed evidence packet.
