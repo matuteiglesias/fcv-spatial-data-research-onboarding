@@ -2,13 +2,13 @@
 title: Africa Observability Lab
 sidebar_position: 2
 description: Human-facing map of FCV instrument characterization, calibration benchmarks, synthetic detectability, and commissioning.
-last_verified: "2026-09-08"
+last_verified: "2026-09-09"
 ---
 
 # Africa Observability Lab
 
-**Status: REAL CURRENT-ARTIFACT E2 GATES PASSED; FULL REAL-FRAME DETECTOR CURVE IN PROGRESS**  
-**External commissioning: DHS HR 8 / 8 GREEN ACROSS THREE RELEASES**  
+**Status: FIRST CURRENT-E2 CHARACTERIZATION WAVE CLOSED THROUGH R5**  
+**External controls: DHS commissioning PASS; Briggs (2017) QUALITATIVE POSITIVE CONTROL**  
 **Purpose: calibration, not substantive FCV inference**
 
 The Africa Observability Lab asks:
@@ -23,7 +23,9 @@ The harness supports first-class `purpose = calibration` work for:
 - positive controls;
 - negative controls;
 - synthetic injection;
-- measurement agreement.
+- measurement agreement;
+- uncertainty calibration;
+- influence/concentration characterization.
 
 Recovery remains separated into:
 
@@ -33,9 +35,7 @@ Level 2 — qualitative known behavior
 Level 3 — quantitative compatibility
 ```
 
-## Real E2 checkpoint — September 8, 2026
-
-The first current fully contracted GeoGCDF → ACLED real gate run is now recorded.
+## Current E2: R0–R5 closed
 
 Reference surface:
 
@@ -48,40 +48,17 @@ GeoGCDF project_count > 0
 → ACLED VAC fatalities at t+1
 ```
 
-All declared E0–E6 PRIMARY gates were GREEN:
+All declared E0–E6 PRIMARY gates were GREEN. The positive-reported-amount STRESS cell also passed.
 
-- no unresolved pre/post outcome rows;
-- 7,667 treated and 30,853 controls;
-- treated/control support in all 6 periods;
-- outcome zero share 0.9222;
-- pretreatment `|SMD| = 0.0040`;
-- prior-outcome placebo = `0.0047` outcome SD;
-- 0.20-SD known-signal recovery = 30 / 30.
+The canonical real fatalities estimate is approximately `+0.550` fatalities with SE `0.458`, equivalent to about `0.0176 outcome SD`. It is not strong substantive evidence.
 
-The positive-reported-amount STRESS cell also passed all gates.
+### R0 — reference identity
 
-The real calibration estimate was approximately `+0.550` fatalities with SE `0.458` (`z ≈ 1.20`). This is not strong substantive evidence. The point of the checkpoint is that the instrument remains healthy even when the observed coefficient is not compelling.
+The exact PRIMARY analysis frame and analysis identity were frozen before characterization. Robustness layers reuse the same declared design rather than silently changing the analysis universe.
 
-The initial run used a system Python stack that emitted a SciPy/NumPy compatibility warning. Clean-environment numerical reproduction is therefore part of acceptance before the exact coefficient/SE packet is frozen.
+### R1 — detector curve
 
-## Reusable E2 observability
-
-The one-point historical `0.20 SD` injection check has been generalized into a detector-characterization engine. For each declared effect size and repetition it reports:
-
-- injected truth;
-- estimate / SE / CI;
-- sign recovery;
-- rejection;
-- joint sign + rejection recovery;
-- CI coverage;
-- recovery error;
-- sample and cluster counts;
-- outcome SD;
-- treatment support.
-
-`delta = 0` is a first-class synthetic null for false-positive and interval-coverage calibration.
-
-The frozen real-frame grid is:
+The full frozen real-frame grid has now been executed:
 
 ```text
 0.00 SD
@@ -91,95 +68,131 @@ The frozen real-frame grid is:
 0.20 SD
 ```
 
-The same prepared PRIMARY frame that passed E0–E6 must feed this curve. The result characterizes detector resolution; it must not be used to optimize the empirical specification toward significance.
+Canonical ADM2-clustered results establish a useful empirical resolution boundary:
 
-## The next observability layer: uncertainty calibration
+| Effect size | Joint detection / rejection |
+|---|---:|
+| 0.00 SD | 0.02 false rejection; 0.98 CI coverage |
+| 0.02 SD | 0.25 |
+| 0.05 SD | 0.96 |
+| 0.10 SD | 1.00 |
+| 0.20 SD | 1.00 |
 
-For very small effects, detecting the point estimate is only half the problem. The uncertainty procedure itself must behave correctly.
+The current design is therefore weakly informative around `0.02 SD`, usually informative by `0.05 SD`, and highly observable by `0.10 SD` under the frozen synthetic world.
 
-The next reusable calibration family should compare a deliberately small set of variance/inference procedures on **identical injected truths and identical prepared frames**. Candidate families include:
+### R2 — uncertainty calibration
 
-- canonical ADM2-clustered covariance;
-- country-clustered / finite-cluster-aware uncertainty;
-- wild-cluster bootstrap inference;
-- spatial-HAC / Conley-style covariance over predeclared distance bandwidths.
-
-The output should be a calibration table over known null/non-null truths:
+Three predeclared procedures were applied to identical known-truth worlds:
 
 ```text
-method
-× effect_size_sd
-→ rejection rate
-→ CI coverage
-→ median CI width
-→ recovery error
+ADM2_CLUSTER
+COUNTRY_CLUSTER_T
+WILD_COUNTRY_BOOTSTRAP
 ```
 
-The goal is not to select the method with the smallest SE. It is to learn which uncertainty procedures have credible false-positive and coverage behavior on the actual FCV design.
+Null rejection rates were approximately `0.020`, `0.000`, and `0.045`. The country-t procedure was highly conservative in this simulation; the wild bootstrap was closest to nominal null size. Point estimates were identical across methods; only uncertainty changed.
 
-## Stability / influence characterization
+No procedure was selected because it produced a smaller SE or larger power.
 
-Tiny effects are vulnerable to hidden concentration. A reusable stability packet should report:
+### R3 — influence / concentration
 
-- leave-one-country-out estimates and support;
-- leave-one-period-out estimates and support;
-- influential/high-leverage units;
-- change in treatment share and effective sample under each omission;
-- normalized effect movement relative to outcome SD and canonical SE.
+Country omissions and exact high-influence ADM2 refits do not show one geographic unit manufacturing the result. Temporal dependence is materially stronger: omitting `2011–2012` flips the canonical fatalities coefficient, and several other period omissions move it substantially.
 
-This is more informative than adding many arbitrary regression variants.
+**Reading: geographic concentration limited; temporal heterogeneity important.**
 
-## Stronger falsification
+### R4 — falsification
 
-The current prior-outcome placebo is very clean. The next falsification family should include, where scientifically meaningful:
-
-- fake/shifted treatment timing;
-- treatment leads;
-- alternative pretreatment windows;
-- permutation/randomization negative controls that preserve country/period support and clustering structure.
-
-These should be declared before inspecting whether they make the real coefficient look better or worse.
-
-## External positive controls
-
-### Briggs (2017)
-
-DHS commissioning has removed the basic survey-measurement prerequisite. Briggs remains the preferred next published-study positive control because it combines survey identity, weights, population denominators, survey-region geography, donor-project geography, fixed effects, and clustered uncertainty.
-
-It provides evidence that internal injection cannot: whether the rebuilt system can recover known behavior reported outside the FCV codebase.
-
-### Breckner & Sunde (2019)
-
-Still deferred. Its native `0.75° grid × calendar month` design should wait for truthful regular-grid geography and monthly/subannual period infrastructure.
-
-## Instrument-health view
-
-Instrument health remains multidimensional:
-
-- source / contract integrity;
-- external commissioning;
-- real experiment gate behavior;
-- positive controls;
-- negative controls;
-- synthetic detectability;
-- uncertainty calibration;
-- influence/stability;
-- measurement agreement;
-- known limitations.
-
-No single scalar instrument score should replace these dimensions.
-
-## Current pull order
+The t−1 placebo remains clean. Additional fake timing checks are also small:
 
 ```text
-1. clean-environment reproduction of the real E2 gate packet
-2. full real-frame observability curve + delta=0
-3. uncertainty-calibration suite
-4. influence / country-period omission stability
-5. stronger timing / negative-control falsification
-6. Briggs (2017) external positive control
-7. only then broaden model families where diagnostics justify it
-8. Breckner–Sunde when grid/month infrastructure becomes shared capability
+t−2 placebo              ≈ 0.0039 outcome SD
+future-treatment placebo ≈ 0.0034 outcome SD
+```
+
+The structured within-country complete-treatment-history permutation null places the observed canonical coefficient inside an ordinary part of the null distribution (`empirical two-sided p ≈ 0.176`). This is calibration evidence, not a causal randomization test.
+
+**Reading: timing falsification reassuring; canonical fatalities coefficient not unusually extreme under the structured null.**
+
+### R5 — sparse-outcome representation
+
+Outcome sparsity supplied a scientific reason to test representation. The canonical remains OLS fatalities.
+
+| Representation | Natural summary |
+|---|---|
+| fatalities OLS | `+0.550` fatalities; `+0.0176 SD` |
+| event-count OLS | `+0.270` events; `+0.0549 SD` |
+| any-VAC LPM | `+2.04` percentage points |
+| event-count PPML | IRR `1.348`; AME `+0.203` events |
+
+Raw coefficients are not cross-model comparable. The incidence/count representations are directionally coherent and clearer than the fatalities severity measure, but they do not replace the canonical result and have not each inherited the full R1–R4 battery.
+
+## Briggs (2017) external positive control — closed
+
+Briggs supplied the first published-study test that did not originate inside the FCV apparatus.
+
+Two results should remain distinct.
+
+### DHS intermediate measurement
+
+Independent historical DHS reconstruction using `HV270`, `HV005 × HV012`, and `HV024` reproduces published regional wealth-quintile quantities essentially to rounding precision.
+
+**Classification: STRONG POSITIVE CONTROL.**
+
+### Full pragmatic aid-targeting analogue
+
+Exact historical parity was not available for every layer. The reconstruction therefore declared substitutions rather than tuning toward the published coefficient:
+
+- 7 retained countries / 65 regions versus 17 / 195;
+- GADM 4.1 rather than exact historical survey-era/GAUL geography;
+- source-informed AidData parent/child heuristics;
+- replication `.dta` never used as an input.
+
+The analogue recovered the qualitative rich-over-poor ordering but not numerical parity. The richest-share coefficient remained positive under Briggs-style trimming, equal-country weighting, and every country leave-one-out run (`1.8398–3.0837`). The poorest coefficient remained smaller throughout.
+
+**Classification: QUALITATIVE POSITIVE CONTROL; numerical parity not claimed.**
+
+## Instrument-health view after the closed wave
+
+| Dimension | State |
+|---|---|
+| source / contract integrity | real governed products |
+| DHS official commissioning | **PASS — 8 / 8** |
+| current E2 gates | **PASS** |
+| detector resolution | **CHARACTERIZED** |
+| uncertainty calibration | **CHARACTERIZED** |
+| influence / concentration | **CHARACTERIZED** |
+| timing falsification | **CHARACTERIZED / CLEAN** |
+| structured-null extremity | **NOT EXTREME** |
+| sparse-outcome family | **CHARACTERIZED** |
+| Briggs DHS measurement | **STRONG POSITIVE CONTROL** |
+| Briggs full analogue | **QUALITATIVE POSITIVE CONTROL** |
+
+No scalar instrument score should replace these dimensions.
+
+## What is no longer the active pull order
+
+The previous ladder — detector curve, uncertainty calibration, influence, stronger falsification, Briggs, sparse-outcome family — is **complete for this wave**. Do not continue adding E2 specifications merely because more models are available.
+
+## Next calibration pull order
+
+```text
+1. supported-environment rerun of the closed numerical packet
+   — archival housekeeping, not a new calibration question
+
+2. DHS spatial-exposure commissioning
+   — household↔cluster projection
+   — displacement-aware exposure
+   — survey/exposure timing
+   — survey-design-aware support/inference
+
+3. current World Bank spatial-period measurement if it supplies
+   a genuinely independent donor comparison
+
+4. Breckner & Sunde (2019) once regular-grid geography and
+   calendar-month periods exist truthfully
+
+5. cross-source / convergent-validity benchmarks that test the
+   same latent quantity with independent measurement systems
 ```
 
 ## Interpretation firewall
@@ -188,6 +201,10 @@ No single scalar instrument score should replace these dimensions.
 
 > **A healthy detector can legitimately return a small, imprecise real coefficient.**
 
-> **External commissioning does not create a new substantive FCV finding.**
+> **External commissioning or positive-control recovery does not create a new substantive FCV finding.**
 
-> **Robustness and uncertainty checks characterize fragility; they are not a specification search for significance.**
+> **Robustness and uncertainty checks characterize fragility; they are not a significance search.**
+
+> **Once a calibration question has been answered, the next useful move is usually a different calibration dimension.**
+
+See [September 2026 Calibration Wave Closure](calibration-wave-2026-09.md) for the detailed evidence packet.
