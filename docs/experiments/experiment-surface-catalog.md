@@ -2,7 +2,7 @@
 title: Experiment Surface Catalog
 sidebar_position: 1
 description: Human-facing catalog of FCV scientific experiment surfaces that are executable, historically exercised, or currently blocked.
-last_verified: "2026-09-08"
+last_verified: "2026-09-09"
 ---
 
 # Experiment Surface Catalog
@@ -19,7 +19,7 @@ Calibration benchmarks remain separate. A reproduced report statistic or publish
 
 | Status | Meaning |
 |---|---|
-| **REAL CURRENT-ARTIFACT GATE RUN COMPLETED** | Current hash-backed empirical chain has passed the declared experiment gates. |
+| **REAL CURRENT-ARTIFACT CHARACTERIZATION COMPLETED** | Current hash-backed empirical chain has passed the declared gates and completed the bounded R0–R5 characterization wave. |
 | **REAL CALIBRATION COMPLETED — RECOVERED LANE** | Historical/reconstructed experiment-calibration evidence exists. |
 | **PARTIAL — SCIENTIFIC USE NEEDED** | Empirical stack exists but exposure, roles, timing, uncertainty, or estimator use remains. |
 | **PARTIAL — MISSING EMPIRICAL MEASUREMENT** | Source facts exist but a required reusable measurement/linkage is absent. |
@@ -29,7 +29,7 @@ Calibration benchmarks remain separate. A reproduced report statistic or publish
 
 | Scientific surface | Empirical state | Harness/design state | Current status |
 |---|---|---|---|
-| **China GeoGCDF commitments → ACLED violence** | current governed treatment + certified outcome Gold exist | E0–E6 + estimator + observability + bounded robustness implemented | **REAL CURRENT-ARTIFACT GATE RUN COMPLETED** |
+| **China GeoGCDF commitments → ACLED violence** | current governed treatment + certified outcome Gold exist | E0–E6 + R0–R5 characterization completed | **REAL CURRENT-ARTIFACT CHARACTERIZATION COMPLETED** |
 | **World Bank projects → ACLED violence** | WB source-native Silver exists; no current WB spatial/period measurement | ACLED side exists | **PARTIAL — MISSING EMPIRICAL MEASUREMENT** |
 | **Pooled China + World Bank → ACLED** | independent sources; no canonical pooled product | union/multi-arm semantics undeclared | **BLOCKED** |
 | **Jobs-related investment → ACLED** | annotation review infrastructure exists | validated annotation/use rule incomplete | **BLOCKED** |
@@ -39,7 +39,7 @@ Calibration benchmarks remain separate. A reproduced report statistic or publish
 
 # Surface 1 — GeoGCDF commitments → ACLED violence
 
-**Status: REAL CURRENT-ARTIFACT GATE RUN COMPLETED**
+**Status: REAL CURRENT-ARTIFACT CHARACTERIZATION COMPLETED**
 
 ## Empirical authority
 
@@ -80,32 +80,62 @@ All E0–E6 gates were GREEN. Outcome zero share was 0.9222; pretreatment `|SMD|
 
 The positive-reported-amount STRESS treatment also passed all gates.
 
-## Reference estimate
+## Canonical estimate
 
 ```text
 effect = +0.550 fatalities
 SE = 0.458
 z ≈ 1.20
+≈ +0.0176 outcome SD
 ```
 
-This is not strong substantive evidence. The first run emitted a SciPy/NumPy compatibility warning, so clean-environment numerical reproduction is required before the exact coefficient/SE packet is frozen.
+This is not strong substantive evidence.
 
-## Current scientific frontier for this surface
+## Closed R0–R5 characterization
 
-The central question is no longer whether the surface can run. It is whether very small signals can be distinguished robustly from noise and uncertainty misspecification.
+The central question is no longer whether the surface can run or whether its small-effect credibility ladder still needs to be built. That ladder is now executed.
 
-Priority sequence:
+### Detector resolution
 
 ```text
-clean numerical reproduction
-→ full observability curve (0 ... 0.20 SD)
-→ uncertainty calibration
-→ country/period influence stability
-→ stronger timing / negative controls
-→ bounded outcome/model sensitivities
+~0.02 SD → weak detector region
+~0.05 SD → usually observable
+~0.10 SD → essentially certain under frozen synthetic worlds
 ```
 
-Commitment remains a commitment-time measure rather than implementation onset. Project counts do not imply local spending. The current real gate pass is instrument-readiness evidence, not causal validation.
+### Uncertainty
+
+ADM2-cluster, finite-country-cluster, and wild-country-bootstrap procedures were characterized on identical known-truth worlds. They differ in null size/power without changing the point estimate; no procedure was selected because it produced a favorable observed-data SE.
+
+### Influence
+
+No one country or high-influence ADM2 explains the canonical coefficient. Period dependence is materially stronger; omitting 2011–12 flips the fatalities sign.
+
+### Falsification
+
+Deeper pre-treatment and future-treatment placebos remain small. The canonical coefficient is not especially extreme under a structured within-country complete-treatment-history permutation null (`p ≈ 0.176`, calibration interpretation only).
+
+### Sparse outcomes
+
+The canonical remains fatalities OLS. Alternative predeclared representations are directionally positive and clearer on incidence/count margins:
+
+```text
+OLS event count  +0.0549 SD
+LPM any VAC      +2.04 percentage points
+PPML event count IRR 1.348
+```
+
+These do not replace the canonical model.
+
+## Scientific interpretation for this surface
+
+The instrument is healthier than the substantive fatalities evidence is strong. The actual canonical estimate lies in the same approximately `0.02 SD` range that the detector itself says is difficult to distinguish reliably. Timing falsification is reassuring; temporal heterogeneity and the structured-null result constrain stronger interpretation.
+
+The next useful work for FCV should therefore add a different empirical/calibration dimension rather than continue proliferating E2 models.
+
+A supported-environment rerun of the exact numerical packet remains archival housekeeping because the original R0–R5 executions emitted a SciPy/NumPy compatibility warning.
+
+Commitment remains a commitment-time measure rather than implementation onset. Project counts do not imply local spending. The completed characterization is instrument evidence, not causal validation.
 
 # Surface 2 — World Bank projects → ACLED violence
 
@@ -114,6 +144,8 @@ Commitment remains a commitment-time measure rather than implementation onset. P
 World Bank Projects API Silver provides source-native project facts, dates, amounts, provenance, and source IDs.
 
 The missing forward-looking piece is a trustworthy project-location → shared geography → shared period measurement comparable to the GeoGCDF path. Recovered WBad/WBkg evidence remains historical calibration rather than validation of a rebuilt current WB path.
+
+This path should be advanced when it yields a genuinely independent donor comparison, not simply because another source can be processed.
 
 # Surface 3 — Pooled China + World Bank → ACLED
 
@@ -137,7 +169,9 @@ The generic survey substrate can represent respondent/EA grain, weights, tempora
 
 **Status: PARTIAL — SCIENTIFIC USE NEEDED**
 
-The DHS HR measurement arm has reproduced 8 / 8 official-report checks across Nigeria, Uganda, and Zambia. The remaining frontier is downstream scientific use:
+The DHS HR measurement arm has reproduced 8 / 8 official-report checks across Nigeria, Uganda, and Zambia. The historical Briggs measurement benchmark also independently recovered regional wealth-location quantities essentially to rounding precision.
+
+The remaining frontier is downstream scientific use:
 
 1. choose a named outcome/control/subgroup role;
 2. bind households to cluster geography explicitly;
@@ -161,16 +195,15 @@ Public DHS coordinates remain displaced measurements; reported-coordinate member
 old 0.20-SD injection recovery = 30/30 in every cell
 ```
 
-This remains useful historical calibration but is no longer the strongest evidence that the current stack itself can execute a real experiment; the current GeoGCDF→ACLED gate run now provides that evidence.
+This remains useful historical calibration but is no longer the strongest evidence that the current stack itself can execute a real experiment; the current GeoGCDF→ACLED gate and R0–R5 wave now provide that evidence.
 
 # Current experiment priority
 
 ```text
-1. finish current GeoGCDF→ACLED clean replication + observability
-2. calibrate uncertainty and influence for tiny effects
-3. strengthen falsification before increasing estimator complexity
-4. advance DHS spatial exposure through explicit displacement/cross-grain design
-5. build a current WB spatial-period measurement only when that comparison adds scientific value
+1. archive the closed GeoGCDF→ACLED packet in a supported environment
+2. advance DHS spatial exposure through explicit displacement/cross-grain design
+3. build a current WB spatial-period measurement when an independent donor comparison adds value
+4. keep pooled/multi-arm and extra estimator complexity downstream of explicit scientific demand
 ```
 
-Briggs (2017) remains a calibration benchmark and belongs in the Calibration Benchmark Catalog rather than this substantive experiment catalog.
+Briggs (2017) is now a closed calibration benchmark and belongs in the Calibration Benchmark Catalog rather than this substantive experiment catalog. Breckner–Sunde remains a future calibration benchmark contingent on truthful grid/month infrastructure.
