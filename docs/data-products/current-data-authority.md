@@ -198,4 +198,4 @@ For current work:
 7. [Source Data Implementation Status](../continuation/source-data-implementation-status.md)
 8. [Experimental Design Status](../continuation/experimental-design-status.md)
 
-For archaeology and parity work, then continue into the [Dataset Inventory](./dataset-inventory.md), [2023 Duke Overview](../main-pipeline/duke-overview.md), and [Archive Map](../archive-map.md).
+For archaeology and parity work, then continue into the [Dataset Inventory](./dataset-inventory.md), [2023 Duke Overview](../main-pipeline/2023-duke-overview.md), and [Archive Map](../archive-map.md).

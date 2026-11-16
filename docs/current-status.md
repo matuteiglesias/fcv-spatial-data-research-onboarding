@@ -2,10 +2,29 @@
 title: Current Research Status
 sidebar_position: 1
 description: Current state of the FCV empirical system, experiment harness, observability lab, and immediate evidence-producing work.
-date: "2026-09-09"
+date: "2026-11-16"
 ---
 
 # Current Research Status
+
+## November 16: the current W5–W8 research checkpoint
+
+The [ADM2 China–World Bank results page](./experiments/adm2-jon-comparisons-2026-11.md) is the current entry point for the substantive financing/stability experiments. The 47-country panel contains **44,940 ADM2-financing-biennium observations**, built from **2,535 source-qualified projects** and **19,588 project–ADM2–period links**. It uses following-biennium ACLED violence against civilians (VAC).
+
+| Experiment | Completed result | Status |
+| --- | --- | --- |
+| **W5 donor baseline** | China-only minus WB-only: **+0.656 pp**, 95% CI [−1.699,+3.012], p=.578 | Donor difference inconclusive |
+| **W6/W7 project and sector bridge** | All 2,535 identities propagated; candidate-sector mapping checked; source-qualified reviewed employment labels **0/2,535** | Structural pipeline complete; direct/indirect employment annotations distinct |
+| **W7 sector-composition FE screen** | China candidate-minus-other **−0.025 pp** (p=.986), WB **−1.502 pp** (p=.552) | Inconclusive; WB broad geographic support thin |
+| **W8 ADM2 J/O/N common-support means** | China **J−N +0.09**, **O−N +9.64**, **J−O −9.55 pp**; WB **+6.02 / +10.00 / −3.98 pp** | Descriptive completed; WB thin; baseline differences inform interpretation |
+
+**Interpretation:** W8 builds exact common **country×financing-period** strata for J (candidate employment/productivity sectors), O (other sectors), and N (neither donor source recorded through the current period within observed history). The **same J-target stratum weights** are applied to all three means, so J−O=(J−N)−(O−N) exactly. In the matched China population, J−O is **−9.96 pp in the previous VAC period** versus **−9.55 pp in the following period**: a largely persistent geographic difference rather than a newly emerging contrast. Project types are sector proxies, not observed employment/wage effects.
+
+The full [W8 scientific design](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W8_ADM2_JON_SCIENTIFIC_DESIGN_V0.md), [results and limitations](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W8_ADM2_JON_SCIENTIFIC_RESULTS_20261116.md), and [18-row result index](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/results/w8_jon_adm2_matched_contrasts_20261116.csv) are maintained in the canonical Experiment Harness. W8 v1 and W7 r2 source-hashed empirical outputs remain private.
+
+---
+
+## Earlier scientific-instrument calibration (September 2026)
 
 The FCV project has moved from archive recovery into **closed first-wave scientific-instrument characterization**.
 

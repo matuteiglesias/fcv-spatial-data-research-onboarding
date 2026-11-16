@@ -3,7 +3,7 @@ title: Continuation Work Index
 sidebar_position: 1
 description: Current reading map for the active FCV empirical, experiment, and observability phase.
 date: "2026-08-17"
-last_verified: "2026-08-23"
+last_verified: "2026-11-16"
 ---
 
 # Continuation Work
@@ -31,6 +31,7 @@ human status / interpretation here
 ## Recommended reading order
 
 1. [Current Research Status](../current-status.md)
+   - [ADM2 W5–W8 study, J/O/N matched samples and results](../experiments/adm2-jon-comparisons-2026-11.md)
 2. [Research System Architecture](../research-system.md)
 3. [Africa Observability Lab](../experiments/observability-lab.md)
 4. [Calibration Benchmark Catalog](../experiments/calibration-benchmark-catalog.md)
@@ -58,7 +59,7 @@ human status / interpretation here
 - **Source Data Implementation Status** — implemented versus candidate empirical source capabilities.
 - **Project Classification Status** — annotation versus treatment boundary.
 
-## What materially changed in the latest harness wave
+## September 2026 harness characterization (historical)
 
 The experiment harness now has three additional capabilities that should change how we plan research:
 

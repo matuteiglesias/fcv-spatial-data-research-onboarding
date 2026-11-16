@@ -17,6 +17,12 @@ The public site is deployed at:
 
 > **Facts are produced upstream; scientific roles are assigned in experiments; known-behavior calibration characterizes the instrument; readiness is summarized here.**
 
+## November 16, 2026: completed W5–W8 China–World Bank study
+
+The [current ADM2 three-group research page](https://fcv-spatial-data-research-onboardin.vercel.app/docs/experiments/adm2-jon-comparisons-2026-11) now consolidates the **44,940-area-period** donor baseline (W5), full project identity/sector bridge (W6/W7), and the frozen ADM2 **J/O/N** comparison (W8). China W8's standardized **J−N +0.09 pp**, **O−N +9.64 pp**, and **J−O −9.55 pp** form one coherent shared-weight comparison; the J−O difference was **−9.96 pp in previous VAC**, so the negative level difference is principally persistent baseline geography. World Bank has only **11 complete country-period strata / 10 countries** and is interpreted descriptively. The [experiment-catalog page](https://fcv-spatial-data-research-onboardin.vercel.app/docs/experiments/experiment-surface-catalog) separates these sector-proxy findings from unreviewed direct/indirect paid-employment project labels.
+
+This is the current research status; September's observability and DHS calibration remain archived below.
+
 ## September 8–9, 2026 calibration closure
 
 The first current-artifact scientific-instrument characterization wave is now **closed through R5**, and the first published-study external positive control has also been completed.
@@ -81,7 +87,7 @@ It did **not** reproduce numerical coefficient parity. It did recover the qualit
 
 The important outcome is layered rather than binary: some instrument components were externally validated very strongly, while historical geography/source-ontology fidelity was correctly exposed as the main source of drift.
 
-## Current scientific frontier
+## September calibration frontier (historical)
 
 The previous ladder is complete. We should not keep adding E2 specifications merely because more models are possible.
 

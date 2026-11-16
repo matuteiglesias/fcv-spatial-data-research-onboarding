@@ -2,10 +2,16 @@
 title: FCV Spatial Data Research Workspace
 sidebar_position: 1
 description: Orientation to the active FCV empirical system, experiment harness, Africa Observability Lab, and recovered research archive.
-date: "2026-09-08"
+date: "2026-11-16"
 ---
 
 # FCV Spatial Data Research Workspace
+
+## Current November 2026 result
+
+The substantive FCV experiments now include a **47-country China–World Bank ADM2 panel** and a completed three-group **J/O/N** comparison. [Read the current W5–W8 results](./experiments/adm2-jon-comparisons-2026-11.md) for the 44,940 ADM2-period source panel, project-category definitions, common country-period weights, group means, effective sample sizes, and previous-/following-VAC comparison. This is the main collaborator-facing scientific update.
+
+The following September sections document the earlier measurement/observability commissioning work; they remain valuable as scientific-instrument evidence, but are no longer the newest research frontier.
 
 This site is the human-facing entry point to an active FCV scientific-instrument project built on top of a recovered research archive.
 
@@ -19,7 +25,7 @@ source facts
 → substantive inference
 ```
 
-## What changed most recently
+## September 2026 calibration milestones (historical)
 
 Two major real-data milestones now exist.
 
@@ -50,7 +56,7 @@ The real reference coefficient is modest and imprecise (`+0.550`, SE `0.458`, `z
 
 A clean supported-environment numerical replication and the full real-frame observability curve are now in progress.
 
-## Current scientific frontier
+## September calibration agenda (historical)
 
 The project is now climbing a **small-effect credibility ladder**:
 
