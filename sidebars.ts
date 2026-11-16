@@ -51,6 +51,11 @@ const sidebars: SidebarsConfig = {
           label: 'Current China/WB ADM2 Results (W5–W8)',
         },
         {
+          type: 'doc',
+          id: 'experiments/jobs-stability-identification-feasibility',
+          label: 'Next: Jobs & Stability Identification Feasibility (Queued)',
+        },
+        {
           type: 'category',
           label: 'Africa Observability Lab',
           collapsed: false,

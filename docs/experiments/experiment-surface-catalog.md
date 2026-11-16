@@ -15,6 +15,8 @@ This page answers:
 
 Calibration benchmarks remain separate. A reproduced report statistic or published-study pattern is an instrument test, not a new FCV hypothesis.
 
+**Next research line (QUEUED, not executed):** [Jobs–Stability Identification Feasibility](./jobs-stability-identification-feasibility.md) evaluates whether a credible J−N jobs-versus-no-investment comparison is possible given project-label evidence, placement selection, spatial interference, outcome alignment and observability. The [workgraph](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/workgraphs/jobs_stability_identification_feasibility_v0.json) is planning-only; W5–W8 completed results and evidence statuses are unchanged.
+
 ## Research handoff: W5–W8 completed benchmarks
 
 **The current research frontier is now a completed ADM2 three-group comparison, alongside the earlier W5 donor and W7 sector fixed-effects benchmarks.** See the [current W5–W8 research report](./adm2-jon-comparisons-2026-11.md) for definitions, populations, coefficients, country-cluster uncertainty and previous-violence diagnostics.
