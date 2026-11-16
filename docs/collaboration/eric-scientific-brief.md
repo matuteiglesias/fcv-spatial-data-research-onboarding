@@ -2,7 +2,7 @@
 title: FCV Scientific Instrument — State of Reconstruction
 sidebar_position: 2
 description: Eric-facing scientific brief on what changed, why it matters, what the rebuilt system can now test, and what remains to be commissioned.
-last_verified: "2026-08-23"
+last_verified: "2026-11-16"
 ---
 
 # FCV Scientific Instrument — State of Reconstruction
@@ -10,6 +10,22 @@ last_verified: "2026-08-23"
 **Audience:** Eric and close scientific collaborators  
 **Purpose:** scientific orientation, not implementation history  
 **Reading time:** ~7 minutes
+
+## November 16, 2026: current empirical update
+
+The active research has advanced beyond the original August reconstruction and September calibration summarized below. A common **ADM2×financing-biennium China/World Bank panel** now contains **44,940** area-periods across 47 countries and 2,535 donor-qualified projects, with ACLED civilian-targeting incidence in the subsequent biennium.
+
+- **W5:** donor-only comparison, China minus WB **+0.66 pp** (95% CI [−1.70,+3.01]; p=.578).
+- **W7:** frozen candidate productive/employment-sector versus other-sector comparison with ADM2 and country-period fixed effects, **China −0.03 pp** (p=.986), WB **−1.50 pp** (p=.552).
+- **W8:** a unified ADM2 **J/O/N** country-period comparison: J candidate sectors, O other investment sectors, N no China/WB source record in or before the finance period within observed history. Three standardized mean contrasts use **one shared J-target set of country-period weights**, so J−O=(J−N)−(O−N).
+
+W8's China common-support population covers **128 country-period strata / 39 countries** with J/O/N **1,448 / 2,576 / 13,082** ADM2-periods. Standardized next-VAC contrasts are **J−N +0.09**, **O−N +9.64**, **J−O −9.55 pp**. The prior-period J−O gap on the identical population and weights was **−9.96 pp**; the level difference is strongly associated with pre-existing area risk. World Bank has only **11 strata / 10 countries**, so it remains a descriptive small-support comparison.
+
+These are source-sector-category findings; actual local hiring and wages would be another measurement layer. [See current study and precise sample definitions](../experiments/adm2-jon-comparisons-2026-11.md) and the [W8 scientific results memo](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W8_ADM2_JON_SCIENTIFIC_RESULTS_20261116.md).
+
+**The remainder of this page preserves the earlier research-system reconstruction and calibration discussion (August–September 2026).**
+
+---
 
 > **Calibrated scientific measurement system.**
 

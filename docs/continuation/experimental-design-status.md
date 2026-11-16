@@ -13,34 +13,31 @@ The compact rules remain:
 
 > **Empirical repositories describe what was measured. Experiments decide how those measurements are used scientifically. Calibration asks whether the resulting apparatus recovers known behavior.**
 
-## November 2026: W5 baseline → W6 project bridge → W7 jobs experiment
+## November 2026: current W5–W8 ADM2 design status
 
-**Current scientific target:** employment-relevant versus other projects, conditional on donor and source geography, followed by subsequent ACLED VAC. The September calibration record below documents instrument health but is not a substitute for this research comparison.
+The [W5–W8 study summary](../experiments/adm2-jon-comparisons-2026-11.md) is the current substantive experiment authority. **ADM2** is the principal geography; financing exposure is assigned in its original two-year bin and ACLED VAC is measured in the following biennium. The six-period September detector-calibration record below is a separate instrument study.
 
-| Layer | Actual state | Scientific interpretation |
+| Stage | Evidence now completed | Interpretation |
 | --- | --- | --- |
-| **W5 China vs World Bank** | **DONE**: 44,940 ADM2×biennium observations, next VAC, source-locked code; adjusted CN-only minus WB-only +0.656 pp (95% CI [−1.699, +3.012]; p=.578). | Observational donor baseline, not an employment effect. |
-| **W6 data structure** | **DONE**: 2,535 projects, 19,588 deduplicated project–ADM2–period exposures, exact per-cell donor-count conservation. | A reliable project-level annotation insertion point; native-sector proxies remain high / low / uncertain. |
-| **W7 coding definitions** | **CLOSED**: Eric's narrow explicit employment objective, plausible indirect productive channel and their union; our local implementation and financing-only exclusions remain separate evidence fields. | No need for another general clarification email. Coding definitions can be implemented. |
-| **W7 source coverage and proxy support** | **DONE**: all 2,535 project identities indexed; outcome-blind donor/category/geography screen; 120-project bounded review queue. Source Silver has titles and sectors, **not full project objectives/descriptions**. | The proxy support is measurable; validated direct/indirect jobs labels still require evidence. |
-| **W7 exploratory sector-proxy VAC** | **DONE, NOT A JOBS EFFECT**: one frozen China high-only minus low-only sector comparison: **−0.787 pp**, 95% CI **[−3.952, +2.379]**, p=.619, 47-country clustered nested-FE LPM. | A statistically inconclusive source-sector sensitivity, not evidence about created jobs or a causal impact. |
-| **Real jobs-vs-other VAC; ADM3 matching; Afrobarometer** | **NOT YET ESTIMATED** | Validated editorial labels and adequate country/period support are prerequisites for the first. ADM3 matching and survey outcomes are separate later experiments. |
+| **W5** donor comparison | 44,940 ADM2×biennium cells, 47 countries; CN-only minus WB-only **+0.656 pp** (95% CI [−1.699,+3.012], p=.578) with ADM2 and country-period FE | Inconclusive source comparison |
+| **W6** identity and geography | 2,535 donor-qualified projects; 19,588 deduplicated project–ADM2–biennium links; donor-count conservation | Source-project exposure bridge PASS |
+| **W7** full-universe sector classification | Full 2,535-project ledger, 0 evidence-reviewed paid-employment labels; mapped six-family native sectors and outcome-blind bounded 100-project audit (0 clear mapping errors, 2 semantic ambiguities) | Sector proxy is accepted as a screening instrument, not measured job creation |
+| **W7** FE VAC screen | Broad candidate-minus-other: **CN −0.025 pp** (CI [−2.913,+2.862], p=.986); **WB −1.502 pp** (CI [−6.551,+3.548], p=.552) | Inconclusive; broad WB support thin |
+| **W8** common-support ADM2 J/O/N | Completed six donor/policy/control configurations with same-stratum J-target standardization, 1,999-country-block bootstrap and prior-VAC diagnostic | Descriptive three-group comparisons complete |
 
-### What the actual support says
+**W8 groups:** J = candidate employment/productivity sector-only; O = other-sector-only; N = no **China/WB source-recorded project** in or before the current financing period within W5's observed 2001–2014 history. Both/mixed projects remain separate in the master frame. For each donor, an exact country×finance-period stratum enters only if all J/O/N groups exist; shared weights yield three differences but only two independent contrasts: **J−O=(J−N)−(O−N)**.
 
-For *source-exclusive* financing cells, China has **1,807 high-only** and **3,020 low-only** proxy observations (2,356 mixed/uncertain); **41 countries** contain both categories, across **95 country-periods**. World Bank has **564 high-only** and **268 low-only** (2,840 mixed/uncertain), but only **13 countries and 6 country-periods** contain both. The conservative W7 inferential screening gate passes for the China proxy and fails for the World Bank proxy. This is **not** a reason to discard WB; its multisector categories and evidence must be handled differently, without relabeling them as non-jobs.
+| W8 broad / cleaner N | Strata | Countries | J/O/N ADM2-periods | Standardized J−N | O−N | J−O |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| **China** | 128 | 39 | 1,448 / 2,576 / 13,082 | **+0.09 pp** | **+9.64 pp** | **−9.55 pp** |
+| **World Bank** | 11 | 10 | 86 / 87 / 484 | **+6.02 pp** | **+10.00 pp** | **−3.98 pp** |
 
-Cross-recipient geography remains a separate measurement problem. W6 records **1,022 Chinese project–area-period links** (174 projects) outside the source recipient country. Excluding any China-only cell carrying such links leaves **1,503 high-only** and **2,939 low-only** proxy observations, with 39 common countries. The original source-panel denominator remains unchanged unless an alternative design is explicitly declared.
+**The main W8 diagnostic:** China J−O was **−9.96 pp in the preceding recorded VAC period**, versus **−9.55 pp subsequently** (a +0.41 pp change). Earlier investments occur in some J/O cells, so the previous outcome is not guaranteed pre-first-exposure, but this comparison shows a substantial persistent baseline-risk difference. China O has weighted Kish effective N≈83 despite 2,576 area-periods; WB O effective N≈34 and only 10 countries. The contrast is a country-period standardized *level* comparison and does **not** equal W7's ADM2-FE coefficient.
 
-### The work packet and remaining narrow pull
+**Status gate:** W8 sample construction, shared weights, algebra, versioned v1 receipts, country-block bootstrap and code validation are **DONE**. A jobs-and-wages mechanism estimate is **not** claimed: explicit jobs objective / indirect local paid-work labels still await source-supported adjudication. ADM3, planned/completed stages, outcome-year shifts and person-weighting remain outside the frozen ADM2 design.
 
-The **PL-015 W7 jobs-versus-other VAC packet** is frozen in Research Group Ops at `packets/2026-11-16_PL015_W7_JOBS_VAC_WORKPACKET.md`. Its current status is **G0 labels semantics PASS; G1 identity/source metadata PASS; G2 review index PASS but actual editorial labels incomplete; G3 sector-proxy support screened; G4a sector-proxy VAC explored; G4b real jobs-vs-other VAC NOT RUN**.
+Canonical source: [W8 frozen design](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W8_ADM2_JON_SCIENTIFIC_DESIGN_V0.md), [W8 scientific results](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W8_ADM2_JON_SCIENTIFIC_RESULTS_20261116.md), and [18-contrast index](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/results/w8_jon_adm2_matched_contrasts_20261116.csv).
 
-The old 20-example sample has **zero exact China-project ID overlap** with W5 and is for rubric calibration only. A new audit found **seven review flags** in those 20 legacy labels, including two jobs-positive/channel-none inconsistencies; proposed corrections are saved separately, leaving the original sheet intact. The next bounded operation is source-text enrichment and review for a **120-project donor×sector-stratified, outcome-blind queue**, not thousands of speculative LLM labels.
-
-**First real jobs-effect gate:** each project admitted to a jobs-only or confirmed-other-only exposure must have source-text-grounded, sufficiently reviewed labels; unknown/mixed exposures remain out of those groups; support must survive fixed-effect identification and honest geographic restrictions. Only then estimate the next-biennium VAC comparison. Neither-source-recorded does **not** mean permanently untreated. If the text/support gate fails, return a quantified scientific blocker rather than invent labels or coefficients.
-
-See [Project Classification Status](./project-classification-status.md), the [Experiment Surface Catalog](../experiments/experiment-surface-catalog.md), and the [W6 versioned data bridge](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W6_JOBS_CLASSIFICATION_BRIDGE.md).
 
 ---
 

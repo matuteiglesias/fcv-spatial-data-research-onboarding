@@ -2,7 +2,7 @@
 title: FCV Reconstruction — Technical Appendix for Eric
 sidebar_position: 3
 description: Optional implementation evidence supporting the Eric-facing scientific brief.
-last_verified: "2026-08-23"
+last_verified: "2026-11-16"
 ---
 
 # FCV Reconstruction — Technical Appendix for Eric
@@ -14,6 +14,20 @@ This page answers a narrower question:
 > **What concrete implementation and evidence sit behind the scientific story?**
 
 It is intentionally not the opening narrative.
+
+## Current numerical research record (November 16, 2026)
+
+For the active China–World Bank ADM2 analysis, the [W5–W8 public study page](../experiments/adm2-jon-comparisons-2026-11.md) and [canonical experiment-harness W8 source](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W8_ADM2_JON_SCIENTIFIC_RESULTS_20261116.md) supersede the earlier experiment-readiness descriptions below.
+
+- **W5:** 44,940 ADM2-finance-biennium rows, source-exclusive donor contrast **+0.656 pp** (p=.578).
+- **W6/W7:** source-qualified ledger **2,535 projects**, **19,588 project–ADM2–period exposures**; sector-proxy mapping audited across all projects; historical direct/indirect project classifications remain separate from the frozen sector proxy.
+- **W7:** broad-sector fixed-effects VAC contrasts **China −0.025 pp**, **WB −1.502 pp**, both inconclusive.
+- **W8:** exact country-period J/O/N standardization with **the same J-target weights** for all three mean comparisons; J−O=(J−N)−(O−N). China broad clean-N **128 strata /39 countries**; WB **11 strata /10 countries**. China J/O/N standardized next-VAC means **13.54% /23.08% /13.45%**, whereas previous-period J−O was **−9.96 pp** and subsequent J−O was **−9.55 pp**. The prior-risk comparison is crucial for interpretation.
+- **Methods and receipts:** [W8 frozen design](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W8_ADM2_JON_SCIENTIFIC_DESIGN_V0.md), [W8 18-contrast CSV](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/results/w8_jon_adm2_matched_contrasts_20261116.csv); immutable data receipts reside outside public Git.
+
+**The subsequent numbered sections document the earlier empirical/data-system reconstruction. They remain methodological and provenance history rather than the November 2026 result index.**
+
+---
 
 ## 1. Current repository split
 

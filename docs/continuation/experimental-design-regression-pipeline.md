@@ -8,6 +8,13 @@ last_updated: "2026-08-17"
 
 # Module A — Experimental Design and Regression Pipeline
 
+:::note November 16, 2026 — current ADM2 research design
+
+This long-form page reconstructs the original proposal and recovered matching pipeline. The **current** W8 common-support ADM2 J/O/N comparison has now been implemented, fitted and independently checked; it is a **sector-proxy, country-period exact-stratum standardization**, not a resurrected ADM3 matched-trio pipeline. See the [completed W5–W8 results and J/O/N definitions](../experiments/adm2-jon-comparisons-2026-11.md) and [current design status](./experimental-design-status.md). Statements below that matched trios were "unconfirmed" describe the earlier recovered implementation, not the newer W8 experiment.
+
+:::
+
+
 ## 1. Purpose of this memo
 
 This memo consolidates the empirical design behind the investment-project analysis. Its goal is not to report final results. Its goal is to define, in operational and scientific terms, both the experiment that the recovered notebooks were attempting to implement and the stronger experimental framework now used to evaluate candidate designs.

@@ -46,6 +46,11 @@ const sidebars: SidebarsConfig = {
           label: 'Experiment Surface Catalog',
         },
         {
+          type: 'doc',
+          id: 'experiments/adm2-jon-comparisons-2026-11',
+          label: 'Current China/WB ADM2 Results (W5–W8)',
+        },
+        {
           type: 'category',
           label: 'Africa Observability Lab',
           collapsed: false,
