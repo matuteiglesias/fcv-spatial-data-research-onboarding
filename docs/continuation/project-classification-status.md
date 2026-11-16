@@ -30,17 +30,32 @@ The historical June 2026 20-project demonstration (shared with Eric and Charlott
 
 **Important definitional reconciliation:** The July coding prompt treats skills training, workers, livelihoods, enterprise/SME support as direct jobs signals. Eric's narrower 2023 explicit-jobs definition requires explicit jobs/employment creation in the project title or goals. The next editorial version should carry distinct fields for *explicit-job wording*, *concrete productive channel*, *local implementation*, *confidence*, and *second review*; derived Eric direct/indirect/full views are then reproducible without rewriting source-level evidence.
 
-### What has actually been built
+### What is now built, screened, and still unverified (W6 → W7)
 
-The [integrated W6 bridge](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W6_JOBS_CLASSIFICATION_BRIDGE.md) assigns source-versioned **high / low / uncertain sector proxies** to 1,948 China and 587 World Bank projects. It projects them through 19,588 deduplicated project×ADM2×biennium links while exactly preserving the W5 donor counts in 44,940 area-periods. The first proxy split is **China: 640 / 728 / 580** and **WB: 133 / 36 / 418** (high / low / uncertain). These are descriptive classification-support counts, not jobs-outcome estimates.
+The [integrated W6 bridge](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W6_JOBS_CLASSIFICATION_BRIDGE.md) assigns source-qualified **high / low / uncertain sector proxies** to **1,948 China** and **587 World Bank** projects, then propagates their source IDs through **19,588 distinct project×ADM2×biennium links** to **44,940** W5 area-period observations with exact count conservation.
 
-The same bridge carries geographic credibility separately: 1,022 Chinese project-area mappings from 174 projects are outside their source recipient country. Preserve these as a distinct sensitivity flag; do not change the original W5 denominator silently.
+**Actual project proxy counts:** China **640 / 728 / 580**, World Bank **133 / 36 / 418** (higher / lower / mixed-uncertain productive potential). These are not direct/indirect jobs annotations.
 
-### Smallest defensible decision before more annotation
+W7 has already completed the first outcome-blind *source-exclusive* support screen:
 
-Quantify which donor×sector-proxy×area-period comparisons are available and how much treatment support disappears when ambiguous projects or questionable geography are excluded. Review ambiguous categories with a predeclared selection rule; avoid selectively annotating only cases that would change a favored coefficient. Promote a direct/indirect/any-jobs treatment only after the project-level labels are grounded in actual project text and pass basic consistency/coverage checks.
+| Donor | Sector high-only cells | Sector low-only cells | Mixed/uncertain cells | Countries with both clear proxy groups |
+| --- | ---: | ---: | ---: | ---: |
+| China | 1,807 | 3,020 | 2,356 | **41** |
+| World Bank | 564 | 268 | 2,840 | **13** |
 
-For the next estimator and its sample gates, continue to [Experimental Design Status](./experimental-design-status.md). To distinguish completed W5/W6 infrastructure from new scientific claims, consult the [Experiment Surface Catalog](../experiments/experiment-surface-catalog.md).
+The WB proxy comparison fails the precommitted conservative country-support gate; it is **not** legitimate to treat the 2,840 uncertain WB cells as verified non-jobs. The China-sector proxy has enough descriptive support to fit one exploratory adjusted VAC contrast: high-only minus low-only **−0.787 pp**, CI95 [−3.952,+2.379], p=.619. This is explicitly a **sector-proxy diagnostic, NOT a jobs-effect result**, nor a causal estimate.
+
+**Label definition is no longer blocked:** Eric's narrow explicit jobs objective, a concrete indirect productive channel, and their combined view are fixed alongside separate locality/transaction evidence. The exact 2,535-project editorial index and a **120-project** outcome-blind, donor×proxy-stratified review queue are preserved privately. All real jobs classifications remain unreviewed until supported by source text; available frozen W5 Silver contains titles/sectors but not full project objectives/descriptions.
+
+The historical 20-example sample remains a coding exercise (no exact W5 China-ID overlap), with seven targeted review flags and proposed corrected codes saved separately; the original sheet has not been overwritten.
+
+Cross-recipient mapping is independently flagged in W6: 1,022 Chinese project–ADM2 links from 174 projects fall outside the original project recipient country. A source-geometry exclusion changes exposure support; never silently alter the W5 denominator or assume location means implementation.
+
+### The next smallest scientific action
+
+Enrich source text and adjudicate the bounded **120-project** review sample, using the frozen coding definitions and independent reviewer state; quantify how many *verified* direct/indirect/other labels can actually be propagated without unresolved projects contaminating exposure groups. If they support the predeclared first jobs-versus-other VAC design, run it. If not, issue the exact source/evidence coverage gap. We do **not** need another generic classification question to Eric.
+
+For the causal-status and sample gates see [Experimental Design Status](./experimental-design-status.md), and for completed-versus-open empirical work see the [Experiment Surface Catalog](../experiments/experiment-surface-catalog.md).
 
 ---
 

@@ -13,43 +13,34 @@ The compact rules remain:
 
 > **Empirical repositories describe what was measured. Experiments decide how those measurements are used scientifically. Calibration asks whether the resulting apparatus recovers known behavior.**
 
-## November 2026: China/WB baseline → jobs-related experiments
+## November 2026: W5 baseline → W6 project bridge → W7 jobs experiment
 
-This is the **active scientific handoff** for the research with Eric Mvukiyehe. The September calibration work recorded later on this page remains useful instrument validation, but it is not the current empirical question.
+**Current scientific target:** employment-relevant versus other projects, conditional on donor and source geography, followed by subsequent ACLED VAC. The September calibration record below documents instrument health but is not a substitute for this research comparison.
 
-| Stage | Verified state | Scientific meaning |
+| Layer | Actual state | Scientific interpretation |
 | --- | --- | --- |
-| W5 donor baseline | **COMPLETED**: 44,940 ADM2-biennia, China/WB independent sources and subsequent ACLED VAC; main China-only − WB-only contrast +0.656 percentage points, 95% CI [−1.699, +3.012], p=.578 | Replicable observational source comparison, not a jobs comparison, causal estimate, or donor-equivalence finding. |
-| W6 project-classification bridge | **COMPLETED**: 2,535 projects → 21,440 source-location rows → 19,588 unique project–ADM2–period links → same 44,940-row W5 lattice; exact cell-by-cell donor-count conservation | The data structures can carry source-versioned project classifications without overcounting locations. The first categories are sector-based screening proxies, **not annotated jobs evidence**. |
-| Next: jobs versus other projects | **NOT YET ESTIMATED**: validate evidence-based direct/indirect/combined labels and compare eligible exposures against subsequent VAC under predeclared gates | This is the substantive question Eric requested; it should determine the next empirical output. |
-| Later: matching and Afrobarometer | **NOT YET COMMISSIONED FOR THIS QUESTION** | ADM3 matched pairs/trios and survey-based trust/participation/democracy measures require new geography, treatment/control support and outcome-specific linkage; W5 ADM2 does not silently satisfy those conditions. |
+| **W5 China vs World Bank** | **DONE**: 44,940 ADM2×biennium observations, next VAC, source-locked code; adjusted CN-only minus WB-only +0.656 pp (95% CI [−1.699, +3.012]; p=.578). | Observational donor baseline, not an employment effect. |
+| **W6 data structure** | **DONE**: 2,535 projects, 19,588 deduplicated project–ADM2–period exposures, exact per-cell donor-count conservation. | A reliable project-level annotation insertion point; native-sector proxies remain high / low / uncertain. |
+| **W7 coding definitions** | **CLOSED**: Eric's narrow explicit employment objective, plausible indirect productive channel and their union; our local implementation and financing-only exclusions remain separate evidence fields. | No need for another general clarification email. Coding definitions can be implemented. |
+| **W7 source coverage and proxy support** | **DONE**: all 2,535 project identities indexed; outcome-blind donor/category/geography screen; 120-project bounded review queue. Source Silver has titles and sectors, **not full project objectives/descriptions**. | The proxy support is measurable; validated direct/indirect jobs labels still require evidence. |
+| **W7 exploratory sector-proxy VAC** | **DONE, NOT A JOBS EFFECT**: one frozen China high-only minus low-only sector comparison: **−0.787 pp**, 95% CI **[−3.952, +2.379]**, p=.619, 47-country clustered nested-FE LPM. | A statistically inconclusive source-sector sensitivity, not evidence about created jobs or a causal impact. |
+| **Real jobs-vs-other VAC; ADM3 matching; Afrobarometer** | **NOT YET ESTIMATED** | Validated editorial labels and adequate country/period support are prerequisites for the first. ADM3 matching and survey outcomes are separate later experiments. |
 
-### The classification bridge is not the treatment definition
+### What the actual support says
 
-Eric's 2023 coding guidance requests three measures: **explicit employment objectives**, **plausible indirect jobs potential**, and **their union**. The recovered July 2026 annotation prompt also distinguishes local implementation, financing-only transactions, donor-country activities, confidence, and employment channels. These are complementary, but not identical operational definitions: in particular, the original prompt's broad "jobs_direct" includes training/SME support, whereas the 2023 **narrow direct** measure requires an explicit jobs/employment objective. Preserve both concepts until adjudicated.
+For *source-exclusive* financing cells, China has **1,807 high-only** and **3,020 low-only** proxy observations (2,356 mixed/uncertain); **41 countries** contain both categories, across **95 country-periods**. World Bank has **564 high-only** and **268 low-only** (2,840 mixed/uncertain), but only **13 countries and 6 country-periods** contain both. The conservative W7 inferential screening gate passes for the China proxy and fails for the World Bank proxy. This is **not** a reason to discard WB; its multisector categories and evidence must be handled differently, without relabeling them as non-jobs.
 
-W6 currently carries only a source-native sector proxy (high / low / uncertain). It explicitly leaves editorial direct jobs, indirect jobs and local implementation **unannotated**. On the 2,535 projects, those sector-proxy counts are:
+Cross-recipient geography remains a separate measurement problem. W6 records **1,022 Chinese project–area-period links** (174 projects) outside the source recipient country. Excluding any China-only cell carrying such links leaves **1,503 high-only** and **2,939 low-only** proxy observations, with 39 common countries. The original source-panel denominator remains unchanged unless an alternative design is explicitly declared.
 
-| Donor | Higher productive/employment potential | Lower | Mixed or uncertain |
-| --- | ---: | ---: | ---: |
-| China | 640 | 728 | 580 |
-| World Bank | 133 | 36 | 418 |
+### The work packet and remaining narrow pull
 
-The World Bank's many multisector entries are mostly **uncertain** under this conservative rule; treating them as confirmed non-jobs would make the downstream analysis misleading. Source metadata used for W6 has title and sector fields but does **not** provide the project objectives and descriptions required to code Eric's narrow direct measure. That evidence requires a separate versioned text-enrichment/annotation surface.
+The **PL-015 W7 jobs-versus-other VAC packet** is frozen in Research Group Ops at `packets/2026-11-16_PL015_W7_JOBS_VAC_WORKPACKET.md`. Its current status is **G0 labels semantics PASS; G1 identity/source metadata PASS; G2 review index PASS but actual editorial labels incomplete; G3 sector-proxy support screened; G4a sector-proxy VAC explored; G4b real jobs-vs-other VAC NOT RUN**.
 
-The bridge also flags 1,022 Chinese project–ADM2 mappings outside the source recipient country (174 projects). They remain for exact W5 replication but cannot be assumed equally credible local treatment locations.
+The old 20-example sample has **zero exact China-project ID overlap** with W5 and is for rubric calibration only. A new audit found **seven review flags** in those 20 legacy labels, including two jobs-positive/channel-none inconsistencies; proposed corrections are saved separately, leaving the original sheet intact. The next bounded operation is source-text enrichment and review for a **120-project donor×sector-stratified, outcome-blind queue**, not thousands of speculative LLM labels.
 
-See [Project Classification Status](./project-classification-status.md) for the actual label ownership and review gates and the [Experiment Surface Catalog](../experiments/experiment-surface-catalog.md) for dataset-level completion states.
+**First real jobs-effect gate:** each project admitted to a jobs-only or confirmed-other-only exposure must have source-text-grounded, sufficiently reviewed labels; unknown/mixed exposures remain out of those groups; support must survive fixed-effect identification and honest geographic restrictions. Only then estimate the next-biennium VAC comparison. Neither-source-recorded does **not** mean permanently untreated. If the text/support gate fails, return a quantified scientific blocker rather than invent labels or coefficients.
 
-### The next experiment, in order
-
-1. **Freeze the estimand and evidence definitions.** Define explicit jobs-objective, local productive channel, indirect-only and union measures at source-project grain. Keep "unclassified" separate from "non-jobs"; name the native source/text releases and version the coding rules. Eric's original definitions are the reference, but reconcile the stricter locality and transaction exceptions where needed.
-2. **Audit the small calibration sample.** Recover the 20-project China annotation demonstration and Charlotte's review. Adjudicate internal contradictions (including two records labeled jobs-any while the channel is "none") and misleading macro-policy labels; avoid treating model-generated labels as truth.
-3. **Quantify support and uncertainty before choosing coefficients.** For the same locked W5 period and area universe, report counts by donor × jobs-class × area-period, mixture, unmatched project metadata, geographic-confidence restrictions, and source-coverage gaps. Stress how conclusions would change under plausible alternative coding of uncertain projects. Use these diagnostics to decide whether a modest targeted review or a larger pre-specified classification sample is necessary.
-4. **Freeze the first observational VAC comparison.** Define mutually exclusive exposure states (jobs-only, other-projects-only, mixed, neither-of-two-sources-recorded), donor-specific or donor-adjusted comparisons, timing, exclusions, FE/inference, prior violence diagnostics, and uncertainty. The W5 "neither recorded" state is **not** a certified pure no-investment control. Do not select a specification based on desirable coefficients.
-5. **Promote to matching only after its own gate.** Eric's ADM3 pairs/trios and later Afrobarometer outcomes need appropriate source geography, common support, time alignment, pre-treatment covariates, and explicitly measured non-exposure. No matched ATT or survey effect is established by W5/W6.
-
-**Next deliverable for Eric:** a compact project-category support/uncertainty table followed by one predeclared jobs-vs-other VAC diagnostic, with the remaining classification dependence visible. A sector-only regression can be labeled a proxy ablation, not an estimate of jobs creation.
+See [Project Classification Status](./project-classification-status.md), the [Experiment Surface Catalog](../experiments/experiment-surface-catalog.md), and the [W6 versioned data bridge](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W6_JOBS_CLASSIFICATION_BRIDGE.md).
 
 ---
 
