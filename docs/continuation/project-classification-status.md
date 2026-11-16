@@ -14,6 +14,36 @@ The detailed [Annotation and Project Classification Protocol](./annotation-proje
 
 Its downstream interpretation has changed with the current architecture.
 
+## November 2026: the jobs coding decision in one view
+
+This page is the **current bridge between Eric's original jobs-vs-non-jobs protocol and the implemented FCV project data structures**. The research question is how employment-relevant projects differ from other projects in subsequent stability outcomes; donor identity is another comparison dimension, not a substitute for project type.
+
+| Research label | Intended evidence | Current W6 status |
+| --- | --- | --- |
+| **Explicit jobs objective (Eric's narrow/direct)** | Jobs or employment creation explicitly specified in a project title, objective or summary | **Unannotated**; native W5 Silver title/sector alone is insufficient to verify objectives. |
+| **Indirect productive/jobs channel** | Concrete local productive infrastructure, agriculture, enterprise, skills or other credible employment mechanisms without an explicit jobs objective | **Unannotated**; sector-based potential is only a triage signal. |
+| **Full jobs potential** | Union of explicit and indirect categories after source-text review | **Not yet derivable** from validated current project labels. |
+| **Other / non-jobs project** | Evidence supports a non-jobs coding after examining project purpose and implementation | **Not equivalent** to the sector proxy "low." |
+| **Unclear / mixed** | Insufficient text, ambiguous geography, multisector activity or conflicting evidence | **Retained**, not converted to a negative label. |
+
+The historical June 2026 20-project demonstration (shared with Eric and Charlotte) is a **calibration sample**, not ground truth or a W5 source table. It includes projects outside Africa by design; that is acceptable for testing coding decisions. Charlotte reported spot-check agreement in July, but a fresh consistency audit found **two jobs-any=Yes entries with jobs-channel=none** and multiple loan/donation/donor-country-training examples classified as macro-policy, contrary to the later detailed prompt. These are review flags, not evidence of a systematic model error rate.
+
+**Important definitional reconciliation:** The July coding prompt treats skills training, workers, livelihoods, enterprise/SME support as direct jobs signals. Eric's narrower 2023 explicit-jobs definition requires explicit jobs/employment creation in the project title or goals. The next editorial version should carry distinct fields for *explicit-job wording*, *concrete productive channel*, *local implementation*, *confidence*, and *second review*; derived Eric direct/indirect/full views are then reproducible without rewriting source-level evidence.
+
+### What has actually been built
+
+The [integrated W6 bridge](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W6_JOBS_CLASSIFICATION_BRIDGE.md) assigns source-versioned **high / low / uncertain sector proxies** to 1,948 China and 587 World Bank projects. It projects them through 19,588 deduplicated project×ADM2×biennium links while exactly preserving the W5 donor counts in 44,940 area-periods. The first proxy split is **China: 640 / 728 / 580** and **WB: 133 / 36 / 418** (high / low / uncertain). These are descriptive classification-support counts, not jobs-outcome estimates.
+
+The same bridge carries geographic credibility separately: 1,022 Chinese project-area mappings from 174 projects are outside their source recipient country. Preserve these as a distinct sensitivity flag; do not change the original W5 denominator silently.
+
+### Smallest defensible decision before more annotation
+
+Quantify which donor×sector-proxy×area-period comparisons are available and how much treatment support disappears when ambiguous projects or questionable geography are excluded. Review ambiguous categories with a predeclared selection rule; avoid selectively annotating only cases that would change a favored coefficient. Promote a direct/indirect/any-jobs treatment only after the project-level labels are grounded in actual project text and pass basic consistency/coverage checks.
+
+For the next estimator and its sample gates, continue to [Experimental Design Status](./experimental-design-status.md). To distinguish completed W5/W6 infrastructure from new scientific claims, consult the [Experiment Surface Catalog](../experiments/experiment-surface-catalog.md).
+
+---
+
 ## Current rule
 
 > **Project classification may produce derived empirical annotations. It does not itself produce treatment.**
