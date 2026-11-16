@@ -2,13 +2,13 @@
 title: Project Classification Status
 sidebar_position: 3
 description: Current boundary and implementation status for project annotation and jobs-related classification.
-last_verified: "2026-08-23"
+last_verified: "2026-11-16"
 ---
 
 # Project Classification Status
 
 **Document status: CURRENT CLASSIFICATION BOUNDARY OVERLAY**  
-**Last verified: 2026-08-23**
+**Last verified: 2026-11-16**
 
 The detailed [Annotation and Project Classification Protocol](./annotation-project-classification-protocol.md) remains useful as a recovered coding manual for jobs-related and local-implementation concepts.
 
@@ -40,7 +40,7 @@ project label
 → treatment variable
 ```
 
-should now be read as design history, not as the required data architecture.
+should now be read as design history, not as the required data architecture. W6 demonstrates the current boundary: source-native project facts → project-level derived sector proxy → project×area-period identity bridge → experiment-specific exposure projection, with explicit source preservation and count-conservation checks. Employment classifications must undergo separate editorial validation before scientific treatment use.
 
 ## What the classification layer may own
 
@@ -94,7 +94,9 @@ That surface is deliberately downstream of source-native Silver and can preserve
 
 The current architecture also explicitly rejects the old idea that convenience fields such as legacy date aliases or jobs categories should be promoted into source truth merely because annotation or historical notebooks used them.
 
-A full current jobs-classification campaign is still a separate research task. The existence of an annotation substrate does not imply that labels are complete, research-validated, or ready to define a canonical experiment.
+The [W6 sector-proxy bridge](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W6_JOBS_CLASSIFICATION_BRIDGE.md) is now merged into the canonical FCV Experiment Harness and has passed its structural gates. It identifies 2,535 China/WB projects in the W5 source snapshot, propagates source-native sector categories through 19,588 unique project–ADM2–biennium links, and exactly conserves both donors' original counts over 44,940 area-period cells. The screening labels are **high/low/uncertain employment potential**, not observed direct/indirect jobs labels. It preserves mixed sectors and records geographic provenance, including 1,022 China project–area links mapped outside the source recipient country.
+
+The original 20-row June annotation demo and Eric's three jobs measures remain distinct sources of *editorial coding guidance*. Their labels have not been transferred uncritically into W6. A complete reviewed jobs-classification campaign is still a separate research task; no jobs-effect regression or matching output has been produced. The existence of an annotation substrate or sector proxy does not make a label causal or a candidate comparison scientifically valid.
 
 ## Source identity matters
 

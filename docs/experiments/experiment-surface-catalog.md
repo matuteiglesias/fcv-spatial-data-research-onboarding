@@ -2,7 +2,7 @@
 title: Experiment Surface Catalog
 sidebar_position: 1
 description: Human-facing catalog of FCV scientific experiment surfaces that are executable, historically exercised, or currently blocked.
-last_verified: "2026-09-09"
+last_verified: "2026-11-16"
 ---
 
 # Experiment Surface Catalog
@@ -23,6 +23,8 @@ Calibration benchmarks remain separate. A reproduced report statistic or publish
 | **REAL CALIBRATION COMPLETED — RECOVERED LANE** | Historical/reconstructed experiment-calibration evidence exists. |
 | **PARTIAL — SCIENTIFIC USE NEEDED** | Empirical stack exists but exposure, roles, timing, uncertainty, or estimator use remains. |
 | **PARTIAL — MISSING EMPIRICAL MEASUREMENT** | Source facts exist but a required reusable measurement/linkage is absent. |
+| **BOUNDED OBSERVATIONAL ANALYSIS COMPLETED** | Source-locked current analysis and influence audits completed; causal identification or equivalence not established. |
+| **STRUCTURAL BRIDGE COMPLETED / SCIENTIFIC LABELS OPEN** | Project/source-level categories propagate losslessly, but validated theory-specific annotations and a jobs-effect study remain open. |
 | **BLOCKED** | A scientific, annotation, source, or shared-infrastructure prerequisite is absent. |
 
 ## At a glance
@@ -30,9 +32,9 @@ Calibration benchmarks remain separate. A reproduced report statistic or publish
 | Scientific surface | Empirical state | Harness/design state | Current status |
 |---|---|---|---|
 | **China GeoGCDF commitments → ACLED violence** | current governed treatment + certified outcome Gold exist | E0–E6 + R0–R5 characterization completed | **REAL CURRENT-ARTIFACT CHARACTERIZATION COMPLETED** |
-| **World Bank projects → ACLED violence** | WB source-native Silver exists; no current WB spatial/period measurement | ACLED side exists | **PARTIAL — MISSING EMPIRICAL MEASUREMENT** |
-| **Pooled China + World Bank → ACLED** | independent sources; no canonical pooled product | union/multi-arm semantics undeclared | **BLOCKED** |
-| **Jobs-related investment → ACLED** | annotation review infrastructure exists | validated annotation/use rule incomplete | **BLOCKED** |
+| **World Bank projects → ACLED violence** | WB geocoded project Silver and source-locked ADM2 approval measurement now exist | WB can enter common source-native W5 panel; no independent causal effects established | **BOUNDED OBSERVATIONAL ANALYSIS COMPLETED (joint source study)** |
+| **Pooled China + World Bank → ACLED** | source-locked 44,940 ADM2×biennia, two independent sources, certified subsequent VAC | W5 E0–E4, four donor-presence arms, 16 synthetic tests and exact main E0/E1 replay | **BOUNDED OBSERVATIONAL ANALYSIS COMPLETED** |
+| **Jobs-related investment → ACLED** | W6 project identity/sector-proxy bridge: 2,535 projects, 19,588 project-area-period links | source counts exactly conserved; project-level direct/indirect jobs annotations and estimation not yet done | **STRUCTURAL BRIDGE COMPLETED / SCIENTIFIC LABELS OPEN** |
 | **Afrobarometer respondent/EA exposure** | reusable substrate only | source-specific scientific path absent | **BLOCKED** |
 | **DHS household/cluster exposure** | HR measurement arm externally commissioned; GPS/GC substrate exists | cross-grain exposure + displacement/survey design remain | **PARTIAL — SCIENTIFIC USE NEEDED** |
 | **Recovered WB → ACLED E2** | recovered area-period surfaces exist | real historical calibration executed | **REAL CALIBRATION COMPLETED — RECOVERED LANE** |
@@ -139,25 +141,29 @@ Commitment remains a commitment-time measure rather than implementation onset. P
 
 # Surface 2 — World Bank projects → ACLED violence
 
-**Status: PARTIAL — MISSING EMPIRICAL MEASUREMENT**
+**Status: BOUNDED OBSERVATIONAL ANALYSIS COMPLETED (W5 donor-source comparison)**
 
-World Bank Projects API Silver provides source-native project facts, dates, amounts, provenance, and source IDs.
+In addition to the broader World Bank Projects API, the AidData World Bank Geocoded v1.4.2 source now has a source-locked project, geography and approval-period measurement joined to a common ADM2×biennium frame alongside AidData China GeoGCDF v3.0.1. The certified VAC outcome is measured subsequently. The WB spatial source is independently versioned; this is not a generic current WB API-to-location solution for all future years.
 
-The missing forward-looking piece is a trustworthy project-location → shared geography → shared period measurement comparable to the GeoGCDF path. Recovered WBad/WBkg evidence remains historical calibration rather than validation of a rebuilt current WB path.
+The bounded W5 E0–E4 comparison is runnable from the [FCV Experiment Harness](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/W5_CN_WB_VAC.md). Its first-run estimates are observational: no causal donor effect or donor equivalence is established. Earlier WBad/WBkg calibration remains a separate historical reference.
 
-This path should be advanced when it yields a genuinely independent donor comparison, not simply because another source can be processed.
+# Surface 3 — China + World Bank source-comparison → ACLED
 
-# Surface 3 — Pooled China + World Bank → ACLED
+**Status: BOUNDED OBSERVATIONAL ANALYSIS COMPLETED (W5 E0–E4; not causal)**
 
-**Status: BLOCKED**
+W5 has a balanced 44,940 ADM2×two-year panel in 47 African countries, with explicit China-only, WB-only, both-source and neither-source-recorded project-presence groups and country-clustered subsequent VAC models. The primary adjusted association China-only minus WB-only is +0.656 percentage points (95% CI −1.699 to +3.012; p=.578). Both donor-specific estimates are negative and nonsignificant. No finding of zero effects or equivalence follows from this result.
 
-A pooled experiment would need independent contracted measurements, explicit overlap/reconciliation policy, preserved source-specific coverage, and downstream union/multi-arm semantics. Do not pool sources merely to increase apparent sample size.
+The complete code, 16 targeted passing synthetic tests, full GitHub CI and locked historic aggregate [result index](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/results/w5_china_wb_vac_20261115.json) are integrated in the canonical harness. Its E0/E1 exact empirical replay matched original coefficients, covariance, confidence intervals, p-values and source/frame hashes. E4 influence checks support a bounded incidence conclusion, but fatality magnitudes and asymmetric donor geocoding remain sensitive. The private inputs, location records and full numerical outputs are not redistributed.
 
 # Surface 4 — Jobs-related investment → ACLED
 
-**Status: BLOCKED**
+**Status: STRUCTURAL BRIDGE COMPLETED / SCIENTIFIC LABELS OPEN (W6)**
 
-Annotation infrastructure can support versioned labels when backed by explicit evidence and review provenance. Geography, timing, ambiguity handling, comparison groups, and treatment derivation still belong in the experiment.
+Eric's core comparison—explicit/direct and plausible indirect employment-relevance versus other projects—remains the next substantive research target. Historical annotation rules and a 20-project calibration sample are available, but neither is a complete current project-level classification. The current W6 source-native sector policy is a **coarse screening proxy**, not validated direct/indirect jobs evidence.
+
+W6 now links 2,535 source projects through 21,440 source-location records to 19,588 deduplicated project–ADM2–period exposures, conserving original source-specific project counts in each of the 44,940 W5 panel cells. It retains mixed/uncertain categories and flags 1,022 cross-recipient-country project mappings (174 Chinese projects). This data-structure gate passed; no employment-effect regression, matched design or Afrobarometer jobs outcome has been estimated.
+
+See the [W6 project classification bridge contract](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W6_JOBS_CLASSIFICATION_BRIDGE.md) and the [classification status](../continuation/project-classification-status.md). The next scientific gate is support/uncertainty review, followed by a predeclared jobs-related comparison. Raw source-derived project and area-period data remain outside public Git.
 
 # Surface 5 — Afrobarometer respondent / EA exposure
 
@@ -200,10 +206,13 @@ This remains useful historical calibration but is no longer the strongest eviden
 # Current experiment priority
 
 ```text
-1. archive the closed GeoGCDF→ACLED packet in a supported environment
-2. advance DHS spatial exposure through explicit displacement/cross-grain design
-3. build a current WB spatial-period measurement when an independent donor comparison adds value
-4. keep pooled/multi-arm and extra estimator complexity downstream of explicit scientific demand
+1. reconcile 2023 jobs-related classification guidance and the 20-example review sample
+2. use the W6 source-locked project identity/sector proxy bridge to quantify support and uncertainty
+3. adjudicate only the project-level classification decisions needed for a defensible direct/indirect/any-jobs exposure
+4. predeclare a jobs-versus-other-project VAC comparison and its counterfactual/measurement gates
+5. assess matched designs and Afrobarometer extensions as separate follow-on decisions
 ```
+
+The donor-only W5 work is a documented baseline, not the central research hypothesis. Do not run additional donor-only specifications just to generate movement.
 
 Briggs (2017) is now a closed calibration benchmark and belongs in the Calibration Benchmark Catalog rather than this substantive experiment catalog. Breckner–Sunde remains a future calibration benchmark contingent on truthful grid/month infrastructure.
