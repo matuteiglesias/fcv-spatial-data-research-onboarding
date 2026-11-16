@@ -2,7 +2,7 @@
 title: Experimental Design Status
 sidebar_position: 2
 description: Current authority overlay for experiment design, scientific roles, estimator choices, and their boundary with calibration.
-last_verified: "2026-09-09"
+last_verified: "2026-11-16"
 ---
 
 # Experimental Design Status
@@ -12,6 +12,46 @@ last_verified: "2026-09-09"
 The compact rules remain:
 
 > **Empirical repositories describe what was measured. Experiments decide how those measurements are used scientifically. Calibration asks whether the resulting apparatus recovers known behavior.**
+
+## November 2026: China/WB baseline → jobs-related experiments
+
+This is the **active scientific handoff** for the research with Eric Mvukiyehe. The September calibration work recorded later on this page remains useful instrument validation, but it is not the current empirical question.
+
+| Stage | Verified state | Scientific meaning |
+| --- | --- | --- |
+| W5 donor baseline | **COMPLETED**: 44,940 ADM2-biennia, China/WB independent sources and subsequent ACLED VAC; main China-only − WB-only contrast +0.656 percentage points, 95% CI [−1.699, +3.012], p=.578 | Replicable observational source comparison, not a jobs comparison, causal estimate, or donor-equivalence finding. |
+| W6 project-classification bridge | **COMPLETED**: 2,535 projects → 21,440 source-location rows → 19,588 unique project–ADM2–period links → same 44,940-row W5 lattice; exact cell-by-cell donor-count conservation | The data structures can carry source-versioned project classifications without overcounting locations. The first categories are sector-based screening proxies, **not annotated jobs evidence**. |
+| Next: jobs versus other projects | **NOT YET ESTIMATED**: validate evidence-based direct/indirect/combined labels and compare eligible exposures against subsequent VAC under predeclared gates | This is the substantive question Eric requested; it should determine the next empirical output. |
+| Later: matching and Afrobarometer | **NOT YET COMMISSIONED FOR THIS QUESTION** | ADM3 matched pairs/trios and survey-based trust/participation/democracy measures require new geography, treatment/control support and outcome-specific linkage; W5 ADM2 does not silently satisfy those conditions. |
+
+### The classification bridge is not the treatment definition
+
+Eric's 2023 coding guidance requests three measures: **explicit employment objectives**, **plausible indirect jobs potential**, and **their union**. The recovered July 2026 annotation prompt also distinguishes local implementation, financing-only transactions, donor-country activities, confidence, and employment channels. These are complementary, but not identical operational definitions: in particular, the original prompt's broad "jobs_direct" includes training/SME support, whereas the 2023 **narrow direct** measure requires an explicit jobs/employment objective. Preserve both concepts until adjudicated.
+
+W6 currently carries only a source-native sector proxy (high / low / uncertain). It explicitly leaves editorial direct jobs, indirect jobs and local implementation **unannotated**. On the 2,535 projects, those sector-proxy counts are:
+
+| Donor | Higher productive/employment potential | Lower | Mixed or uncertain |
+| --- | ---: | ---: | ---: |
+| China | 640 | 728 | 580 |
+| World Bank | 133 | 36 | 418 |
+
+The World Bank's many multisector entries are mostly **uncertain** under this conservative rule; treating them as confirmed non-jobs would make the downstream analysis misleading. Source metadata used for W6 has title and sector fields but does **not** provide the project objectives and descriptions required to code Eric's narrow direct measure. That evidence requires a separate versioned text-enrichment/annotation surface.
+
+The bridge also flags 1,022 Chinese project–ADM2 mappings outside the source recipient country (174 projects). They remain for exact W5 replication but cannot be assumed equally credible local treatment locations.
+
+See [Project Classification Status](./project-classification-status.md) for the actual label ownership and review gates and the [Experiment Surface Catalog](../experiments/experiment-surface-catalog.md) for dataset-level completion states.
+
+### The next experiment, in order
+
+1. **Freeze the estimand and evidence definitions.** Define explicit jobs-objective, local productive channel, indirect-only and union measures at source-project grain. Keep "unclassified" separate from "non-jobs"; name the native source/text releases and version the coding rules. Eric's original definitions are the reference, but reconcile the stricter locality and transaction exceptions where needed.
+2. **Audit the small calibration sample.** Recover the 20-project China annotation demonstration and Charlotte's review. Adjudicate internal contradictions (including two records labeled jobs-any while the channel is "none") and misleading macro-policy labels; avoid treating model-generated labels as truth.
+3. **Quantify support and uncertainty before choosing coefficients.** For the same locked W5 period and area universe, report counts by donor × jobs-class × area-period, mixture, unmatched project metadata, geographic-confidence restrictions, and source-coverage gaps. Stress how conclusions would change under plausible alternative coding of uncertain projects. Use these diagnostics to decide whether a modest targeted review or a larger pre-specified classification sample is necessary.
+4. **Freeze the first observational VAC comparison.** Define mutually exclusive exposure states (jobs-only, other-projects-only, mixed, neither-of-two-sources-recorded), donor-specific or donor-adjusted comparisons, timing, exclusions, FE/inference, prior violence diagnostics, and uncertainty. The W5 "neither recorded" state is **not** a certified pure no-investment control. Do not select a specification based on desirable coefficients.
+5. **Promote to matching only after its own gate.** Eric's ADM3 pairs/trios and later Afrobarometer outcomes need appropriate source geography, common support, time alignment, pre-treatment covariates, and explicitly measured non-exposure. No matched ATT or survey effect is established by W5/W6.
+
+**Next deliverable for Eric:** a compact project-category support/uncertainty table followed by one predeclared jobs-vs-other VAC diagnostic, with the remaining classification dependence visible. A sector-only regression can be labeled a proxy ablation, not an estimate of jobs creation.
+
+---
 
 ## Current scientific boundary
 
@@ -32,7 +72,7 @@ Africa Observability Lab
   commissioning / controls / injection / agreement
 ```
 
-## What changed on September 8–9, 2026
+## Historical calibration wave: September 8–9, 2026
 
 The initial small-effect credibility ladder is now complete rather than aspirational.
 
@@ -158,7 +198,7 @@ The HR measurement arm is commissioned. The substantive DHS path still needs:
 
 Public DHS GPS coordinates remain displaced measurements. Reported-coordinate geography is not true-location authority.
 
-## Next design/calibration priorities
+## Other design/calibration priorities (separate from Eric’s jobs study)
 
 ```text
 1. supported-environment rerun of the closed E2 packet
@@ -167,8 +207,8 @@ Public DHS GPS coordinates remain displaced measurements. Reported-coordinate ge
 2. DHS displacement-aware spatial exposure
    — the next major scientific-use and commissioning frontier
 
-3. current World Bank spatial-period measurement when it supplies
-   an independent donor comparison to GeoGCDF
+3. World Bank spatial-period measurement is available for the locked
+   W5 research source period; further dates/releases require a new contract
 
 4. Breckner–Sunde only after regular-grid geography and calendar-month
    semantics exist as truthful shared infrastructure

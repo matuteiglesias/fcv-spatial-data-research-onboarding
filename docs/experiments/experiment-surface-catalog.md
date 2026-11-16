@@ -15,6 +15,18 @@ This page answers:
 
 Calibration benchmarks remain separate. A reproduced report statistic or published-study pattern is an instrument test, not a new FCV hypothesis.
 
+## Research handoff: what is measured, what changes next
+
+**The current priority is employment-related versus other investment projects and their subsequent stability outcomes.** The China/World Bank W5 comparison is a reproducible empirical baseline, not the central claim. No jobs-effect or matched causal estimate has been produced.
+
+1. **W5 — baseline complete.** Donor-source project presence and subsequent ACLED violence against civilians are aligned at ADM2×biennium, with 44,940 panel observations in 47 countries. The adjusted China-only minus WB-only incidence contrast is +0.656 pp (95% CI −1.699 to +3.012; p=.578); the main result is statistically inconclusive, with geographic-precision and fatality-severity limitations.
+2. **W6 — project classification bridge complete.** Project metadata from 1,948 Chinese and 587 WB projects is source-linked to 19,588 unique project-area-period exposures. Cell-by-cell original donor counts are preserved. The available high/low/uncertain native-sector grouping is a **screening proxy**, not direct/indirect jobs classification; uncertain WB multisector projects remain uncertain.
+3. **Next empirical checkpoint — jobs-classification feasibility, then VAC.** Apply Eric's explicit/indirect/combined measures, reconcile our locality/transaction rules, review the old 20-project calibration sample, quantify treatment-group support and coding/geographic uncertainty, then predeclare the first observational jobs-vs-other VAC experiment. Matching at ADM3 and Afrobarometer are downstream designs that need additional evidence and geography.
+
+**Read in order:** [Project Classification Status](../continuation/project-classification-status.md) → [Experimental Design Status](../continuation/experimental-design-status.md). The full [classification coding manual](../continuation/annotation-project-classification-protocol.md) and [W6 technical bridge](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W6_JOBS_CLASSIFICATION_BRIDGE.md) are supporting references, not additional requested deliverables.
+
+---
+
 ## Status vocabulary
 
 | Status | Meaning |
