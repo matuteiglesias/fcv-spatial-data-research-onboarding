@@ -169,11 +169,13 @@ The complete code, 16 targeted passing synthetic tests, full GitHub CI and locke
 
 # Surface 4 — Jobs-related investment → ACLED
 
-**Status: STRUCTURAL BRIDGE COMPLETED / SCIENTIFIC LABELS OPEN (W6)**
+**Status: W6 BRIDGE COMPLETED / W7 SECTOR-PROXY SUPPORT + EXPLORATORY VAC SCREEN DONE / EDITORIAL JOBS LABELS OPEN**
 
 Eric's core comparison—explicit/direct and plausible indirect employment-relevance versus other projects—remains the next substantive research target. Historical annotation rules and a 20-project calibration sample are available, but neither is a complete current project-level classification. The current W6 source-native sector policy is a **coarse screening proxy**, not validated direct/indirect jobs evidence.
 
 W6 now links 2,535 source projects through 21,440 source-location records to 19,588 deduplicated project–ADM2–period exposures, conserving original source-specific project counts in each of the 44,940 W5 panel cells. It retains mixed/uncertain categories and flags 1,022 cross-recipient-country project mappings (174 Chinese projects). This data-structure gate passed; no employment-effect regression, matched design or Afrobarometer jobs outcome has been estimated.
+
+A bounded W7 outcome-blind screen now finds CN source-exclusive high/low sector-proxy financing in **1,807 / 3,020** ADM2-period cells (41 countries support both) and WB in **564 / 268** (only 13 countries support both). A single predeclared China high-only vs low-only **sector-proxy** VAC LPM yields **−0.787 pp** (95% CI [−3.952,+2.379]; p=.619): statistically inconclusive, **not a jobs-related impact estimate**. WB proxy inferential comparison was not run because the conservative country-support gate failed. Eric's original label definitions are frozen, the first 120-project editorial review queue is created, and text-grounded jobs annotation is the remaining scientific input. The original 20-example calibration pilot has seven review flags and no exact project-ID overlap with W5 China; no historical labels were silently joined or rewritten.
 
 See the [W6 project classification bridge contract](https://github.com/matuteiglesias/fcv-experiment-harness/blob/main/docs/experiments/W6_JOBS_CLASSIFICATION_BRIDGE.md) and the [classification status](../continuation/project-classification-status.md). The next scientific gate is support/uncertainty review, followed by a predeclared jobs-related comparison. Raw source-derived project and area-period data remain outside public Git.
 
